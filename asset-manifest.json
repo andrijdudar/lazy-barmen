@@ -1,16 +1,24 @@
 {
   "files": {
-    "main.css": "/lazy-barmen/static/css/main.f855e6bc.css",
-    "main.js": "/lazy-barmen/static/js/main.4841e0e1.js",
-    "static/js/453.840e93c1.chunk.js": "/lazy-barmen/static/js/453.840e93c1.chunk.js",
-    "static/media/logo.svg": "/lazy-barmen/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "main.css": "/lazy-barmen/static/css/main.00e6b474.css",
+    "main.js": "/lazy-barmen/static/js/main.06137c6d.js",
+    "static/media/fa-solid-900.ttf": "/lazy-barmen/static/media/fa-solid-900.bacd5de623fb563b961a.ttf",
+    "static/media/fa-brands-400.ttf": "/lazy-barmen/static/media/fa-brands-400.60127e352b7a11f7f1bc.ttf",
+    "static/media/fa-solid-900.woff2": "/lazy-barmen/static/media/fa-solid-900.4d986b00ff9ca3828fbd.woff2",
+    "static/media/fa-brands-400.woff2": "/lazy-barmen/static/media/fa-brands-400.455ea818179b4def0c43.woff2",
+    "static/media/fa-regular-400.ttf": "/lazy-barmen/static/media/fa-regular-400.eb91f7b948a42799f678.ttf",
+    "static/media/fa-regular-400.woff2": "/lazy-barmen/static/media/fa-regular-400.21cb8f55d8e0c5b89751.woff2",
+    "static/media/istockphoto1055079680.jpg": "/lazy-barmen/static/media/istockphoto1055079680.0fe2471dd02c241fa6a1.jpg",
+    "static/media/fa-v4compatibility.ttf": "/lazy-barmen/static/media/fa-v4compatibility.c8e090db312b0bea2aa2.ttf",
+    "static/media/fa-v4compatibility.woff2": "/lazy-barmen/static/media/fa-v4compatibility.cf7f5903d06b79ad60f1.woff2",
     "index.html": "/lazy-barmen/index.html",
-    "main.f855e6bc.css.map": "/lazy-barmen/static/css/main.f855e6bc.css.map",
-    "main.4841e0e1.js.map": "/lazy-barmen/static/js/main.4841e0e1.js.map",
-    "453.840e93c1.chunk.js.map": "/lazy-barmen/static/js/453.840e93c1.chunk.js.map"
+    "static/media/ListIconsolid.svg": "/lazy-barmen/static/media/ListIconsolid.2966807676da4e63d1ee9610c25bf502.svg",
+    "static/media/ListIconlarge.svg": "/lazy-barmen/static/media/ListIconlarge.6de9c39f698134393595292e2a364ea0.svg",
+    "main.00e6b474.css.map": "/lazy-barmen/static/css/main.00e6b474.css.map",
+    "main.06137c6d.js.map": "/lazy-barmen/static/js/main.06137c6d.js.map"
   },
   "entrypoints": [
-    "static/css/main.f855e6bc.css",
-    "static/js/main.4841e0e1.js"
+    "static/css/main.00e6b474.css",
+    "static/js/main.06137c6d.js"
   ]
 }
