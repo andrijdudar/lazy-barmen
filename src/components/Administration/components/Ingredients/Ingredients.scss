@@ -63,6 +63,9 @@
       summary::marker {
         // content: "▶";
         content: none;
+        @media (orientation: portrait) {
+          content: none;
+        }
       }
       summary::before {
         // content: "▶";
