@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './SearchSelect.css';
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
@@ -10,12 +10,12 @@ import { Link } from 'react-router-dom';
 //   setSearchIngredients(filteredItems(ingredients, options));
 // }, [ingredients]);
 
-const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, size = 'is-medium', path, onSelect }) => {
+const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, size = 'is-medium', path, onSelect = false }) => {
   const [selected, setSelected] = useState('');
   const [toggle, setToggle] = useState(false);
   const [error, setError] = useState(false);
   const [filtredOptions, setFiltredOptions] = useState(options);
-  // const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleInput = (event) => {
     if (toggle === false) {
@@ -37,21 +37,23 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
     } else {
       setError(false);
     }
-  }
-
-  // const handleSelect = (event) => {
-  //   setSelected(event.target.value);
-  //   setToggle(false);
-  // };
+  };
 
   const handleSelect = (option) => {
-    // const alreadySelected = selectedOptions.some(selected => selected.id === option.id);
-    // const newSelectedOptions = alreadySelected
-    //   ? selectedOptions.filter(selected => selected.id !== option.id)
-    //   : [...selectedOptions, option];
+    if (!onSelect) {
+      setSelected(option.value);
+      const filteredOptions = options.filter((value) => value.value.toLowerCase().includes(option.value.toLowerCase()));
+      setFiltredOptions(filteredOptions);
+      updateOptions(filteredOptions);
+    }
+    const alreadySelected = selectedOptions.some(selected => selected.id === option.id);
+    const newSelectedOptions = alreadySelected
+      ? selectedOptions.filter(selected => selected.id !== option.id)
+      : [...selectedOptions, option];
 
-    // setSelectedOptions((prew) => [...prew, option]);
-    onSelect(option);
+    setSelectedOptions((prew) => [...prew, option]);
+    onSelect(newSelectedOptions);
+    setToggle(false);
   };
 
   return (
@@ -70,6 +72,9 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
                 setToggle(false);
                 clearTimeout(wait);
               }, 200);
+              if (!!onSelect) {
+                setSelected('');
+              }
             }}
           />
           <span className="iconSearch icon is-small is-left">
@@ -100,24 +105,44 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
         </p>
       )}
 
-
-      {selectOpen && <div className={cn('select', 'is-multiple',
-        { 'display-none': !filtredOptions.length || !toggle },
-        { 'search-select ': toggle }
-      )}>
-        <select className='search-select' multiple size={filtredOptions.length > 8 ? 8 : filtredOptions.length}>
-          {filtredOptions.map(option => (
-            <option
-              key={option.name}
-              value={option.value}
-              onClick={() => handleSelect(option)}
-              onSelect={() => handleSelect(option)}
-            >
-              {option.value}
-            </option>
-          ))}
-        </select>
-      </div>}
+      {selectOpen && (
+        <div className={cn(
+          'select-container',
+          { 'display-none': !filtredOptions.length || !toggle },
+          { 'search-select': toggle }
+        )}>
+          <ul className='search-select'>
+            {filtredOptions.map(option => (
+              <li
+                key={option.name}
+                className='option-item'
+                onClick={() => handleSelect(option)}
+              >
+                {option.value}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {/* {selectOpen && (
+        <div className={cn('select', 'is-multiple',
+          { 'display-none': !filtredOptions.length || !toggle },
+          { 'search-select ': toggle }
+        )}>
+          <select className='search-select' multiple size={filtredOptions.length > 8 ? 8 : filtredOptions.length}>
+            {filtredOptions.map(option => (
+              <option
+                key={option.name}
+                value={option.value}
+                onClick={() => handleSelect(option)}
+                onSelect={() => handleSelect(option)}
+              >
+                {option.value}
+              </option>
+            ))}
+          </select>
+        </div>
+      )} */}
     </div>);
 };
 export default SearchSelect;

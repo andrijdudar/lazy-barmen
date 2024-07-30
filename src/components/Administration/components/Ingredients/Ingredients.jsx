@@ -87,7 +87,7 @@ export function Ingredients() {
           options={options}
           updateOptions={updateOptions}
           placeholder='Пошук інгредієнтів...'
-          selectOpen={false}
+          selectOpen={true}
           path='/'
         />
       </div>

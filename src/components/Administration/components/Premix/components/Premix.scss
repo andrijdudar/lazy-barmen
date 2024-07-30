@@ -66,12 +66,12 @@
         position: relative;
       }
 
-      summary::marker {
+      // summary::marker {
         // content: none;
         // @media (orientation: portrait) {
         //   content: none;
         // }
-      }
+      // }
 
       summary::before {
         // content: "▶";

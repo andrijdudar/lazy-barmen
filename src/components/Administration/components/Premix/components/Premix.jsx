@@ -74,8 +74,8 @@ export function Premix() {
       },
       quantity: 1 // Default quantity
     }));
-    console.log(newSelectedIngredients);
-    setSelectedIngredients(newSelectedIngredients);
+    // console.log(newSelectedIngredients);
+    setSelectedIngredients((prevSelected) => [...prevSelected, ...newSelectedIngredients]);
   };
 
 
@@ -148,7 +148,7 @@ export function Premix() {
           options={options}
           updateOptions={updateOptions}
           placeholder='Пошук преміксів...'
-          selectOpen={false}
+          selectOpen={true}
           path='/'
         />
       </div>
