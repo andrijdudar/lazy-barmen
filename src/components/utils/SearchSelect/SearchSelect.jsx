@@ -65,6 +65,7 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
             placeholder={placeholder}
             onFocus={(event) => handleInput(event)}
             onChange={(event) => handleInput(event)}
+            onClick={(event) => handleInput(event)}
             onBlur={() => {
               const wait = setTimeout(() => {
                 setToggle(false);

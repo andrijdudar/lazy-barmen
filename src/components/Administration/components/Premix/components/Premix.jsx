@@ -22,6 +22,30 @@ export function Premix() {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(currentPremix || {});
 
+  useEffect(() => {
+    setLoading(true);
+    getAllPremixes()
+      .then((res) => {
+        setPremixes(res);
+
+        setSearchPremixes(res);
+        // localStorage.setItem('premixes', JSON.stringify(res));
+      })
+      .catch((err) => {
+        // console.log(err);
+        // const LS = JSON.parse(localStorage.getItem('premixes'));
+        // setPremixes(LS);
+        // alert('Помилка при завантаженні преміксів');
+      })
+      .finally(() => {
+        console.log('премікси завантажені');
+        setLoading(false);
+      });
+    getAllIngredients().then((res) => {
+      setIngredients(res);
+    });
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     const parsedValue = name === 'using' ? (value === true) : value;
@@ -74,29 +98,29 @@ export function Premix() {
     setEditPremix(false);
   };
 
-  useEffect(() => {
-    setLoading(true);
-    getAllPremixes()
-      .then((res) => {
-        setPremixes(res);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   getAllPremixes()
+  //     .then((res) => {
+  //       setPremixes(res);
 
-        setSearchPremixes(res);
-        // localStorage.setItem('premixes', JSON.stringify(res));
-      })
-      .catch((err) => {
-        // console.log(err);
-        // const LS = JSON.parse(localStorage.getItem('premixes'));
-        // setPremixes(LS);
-        // alert('Помилка при завантаженні преміксів');
-      })
-      .finally(() => {
-        console.log('премікси завантажені');
-        setLoading(false);
-      });
-    getAllIngredients().then((res) => {
-      setIngredients(res);
-    });
-  }, []);
+  //       setSearchPremixes(res);
+  //       // localStorage.setItem('premixes', JSON.stringify(res));
+  //     })
+  //     .catch((err) => {
+  //       // console.log(err);
+  //       // const LS = JSON.parse(localStorage.getItem('premixes'));
+  //       // setPremixes(LS);
+  //       // alert('Помилка при завантаженні преміксів');
+  //     })
+  //     .finally(() => {
+  //       console.log('премікси завантажені');
+  //       setLoading(false);
+  //     });
+  //   getAllIngredients().then((res) => {
+  //     setIngredients(res);
+  //   });
+  // }, []);
 
   const options = useMemo(() => convertToOptionsSelect(premixes), [premixes]);
 
