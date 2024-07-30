@@ -35,8 +35,7 @@ const ListSettings = [
     title: "Премікси",
     subLinks: [
       { id: 4.1, path: 'premix', title: "Переглянути Премікси" },
-      { id: 4.2, path: '', title: "Добивити Премікс" },
-      // { id: 4.3, title: "Страви" },
+      { id: 4.2, path: 'addPremix', title: "Добивити Премікс" },
     ],
   },
   {

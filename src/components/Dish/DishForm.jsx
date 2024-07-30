@@ -7,7 +7,6 @@ import { SERVER_URL } from '../../services/httpClient';
 
 // import Icon from '@mdi/react';
 // import { mdicategorysCocktail } from '@mdi/js';
-// import shakerIcon from '../../img/ShakerIcon.svg';
 // import { addCocktailServer } from '../../utils/cocktail';
 
 

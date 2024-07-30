@@ -155,7 +155,7 @@ export const deleteComment = (id) => {
 
 // DELETE-запит для видалення преміксу за його id
 export const deletePremix = (id) => {
-  return client.delete(`/api/premixess/delete/${id}`);
+  return client.delete(`/api/premixes/delete/${id}`);
 };
 
 // DELETE-запит для видалення користувача за його id

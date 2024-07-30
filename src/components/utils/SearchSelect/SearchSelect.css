@@ -18,6 +18,11 @@
 .input-search {
   background-color: transparent;
 }
+.input-search::placeholder {
+  padding-left:30px;
+  color:orange;
+}
+
 
 .input-search:hover {
   box-shadow: 2px 1px 5px rgba(0, 0, 0, 1),
@@ -43,6 +48,7 @@ i {
   display: none;
 }
 
+/*
 .icon-select>i {
   margin-top: 10px;
 }
@@ -50,28 +56,32 @@ i {
 .icon-select:hover {
   position: relative;
   cursor: pointer;
-  z-index: 22222;
-}
+  z-index: 2222;
+} */
 
-option,
-select {
-  top: 0;
-  max-width: 500px;
+
+select,
+option {
+  /* top: -100%; */
+  /* bottom:100%; */
+  height: 20px;
+  max-width: 350px;
   border: 1px solid transparent;
   box-shadow: 2px 1px 5px rgba(0, 0, 0, 1),
     -2px -2px 5px rgba(255, 255, 255, 0.14);
   transition: all 0.3s ease;
+  z-index: 5000;
 }
 
 .search-select {
-  position: absolute;
-  z-index: 1000;
+  /* position: absolute; */
+  /* z-index: 1; */
 }
 
 .del {
-position: relative;
-right: 10px;
-top:50%;
+  position: relative;
+  right: 10px;
+  top: 50%;
 }
 
 .del>.icon {

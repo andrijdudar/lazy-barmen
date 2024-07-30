@@ -75,7 +75,7 @@
       }
 
       summary::before {
-        content: "▶";
+        // content: "▶";
         position: absolute;
         inset-inline-start: 1rem;
         transition: rotate 0.3s;
@@ -100,6 +100,13 @@
       block-size: auto;
       // block-size: calc-size(auto);
     }
+
+    .btnContainer {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+
   }
   .searchPremixIngredient {
     width: 90%;

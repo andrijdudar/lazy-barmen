@@ -10,7 +10,8 @@ import { DishDetails } from './components/Dish/components/DishDetails/DishDetail
 import { NotFound } from './components/NotFound/NotFound.jsx';
 import { AddDish } from './components/Administration/components/AddDish/AddDish.jsx';
 import { Ingredients } from './components/Administration/components/Ingredients/Ingredients.jsx';
-import { Premix } from './components/Administration/components/Premix/Premix.jsx';
+import { AddPremix } from './components/Administration/components/Premix/components/AddPremix/AddPremix.jsx';
+import { Premix } from './components/Administration/components/Premix/components/Premix.jsx';
 // import { SideBarAdmin } from './components/Administration/components/SideBarAdmin/SideBarAdmin.jsx';
 
 
@@ -30,6 +31,7 @@ export const Root = () => (
             <Route path="addDish" element={<AddDish />} />
             <Route path="ingredients" element={<Ingredients />} />
             <Route path="premix" element={<Premix />} />
+            <Route path="addPremix" element={<AddPremix />} />
             <Route path="addProvider" element={<h1>Додати Постачальника</h1>} />
           </Route>
           <Route path="*" element={<NotFound />} />

@@ -18,6 +18,7 @@ export const client = {
         headers: new Headers({
           "ngrok-skip-browser-warning": "69420",
         }),
+        credentials: 'include',
       });
       return await handleResponse(response);
     }
@@ -30,18 +31,20 @@ export const client = {
   async post(url, data) {
     try {
       const formData = new FormData();
-      formData.append(data);
-      // for (const key in data) {
-      //   if (data.hasOwnProperty(key)) {
-      //     formData.append(key, data[key]);
-      //   }
-      // }
+      // formData.append(data);
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          formData.append(key, data[key]);
+        }
+      }
       const response = await fetch(SERVER_URL + url, {
         method: 'POST',
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        // body: formData,
+        body: JSON.stringify(data),
       });
       return await handleResponse(response);
     } catch (error) {
@@ -58,6 +61,7 @@ export const client = {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
+        credentials: 'include',
       });
       return await handleResponse(response);
     } catch (error) {
@@ -74,6 +78,7 @@ export const client = {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
+        credentials: 'include',
       });
       return await handleResponse(response);
     } catch (error) {
@@ -84,7 +89,10 @@ export const client = {
 
   async delete(url) {
     try {
-      const response = await fetch(SERVER_URL + url, { method: 'DELETE' });
+      const response = await fetch(SERVER_URL + url, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
       return await handleResponse(response);
     } catch (error) {
       console.error('Помилка при виконанні DELETE запиту:', error);

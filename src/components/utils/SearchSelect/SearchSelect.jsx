@@ -15,7 +15,7 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
   const [toggle, setToggle] = useState(false);
   const [error, setError] = useState(false);
   const [filtredOptions, setFiltredOptions] = useState(options);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  // const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleInput = (event) => {
     if (toggle === false) {
@@ -45,15 +45,13 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
   // };
 
   const handleSelect = (option) => {
-    const alreadySelected = selectedOptions.some(selected => selected.id === option.id);
-    // console.log(alreadySelected);
-    const newSelectedOptions = alreadySelected
-      ? selectedOptions.filter(selected => selected.id !== option.id)
-      : [...selectedOptions, option];
+    // const alreadySelected = selectedOptions.some(selected => selected.id === option.id);
+    // const newSelectedOptions = alreadySelected
+    //   ? selectedOptions.filter(selected => selected.id !== option.id)
+    //   : [...selectedOptions, option];
 
-    setSelectedOptions((prew) => [...prew, option]);
-    onSelect(newSelectedOptions);
-    // console.log(newSelectedOptions);
+    // setSelectedOptions((prew) => [...prew, option]);
+    onSelect(option);
   };
 
   return (
@@ -110,7 +108,7 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
         <select className='search-select' multiple size={filtredOptions.length > 8 ? 8 : filtredOptions.length}>
           {filtredOptions.map(option => (
             <option
-              key={option.id}
+              key={option.name}
               value={option.value}
               onClick={() => handleSelect(option)}
               onSelect={() => handleSelect(option)}

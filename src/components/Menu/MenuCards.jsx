@@ -109,10 +109,10 @@ const [loader, setLoader] = useState(false)
                         <h2>Склад:</h2>
                         <ul>
                           {card.dish_ingredients.map((item, index) => (
-                            <>
-                              <li key={index}>{`${item.ingredient.name} - ${item.quantity} ${item.ingredient.measure}`}</li>
+                            <div key={index}>
+                              <li >{`${item.ingredient.name} - ${item.quantity} ${item.ingredient.measure}`}</li>
                               <hr />
-                            </>
+                            </div>
                           ))}
                         </ul>
                         <ul>
