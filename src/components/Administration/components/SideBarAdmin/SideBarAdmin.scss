@@ -28,7 +28,7 @@
   }
 }
 summary {
-  list-style: none;
+  // list-style: none;
   padding-inline: 2rem;
   position: relative;
 }
@@ -36,17 +36,19 @@ summary {
 summary::marker {
   @media (orientation: portrait) {
     content: none;
+    list-style: none;
+    list-style-type: none;
   }
   // content: "▶";
-  // content: none;
+  content: none;
 }
 summary::before {
   @media (orientation: portrait) {
-    content: none;
+    // content: none;
   }
   content: "▶";
   color: red;
-  list-style: none;
+  // list-style: none;
 
   position: absolute;
   inset-inline-start: 0.5rem;
