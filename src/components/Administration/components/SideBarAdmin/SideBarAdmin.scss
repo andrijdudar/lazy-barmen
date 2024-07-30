@@ -41,6 +41,9 @@ summary::marker {
   // content: none;
 }
 summary::before {
+  @media (orientation: portrait) {
+    content: none;
+  }
   content: "▶";
   color: red;
   list-style: none;
