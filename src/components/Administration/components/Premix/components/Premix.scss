@@ -30,7 +30,6 @@
 
   .ul {
     width: 500px;
-    // list-style: none;
     padding: 0;
     @media (orientation: portrait) {
       width: 350px;
@@ -68,10 +67,10 @@
       }
 
       summary::marker {
-        content: none;
-        @media (orientation: portrait) {
-          content: none;
-        }
+        // content: none;
+        // @media (orientation: portrait) {
+        //   content: none;
+        // }
       }
 
       summary::before {
