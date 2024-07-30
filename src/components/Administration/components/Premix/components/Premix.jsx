@@ -93,6 +93,9 @@ export function Premix() {
         console.log('премікси завантажені');
         setLoading(false);
       });
+    getAllIngredients().then((res) => {
+      setIngredients(res);
+    });
   }, []);
 
   const options = useMemo(() => convertToOptionsSelect(premixes), [premixes]);
@@ -154,12 +157,12 @@ export function Premix() {
                       <strong>Інгредієнти:</strong>
                       {premix.premix_ingredients.map((premix_ingredient) => (
                         <li
-                        key={premix_ingredient.ingredient_id} className="premixLi"
-                        onClick={
-                          getAllIngredients().then((res) => {
-                            setIngredients(res);
-                          })}
-                          >
+                          key={premix_ingredient.ingredient_id} className="premixLi"
+                        // onClick={
+                        //   getAllIngredients().then((res) => {
+                        //     setIngredients(res);
+                        //   })}
+                        >
                           <strong>{premix_ingredient.ingredient.name}:</strong> {premix_ingredient.quantity} {premix_ingredient.ingredient.measure}
                         </li>
                       ))}
@@ -193,64 +196,64 @@ export function Premix() {
                       </button>
                     </div>
                   </div>
-              ) : (
-              <form onSubmit={handleSubmit}>
-                <div className='field'>
-                  <label className='label'>Назва:</label>
-                  <div className='control'>
-                    <input
-                      type="text"
-                      name="name"
-                      className="input"
-                      value={formData.name}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <div className='field'>
-                  <label className='label'>Опис:</label>
-                  <div className='control'>
-                    <textarea
-                      name="description"
-                      className="textarea"
-                      value={formData.description}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <div className='field'>
-                  <label className='label'>Інгредієнти:</label>
-                  <SearchSelect
-                    options={optionsForm}
-                    updateOptions={updateOptionsForm}
-                    placeholder='Пошук інгредієнтів...'
-                    selectOpen={true}
-                    path='/'
-                    onSelect={handleIngredientSelect}
-                  />
-                  {selectedIngredients.map(ingredient => (
-                    <div key={ingredient.ingredient.id} className='field'>
-                      <label className='label'>{ingredient.ingredient.name} - {ingredient.ingredient.measure}</label>
+                ) : (
+                  <form onSubmit={handleSubmit}>
+                    <div className='field'>
+                      <label className='label'>Назва:</label>
                       <div className='control'>
                         <input
-                          type="number"
+                          type="text"
+                          name="name"
                           className="input"
-                          value={ingredient.quantity}
-                          onChange={(e) => handleIngredientQuantityChange(ingredient.ingredient.id, parseFloat(e.target.value))}
+                          value={formData.name}
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
-                  ))}
-                </div>
-                <button type="submit" className='button is-primary'>Відправити</button>
-              </form>
+                    <div className='field'>
+                      <label className='label'>Опис:</label>
+                      <div className='control'>
+                        <textarea
+                          name="description"
+                          className="textarea"
+                          value={formData.description}
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </div>
+                    <div className='field'>
+                      <label className='label'>Інгредієнти:</label>
+                      <SearchSelect
+                        options={optionsForm}
+                        updateOptions={updateOptionsForm}
+                        placeholder='Пошук інгредієнтів...'
+                        selectOpen={true}
+                        path='/'
+                        onSelect={handleIngredientSelect}
+                      />
+                      {selectedIngredients.map(ingredient => (
+                        <div key={ingredient.ingredient.id} className='field'>
+                          <label className='label'>{ingredient.ingredient.name} - {ingredient.ingredient.measure}</label>
+                          <div className='control'>
+                            <input
+                              type="number"
+                              className="input"
+                              value={ingredient.quantity}
+                              onChange={(e) => handleIngredientQuantityChange(ingredient.ingredient.id, parseFloat(e.target.value))}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <button type="submit" className='button is-primary'>Відправити</button>
+                  </form>
                 )}
-            </details>
+              </details>
             </li>
-      ))}
-    </ul>
-  )
-}
+          ))}
+        </ul>
+      )
+      }
     </div >
   );
 }
