@@ -33,20 +33,20 @@ summary {
 }
 
 summary::marker {
-  content: "▶";
+  // content: "▶";
   content: none;
 }
 summary::before {
-  content: "▶";
+  // content: "▶";
   position: absolute;
   inset-inline-start: 0.5rem;
   // inset-block-start: -0.01rem;
   transition: rotate 0.3s;
 }
 
- .sideBarAdminDetails[open] summary::before {
-      rotate: 90deg;
-    }
+.sideBarAdminDetails[open] summary::before {
+  rotate: 90deg;
+}
 
 .sideBarAdminDetails::details-content {
   // background: #000;

@@ -67,7 +67,7 @@
       summary::before {
         // content: "▶";
         position: absolute;
-        inset-inline-start: 1rem;
+        inset-inline-start: 0.5rem;
         transition: rotate 0.3s;
       }
     }
