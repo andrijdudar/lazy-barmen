@@ -28,6 +28,7 @@
   }
 }
 summary {
+  list-style: none;
   padding-inline: 2rem;
   position: relative;
 }
@@ -37,10 +38,13 @@ summary::marker {
     content: none;
   }
   // content: "▶";
-  content: none;
+  // content: none;
 }
 summary::before {
-  // content: "▶";
+  content: "▶";
+  color: red;
+  list-style: none;
+
   position: absolute;
   inset-inline-start: 0.5rem;
   // inset-block-start: -0.01rem;

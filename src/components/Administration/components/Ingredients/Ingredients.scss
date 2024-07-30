@@ -29,7 +29,7 @@
   }
 
   .ul {
-    // list-style-type: none;
+    list-style-type: none;
     padding: 0;
 
     details {
@@ -58,11 +58,11 @@
       summary {
         padding-inline: 2rem;
         position: relative;
+        content: none;
       }
 
       summary::marker {
         // content: "▶";
-        content: none;
         @media (orientation: portrait) {
           content: none;
         }
