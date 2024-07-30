@@ -29,7 +29,7 @@
   }
 
   .ul {
-    list-style-type: none;
+    // list-style-type: none;
     padding: 0;
 
     details {
@@ -41,7 +41,6 @@
       color: var(--colorTextOrangeHover);
       font-size: 14px;
       transition: all 0.2s ease;
-
 
       &:hover {
         scale: 1.01;
@@ -62,11 +61,11 @@
       }
 
       summary::marker {
-        content: "▶";
+        // content: "▶";
         content: none;
       }
       summary::before {
-        content: "▶";
+        // content: "▶";
         position: absolute;
         inset-inline-start: 1rem;
         transition: rotate 0.3s;
