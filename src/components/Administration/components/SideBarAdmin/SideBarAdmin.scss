@@ -34,9 +34,12 @@ details {
 summary {
   list-style: none;
   list-style-type: none;
-  
+
   padding-inline: 2rem;
   position: relative;
+}
+summary::-webkit-details-marker {
+  display: none;
 }
 
 summary::marker {
