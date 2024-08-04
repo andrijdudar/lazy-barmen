@@ -117,7 +117,7 @@ export function AddPremix() {
         <form
           onSubmit={handleSubmit}
         >
-          <div className='field'>
+          <div className='field field-add-premix'>
             <label className='label'>Назва:</label>
             <div className='control constrol-input'>
               <input
