@@ -83,7 +83,6 @@ export function Premix() {
 
 
   const handleIngredientSelect = (selectedOption) => {
-console.log(selectedOption);
     // selectedOptions.length && setHesErrorIngredients(false);
     // setSelectedIngredients((prevSelected) => {
     //   const prevIds = new Set(prevSelected.map(item => item.ingredient_id));
@@ -308,6 +307,7 @@ console.log(selectedOption);
                         >
                           Видалити
                         </button>
+                        
                       </div>
                   </form>
                 )}

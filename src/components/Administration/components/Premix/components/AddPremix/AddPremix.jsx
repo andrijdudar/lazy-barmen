@@ -39,22 +39,35 @@ export function AddPremix() {
     setSelectedIngredients(newSelectedIngredients);
   };
 
-  const handleIngredientSelect = (selectedIngredients) => {
-    selectedIngredients.length && setHesErrorIngredients(false);
+  const handleIngredientSelect = (selectedOption) => {
+    selectedOption.length && setHesErrorIngredients(false);
 
 
-    setSelectedIngredients((prevSelected) => {
-      const prevIds = new Set(prevSelected.map(item => item.id));
-      const newIngredients = selectedIngredients
-        .filter(option => !prevIds.has(option.id))
-        .map(option => ({
-          id: option.id,
-          name: option.value,
-          measure: ingredients.find(ingredient => ingredient.id === option.id).measure,
-          quantity: 1, // Default quantity
-        }));
-      return [...prevSelected, ...newIngredients];
-    });
+    // setSelectedIngredients((prevSelected) => {
+    //   const prevIds = new Set(prevSelected.map(item => item.id));
+    //   const newIngredients = selectedIngredients
+    //     .filter(option => !prevIds.has(option.id))
+    //     .map(option => ({
+    //       id: option.id,
+    //       name: option.value,
+    //       measure: ingredients.find(ingredient => ingredient.id === option.id).measure,
+    //       quantity: 1, // Default quantity
+    //     }));
+    //   return [...prevSelected, ...newIngredients];
+    // });
+    const newIngredient = {
+      ingredient: {
+        id: selectedOption.id,
+        name: selectedOption.value,
+        measure: selectedOption.measure || 'кг',
+      },
+      ingredient_id: selectedOption.id,
+      quantity: selectedOption.quantity || 0,
+    };
+    const ingredientTrue = !selectedIngredients.find((item) => item.ingredient_id === newIngredient.ingredient_id);
+    if (ingredientTrue) {
+      setSelectedIngredients((prevSelected) => [...prevSelected, newIngredient]);
+    }
   };
 
   const handleSubmit = (e) => {
