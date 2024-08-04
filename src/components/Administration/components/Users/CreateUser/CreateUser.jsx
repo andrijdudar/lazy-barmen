@@ -56,7 +56,7 @@ export const CreateUser = () => {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       <form className='formCreateUser' onSubmit={handleSubmit}>
         <label>
-          Username:
+          Логін:
           <input
             className='input-search input'
             type="text"
@@ -66,7 +66,7 @@ export const CreateUser = () => {
           />
         </label>
         <label>
-          First Name:
+          Ім'я:
           <input
             className='input-search input'
             type="text"
@@ -76,7 +76,7 @@ export const CreateUser = () => {
           />
         </label>
         <label>
-          Last Name:
+          Прізвище:
           <input
             className='input-search input'
             type="text"
@@ -86,7 +86,7 @@ export const CreateUser = () => {
           />
         </label>
         <label>
-          Phone:
+          Телефон:
           <input
             className='input-search input'
             type="text"
@@ -96,7 +96,7 @@ export const CreateUser = () => {
           />
         </label>
         <label>
-          Email:
+          Електронна пошта:
           <input
             className='input-search input'
             type="email"
@@ -106,7 +106,7 @@ export const CreateUser = () => {
           />
         </label>
         <label>
-          Information:
+          Інформація:
           <textarea
             rows="5"
             className='input-search input textarea'
@@ -116,7 +116,7 @@ export const CreateUser = () => {
           />
         </label>
         <label>
-          Password:
+          Пароль:
           <input
             className='input-search input'
             type="password"
@@ -135,7 +135,7 @@ export const CreateUser = () => {
             onChange={handleChange}
           />
         </label>
-        <button className='button-add-user button' type="submit">Create User</button>
+        <button className='button-add-user button' type="submit">Створити Користувача</button>
       </form>
     </div>
   );

@@ -121,6 +121,7 @@ export function Ingredients() {
                   <li className='ingredientsLi'><strong>Використовується:</strong> {ingredient.using ? 'Так' : 'Ні'}</li>
                   <li className='ingredientsLi'><strong>Постачальник ID:</strong> {ingredient.provider_id ? ingredient.provider_id : 'Немає'}</li>
                   <button
+                    className='button'
                     type='button'
                     onClick={() => setEditIngredient(!editIngredient)}
                   >
@@ -209,7 +210,7 @@ export function Ingredients() {
                       />
                     </li>
                   </ul>
-                  <button type='submit'>Відправити</button>
+                  <button className='button' type='submit'>Відправити</button>
                 </form>
               )}
             </details>

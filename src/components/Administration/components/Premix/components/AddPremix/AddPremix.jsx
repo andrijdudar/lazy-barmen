@@ -41,6 +41,8 @@ export function AddPremix() {
 
   const handleIngredientSelect = (selectedIngredients) => {
     selectedIngredients.length && setHesErrorIngredients(false);
+
+
     setSelectedIngredients((prevSelected) => {
       const prevIds = new Set(prevSelected.map(item => item.id));
       const newIngredients = selectedIngredients

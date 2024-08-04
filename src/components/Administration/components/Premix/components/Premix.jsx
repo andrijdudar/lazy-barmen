@@ -216,21 +216,7 @@ console.log(selectedOption);
                       >
                         Редагувати
                       </button>
-                      <button
-                        className={cn('button', 'is-ounded', 'is-danger', 'is-hovered', 'is-outlined', { 'is-loading': loadingDelete })}
-                        type='button'
-                        onClick={() => {
-                          setLoadingDelete(true);
-                          deletePremix(premix.id).then(() => {
-                            setSearchPremixes((perv) => {
-                              return perv.filter((item) => item.id !== premix.id);
-                            });
-                            setLoadingDelete(false);
-                          });
-                        }}
-                      >
-                        Видалити
-                      </button>
+
                     </div>
                   </div>
                 ) : (
@@ -305,7 +291,24 @@ console.log(selectedOption);
                         ))}
                       </ul>
                     </div>
-                    <button type="submit" className={cn('button', 'is-primary', { 'is-loading': loadingSubmit })}>Відправити</button>
+                      <div className='button-submit-prmix'>
+                        <button type="submit" className={cn('button', 'is-primary', { 'is-loading': loadingSubmit })}>Відправити</button>
+                        <button
+                          className={cn('button', { 'is-loading': loadingDelete })}
+                          type='button'
+                          onClick={() => {
+                            setLoadingDelete(true);
+                            deletePremix(premix.id).then(() => {
+                              setSearchPremixes((perv) => {
+                                return perv.filter((item) => item.id !== premix.id);
+                              });
+                              setLoadingDelete(false);
+                            });
+                          }}
+                        >
+                          Видалити
+                        </button>
+                      </div>
                   </form>
                 )}
               </details>

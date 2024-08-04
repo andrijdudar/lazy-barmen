@@ -134,7 +134,7 @@ export function Users() {
                     placeholder="Прізвище"
                   />
                 </label>
-                <label>Email:
+                <label>Електронна пошта:
                   <input
                     // className='input input-email-edit-user'
                     className='input-search input'
@@ -174,7 +174,7 @@ export function Users() {
                       checked={editedUser.forward_provider_message}
                       onChange={handleCheckboxChange}
                     />
-                    Пересилання повідомлень
+                  Пересилання повідомлень
                   </label>
                 </div>
                 <div className="buttons-container">
