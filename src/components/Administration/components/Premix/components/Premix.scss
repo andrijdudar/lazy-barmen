@@ -1,12 +1,16 @@
 .premixList {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
   color: #fff;
   border-radius: 10px;
-  width: 100%;
+  // width: 400px;
+  max-width: 100%;
   margin-bottom: 100vh;
 
+  @media (orientation: portrait) {
+    max-width: 100%;
+  }
 
   h2 {
     text-align: center;
@@ -38,7 +42,7 @@
     width: 500px;
     padding: 0;
     @media (orientation: portrait) {
-      width: 350px;
+      width: auto;
     }
 
     details {

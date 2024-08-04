@@ -1,17 +1,25 @@
 .Administration {
   display: flex;
   flex-direction: row;
-  justify-content: start;
-  align-items: center;
   width: 100vw;
   height: 100%;
-  padding: 10px;
+  // padding: 20px;
+  margin-bottom: 100vh;
   @media (orientation: portrait) {
     flex-direction: column;
-  }
-
-  .SideBarAdminContent {
-    padding: 10px 10px 0 10px;
+    align-items: center;
     margin: 0 auto;
+  }
+}
+.SideBarAdminContent {
+  padding: 10px 20px 0 20px;
+  margin: 20px auto;
+
+  @media (orientation: portrait) {
+    align-self: center;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
   }
 }
