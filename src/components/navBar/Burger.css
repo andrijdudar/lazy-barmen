@@ -27,7 +27,7 @@
 }
 
 
-input[type="checkbox"] {
+.checkboxBurger[type="checkbox"] {
   -webkit-appearance: none;
   appearance: none;
   display: none;

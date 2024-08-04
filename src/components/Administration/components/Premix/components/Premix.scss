@@ -1,9 +1,12 @@
 .premixList {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   color: #fff;
   border-radius: 10px;
   width: 100%;
+  margin-bottom: 100vh;
+
 
   h2 {
     text-align: center;
@@ -11,6 +14,9 @@
     color: var(--colorTextOrangeHover);
   }
   .premixSearch {
+    display: flex;
+    justify-content: center;
+    width: 90%;
     margin: 20px auto;
   }
   .premixLi {
@@ -66,17 +72,9 @@
         position: relative;
       }
 
-      // summary::marker {
-        // content: none;
-        // @media (orientation: portrait) {
-        //   content: none;
-        // }
-      // }
-
       summary::before {
         // content: "▶";
         position: absolute;
-        // padding-right: 10px;
         inset-inline-start: 0.5rem;
         transition: rotate 0.3s;
       }
@@ -110,5 +108,63 @@
   .searchPremixIngredient {
     width: 90%;
     margin: 4px;
+  }
+
+  .input-edit-premix {
+    display: inline-block;
+    margin-right: 10px;
+    width: 60px;
+    background-color: rgb(42, 40, 40);
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+  }
+  .label-ingredient {
+    margin-bottom: 5px;
+    display: block;
+  }
+  .control {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    .input,
+    .textarea {
+      width: 100%;
+      padding: 10px;
+      color: #ecf0f1;
+    }
+
+    .textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+  }
+  .ingredients-search-select {
+    margin: 0 auto;
+    width: 90%;
+  }
+  .control-end {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .ingredient-measure {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10px;
+    line-height: 100%;
+  }
+
+  .icon-delete-ingredient {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Вирівнювання по вертикалі */
+    justify-content: center; /* Вирівнювання по горизонталі */
+    cursor: pointer; /* Змінює курсор */
   }
 }

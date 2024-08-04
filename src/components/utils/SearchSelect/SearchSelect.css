@@ -1,7 +1,8 @@
 .searchSelect {
-  max-width: 350px;
   box-sizing: border-box;
   background-color: none;
+  width: 100%;
+  max-width: 350px;
 }
 
 .field-search {
@@ -16,14 +17,13 @@
 }
 
 .input-search {
+  min-width: 100%;
   background-color: transparent;
 }
 
 .input-search::placeholder {
-  padding-left: 30px;
   color: orange;
 }
-
 
 .input-search:hover {
   box-shadow: 2px 1px 5px rgba(0, 0, 0, 1),
@@ -49,59 +49,44 @@ i {
   display: none;
 }
 
-/*
-.icon-select>i {
-  margin-top: 10px;
-}
-
-.icon-select:hover {
-  position: relative;
-  cursor: pointer;
-  z-index: 2222;
-} */
-
 .select-container {
-  max-height: 120px;
+  position: absolute;
   height: min-content;
-  width: 100%;
-  background-color: transparent;
+  max-height: 200px;
+  min-width: 250px;
+  width: min-content;
   max-width: 350px;
+  background-color: var(--backgroundNavBar);
   border: 1px solid black;
   box-shadow: 2px 1px 5px rgba(0, 0, 0, 1),
     -2px -2px 5px rgba(255, 255, 255, 0.14);
   transition: all 0.3s ease;
-  z-index: 5000;
+  z-index: 50000;
   overflow: auto;
 }
 
-.search-select {
-  /* position: absolute;
-  height: min-content;
-  z-index: 1000; */
-}
 
 .option-item {
-  /* height: 30px; */
   padding: 5px 10px;
 }
 
 .option-item:hover {
-  background-color: var(--backgroundNavBar);
+  background-color: rgb(33, 32, 32);
+  cursor: pointer;
 }
 
-.del {
+/* .del {
   position: relative;
   right: 10px;
   top: 50%;
-}
+} */
 
-.del>.icon {
+/* .del>.icon {
   position: absolute;
   top: 50%;
   transform: translateY(-60%);
-}
+} */
 
-.del1 {
+/* .del1 {
   display: none;
-  /* position: relative; */
-}
+} */

@@ -2,18 +2,17 @@
   --colorTextOrange: #cd8706;
   --colorTextOrangeHover: #f9a407;
   --backgroundNavBar: #292c35;
+  --black: #101720
 }
 
 .App {
   display: grid;
   grid-template-columns: auto;
-  // justify-content: center;
   grid-template-rows: min-content 1fr 25px;
   grid-template-areas:
     "header"
     "content"
     "footer";
-    // gap:5px;
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
@@ -39,3 +38,4 @@
     }
   }
 }
+

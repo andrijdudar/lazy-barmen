@@ -12,6 +12,10 @@ import { AddDish } from './components/Administration/components/AddDish/AddDish.
 import { Ingredients } from './components/Administration/components/Ingredients/Ingredients.jsx';
 import { AddPremix } from './components/Administration/components/Premix/components/AddPremix/AddPremix.jsx';
 import { Premix } from './components/Administration/components/Premix/components/Premix.jsx';
+import { Categories } from './components/Administration/components/Categories/Categories.jsx';
+import { AddCategory } from './components/Administration/components/Categories/AddCategory/AddCategory.jsx';
+import { Users } from './components/Administration/components/Users/Users.jsx';
+import { CreateUser } from './components/Administration/components/Users/CreateUser/CreateUser.jsx';
 // import { SideBarAdmin } from './components/Administration/components/SideBarAdmin/SideBarAdmin.jsx';
 
 
@@ -32,6 +36,10 @@ export const Root = () => (
             <Route path="ingredients" element={<Ingredients />} />
             <Route path="premix" element={<Premix />} />
             <Route path="addPremix" element={<AddPremix />} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="addCategory" element={<AddCategory />} />
+            <Route path="users" element={<Users />} />
+            <Route path="createUser" element={<CreateUser />} />
             <Route path="addProvider" element={<h1>Додати Постачальника</h1>} />
           </Route>
           <Route path="*" element={<NotFound />} />

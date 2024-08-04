@@ -16,8 +16,8 @@ const ListSettings = [
     id: 2,
     title: "Категорії",
     subLinks: [
-      { id: 2.1, path: '', title: "Переглянути всі категорії" },
-      { id: 2.2, path: '', title: "Добавити категорію" },
+      { id: 2.1, path: 'categories', title: "Переглянути всі категорії" },
+      { id: 2.2, path: 'addCategory', title: "Добавити категорію" },
       // { id: 2.3, title: "Страви" },
     ],
   },
@@ -60,8 +60,8 @@ const ListSettings = [
     id: 7,
     title: "Користувачі",
     subLinks: [
-      { id: 7.1, path: '', title: "Переглянути Користувачів" },
-      { id: 7.2, path: '', title: "Додати Користувача" },
+      { id: 7.1, path: 'users', title: "Переглянути Користувачів" },
+      { id: 7.2, path: 'createUser', title: "Додати Користувача" },
       // { id: 7.3, title: "Страви" },
     ],
   },

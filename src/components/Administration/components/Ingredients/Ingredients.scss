@@ -3,6 +3,8 @@
   flex-direction: column;
   color: #fff;
   border-radius: 10px;
+  margin-bottom: 100vh;
+  
 
   h2 {
     text-align: center;
@@ -23,7 +25,8 @@
       padding: 5px 10px;
       text-align: center;
       border-radius: 25px;
-      background-color: var(--colorTextOrangeHover);
+      // background-color: var(--colorTextOrangeHover);
+      background-color: rgb(203, 145, 35);
       width: 100px;
     }
   }

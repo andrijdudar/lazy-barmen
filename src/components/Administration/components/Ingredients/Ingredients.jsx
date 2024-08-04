@@ -78,7 +78,6 @@ export function Ingredients() {
     setOpenDetailId((prevId) => (prevId === id ? null : id));
   };
 
-
   return (
     <div className="ingredientsList">
       <h2>Список інгредієнтів</h2>

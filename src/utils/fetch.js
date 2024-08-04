@@ -85,10 +85,19 @@ export const createNewDish = (formData) => {
 export const addCategory = (categoryData) => {
   return client.post('/api/categories/add_category', categoryData);
 };
+// Створення нової home категорії
+export const addCategoryHome = (categoryData) => {
+  return client.post('/api/categories/create_home', categoryData);
+};
 
 // Створення нового об'єкту premixes
 export const createPremix = (premixData) => {
   return client.post('/api/premixes/create_premix', premixData);
+};
+
+// Створення нового об'єкту premixes
+export const createUser = (userData) => {
+  return client.post('/api/users/create', userData);
 };
 // #endregion POST
 
@@ -121,7 +130,7 @@ export const patchIngredient = (data) => {
 
 // PATCH-запит для зміни полів в існуючому об'єкті user
 export const patchUser = (data) => {
-  return client.patch('/api/user/patch', data);
+  return client.patch('/api/users/patch', data);
 };
 
 // PATCH-запит для зміни полів в існуючому об'єкті comments

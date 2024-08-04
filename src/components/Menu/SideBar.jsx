@@ -119,7 +119,7 @@ function SideBar() {
               Всі страви
             </li>
 
-            {renderCategories(2)}
+            {renderCategories(1)}
           </ul>
         </div>
       )}

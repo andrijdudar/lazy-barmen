@@ -5,3 +5,5 @@ export {AddProvider} from './AddProvider';
 export {AddIngredient} from './AddIngredient';
 export {SideBarAdmin} from './SideBarAdmin';
 export {Ingredients} from './Ingredients';
+export {Categories} from './Categories';
+export {Users} from './Users';

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import './SearchSelect.css';
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
@@ -15,7 +15,7 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
   const [toggle, setToggle] = useState(false);
   const [error, setError] = useState(false);
   const [filtredOptions, setFiltredOptions] = useState(options);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  // const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleInput = (event) => {
     if (toggle === false) {
@@ -42,26 +42,27 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
   const handleSelect = (option) => {
     if (!onSelect) {
       setSelected(option.value);
-      const filteredOptions = options.filter((value) => value.value.toLowerCase().includes(option.value.toLowerCase()));
-      setFiltredOptions(filteredOptions);
-      updateOptions(filteredOptions);
+      // const filteredOptions = options.filter((value) => value.value.toLowerCase().includes(option.value.toLowerCase()));
+      // setFiltredOptions(filteredOptions);
+      // updateOptions(filteredOptions);
     }
-    const alreadySelected = selectedOptions.some(selected => selected.id === option.id);
-    const newSelectedOptions = alreadySelected
-      ? selectedOptions.filter(selected => selected.id !== option.id)
-      : [...selectedOptions, option];
+    // const alreadySelected = selectedOptions.some(selected => selected.id === option.id);
+    // const newSelectedOptions = alreadySelected
+    //   ? selectedOptions.filter(selected => selected.id !== option.id)
+    //   : [...selectedOptions, option];
 
-    setSelectedOptions((prew) => [...prew, option]);
-    onSelect(newSelectedOptions);
+    // setSelectedOptions((prew) => [...prew, option]);
+    onSelect(option);
     setToggle(false);
   };
 
   return (
     <div className='searchSelect'>
       <div className="field-search">
-        <p className="control has-icons-left has-icons-right">
+        <p className="control has-icons-left">
           <input
             className={`input-search input is-rounded ${size}`}
+            style={{ 'padding-left': '40px' }}
             type="text"
             value={selected}
             placeholder={placeholder}
@@ -80,7 +81,7 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
           <span className="iconSearch icon is-small is-left">
             <i className="iconSearch fas fa-search"></i>
           </span>
-          {!!selected.length && (
+          {/* {!!selected.length && (
             <button
               type="button"
               className="del"
@@ -92,7 +93,7 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
                 </i>
               </span>
             </button>
-          )}
+          )} */}
         </p>
       </div>
 
@@ -104,6 +105,7 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
           </Link>
         </p>
       )}
+      {/* {errorValueIsHeve && <p className="help is-danger is-size-6">Таке значення вже вибрано</p>} */}
 
       {selectOpen && (
         <div className={cn(

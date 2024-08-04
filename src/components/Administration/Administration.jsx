@@ -12,7 +12,10 @@ export function Administration() {
   useEffect(() => {
     if (shouldScroll) {
       if (outletRef.current) {
-        outletRef.current.scrollIntoView({ behavior: 'smooth' });
+        const time = setTimeout(() => {
+          outletRef.current.scrollIntoView({ behavior: 'smooth' });
+          clearTimeout(time);
+         }, 1000);
       }
       setShouldScroll(false);
     }
@@ -21,6 +24,9 @@ export function Administration() {
   const handleScrollToOutlet = () => {
     setShouldScroll(true);
   };
+
+
+
 
   return (
     <div className='Administration'>

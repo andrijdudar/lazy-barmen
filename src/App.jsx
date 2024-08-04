@@ -112,8 +112,12 @@ const App = () => {
   //   fetchData(); // Викликати функцію зразу
   // }, []);
 
+
+
   return (
     <div className="App">
+      <div className="scroll-to-top">
+      </div>
       <NavBar />
       <div className="conten">
         <Outlet />

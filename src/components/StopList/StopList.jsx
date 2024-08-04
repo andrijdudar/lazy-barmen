@@ -80,7 +80,7 @@ const StopList = () => {
               <ul>
                 {stopList.map((dish, index) => (
                   <li className='item' key={index}>
-                    <span>{dish.dish_name}</span><button className='btn-x'>x</button>
+                    <span>{dish.dish_name}</span><button className='btn-x'><i className='icon delete'></i></button>
                   </li>
                 ))}
               </ul>
@@ -90,7 +90,7 @@ const StopList = () => {
               <ul>
                 {stopList.map((dish, index) => (
                   <li className='item' key={index}>
-                    <span>{dish.dish_name}</span><button className='btn-x'>x</button>
+                    <span>{dish.dish_name}</span><button className='btn-x'><i className='icon delete'></i></button>
                   </li>
                 ))}
               </ul>
@@ -103,17 +103,17 @@ const StopList = () => {
               <ul>
                 {fewDishes.map((dish, index) => (
                   <li className='item'>
-                    <span>{dish.dish_name}</span><button className='btn-x'>x</button>
+                    <span>{dish.dish_name}</span><button className='btn-x'><i className='icon delete'></i></button>
                   </li>
                 ))}
               </ul>
             </div>
             <div className='stoplist-bar'>
-              <h2>Бар</h2>
+              <h2 className='sub_title'>Бар</h2>
               <ul>
                 {fewDishes.map((dish, index) => (
                   <li className='item'>
-                    <span>{dish.dish_name}</span><button className='btn-x'>x</button>
+                    <span>{dish.dish_name}</span><button className='btn-x'><i className='icon delete'></i></button>
                   </li>
                 ))}
               </ul>
@@ -126,7 +126,7 @@ const StopList = () => {
               <ul>
                 {dishesToBeSold.map((dish) => (
                   <li className='item' key={dish.id}>
-                    <span>{dish.dish_name}</span><button className='btn-x'>x</button>
+                    <span>{dish.dish_name}</span><button className='btn-x'><i className='icon delete'></i></button>
                   </li>
                 ))}
               </ul>
@@ -136,7 +136,7 @@ const StopList = () => {
               <ul>
                 {dishesToBeSold.map((dish) => (
                   <li className='item' key={dish.id}>
-                    <span>{dish.dish_name}</span><button className='btn-x'>x</button>
+                    <span>{dish.dish_name}</span><button className='btn-x'><i className='icon delete'></i></button>
                   </li>
                 ))}
               </ul>

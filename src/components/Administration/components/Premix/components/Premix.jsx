@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import cn from 'classnames';
 import useStore from '../../../../../StoreZustand';
 import { createPremix, deletePremix, getAllIngredients, getAllPremixes } from '../../../../../utils/fetch';
 import { Loaderr } from '../../../../utils/Loader/Loaderr';
@@ -6,6 +7,8 @@ import SearchSelect from '../../../../utils/SearchSelect/SearchSelect';
 import { convertToOptionsSelect, filteredItems } from '../../../../utils/SearchSelect/SearchUtils';
 import './Premix.scss';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+
+
 
 export function Premix() {
   const premixes = useStore((state) => state.premixes);
@@ -15,30 +18,32 @@ export function Premix() {
   const [currentPremix, setCurrentPremix] = useState();
 
   const [ingredients, setIngredients] = useState([]);
-  const [searchIngredients, setSearchIngredients] = useState([]);
+  // const [searchIngredients, setSearchIngredients] = useState([]);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
 
   const [openDetailId, setOpenDetailId] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
+  const [loadingDelete, setLoadingDelete] = useState(false);
   const [formData, setFormData] = useState(currentPremix || {});
+  const [hesErrorName, setHesErrorName] = useState(false);
+  const [hesErrorIngredients, setHesErrorIngredients] = useState(false);
+  const [errorQuantity, setErrorQuantity] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     getAllPremixes()
       .then((res) => {
         setPremixes(res);
-
         setSearchPremixes(res);
         // localStorage.setItem('premixes', JSON.stringify(res));
       })
       .catch((err) => {
-        // console.log(err);
         // const LS = JSON.parse(localStorage.getItem('premixes'));
         // setPremixes(LS);
         // alert('Помилка при завантаженні преміксів');
       })
       .finally(() => {
-        console.log('премікси завантажені');
         setLoading(false);
       });
     getAllIngredients().then((res) => {
@@ -47,6 +52,7 @@ export function Premix() {
   }, []);
 
   const handleChange = (e) => {
+    setHesErrorName(false);
     const { name, value } = e.target;
     const parsedValue = name === 'using' ? (value === true) : value;
     setFormData((prev) => ({
@@ -55,30 +61,59 @@ export function Premix() {
     }));
   };
 
-
-
-
+  // const handleIngredientQuantityChange = (ingredientId, quantity) => {
+  //   setSelectedIngredients(prevSelected => prevSelected.map(ingredient =>
+  //     ingredient.ingredient.id === ingredientId ? { ...ingredient, quantity } : ingredient
+  //   ));
+  // };
   const handleIngredientQuantityChange = (ingredientId, quantity) => {
-    setSelectedIngredients(prevSelected => prevSelected.map(ingredient =>
-      ingredient.ingredient.id === ingredientId ? { ...ingredient, quantity } : ingredient
-    ));
-  };
-
-  const handleIngredientSelect = (selectedIngredients) => {
-    // console.log(selectedIngredients);
-    const newSelectedIngredients = selectedIngredients.map((option) => ({
-      ingredient: {
-        id: option.id,
-        name: option.value,
-        measure: option.measure
-      },
-      quantity: 1 // Default quantity
-    }));
-    // console.log(newSelectedIngredients);
-    setSelectedIngredients((prevSelected) => [...prevSelected, ...newSelectedIngredients]);
+    setErrorQuantity(false);
+    if (quantity < 0) {
+      setErrorQuantity(true);
+      return;
+    }
+    setSelectedIngredients(prevSelected =>
+      prevSelected.map(ingredient =>
+        ingredient.ingredient_id === ingredientId
+          ? { ...ingredient, quantity }
+          : ingredient
+      )
+    );
   };
 
 
+  const handleIngredientSelect = (selectedOption) => {
+console.log(selectedOption);
+    // selectedOptions.length && setHesErrorIngredients(false);
+    // setSelectedIngredients((prevSelected) => {
+    //   const prevIds = new Set(prevSelected.map(item => item.ingredient_id));
+    //   const newIngredients = selectedOptions
+    //     .filter(option => !prevIds.has(option.id))
+    //     .map(option => ({
+    //       ingredient: {
+    //         id: option.id,
+    //         name: option.value,
+    //         measure: option.measure || 'кг',
+    //       },
+    //       ingredient_id: option.id,
+    //       quantity: option.quantity || 0,
+    //     }));
+    //   return [...prevSelected, ...newIngredients];
+    // });
+      const newIngredient ={
+          ingredient: {
+          id: selectedOption.id,
+          name: selectedOption.value,
+          measure: selectedOption.measure || 'кг',
+          },
+        ingredient_id: selectedOption.id,
+        quantity: selectedOption.quantity || 0,
+      };
+    const ingredientTrue = !selectedIngredients.find((item) => item.ingredient_id === newIngredient.ingredient_id);
+    if (ingredientTrue) {
+      setSelectedIngredients((prevSelected) => [...prevSelected, newIngredient]);
+    }
+  };
 
 
   const handleSubmit = (e) => {
@@ -86,41 +121,29 @@ export function Premix() {
     const dataToSend = {
       name: formData.name,
       ingredients: selectedIngredients.map(ingredient => ({
-        id: ingredient.ingredient.id,
+        id: ingredient.ingredient_id,
         name: ingredient.ingredient.name,
-        quantity: ingredient.quantity || 5,
+        quantity: ingredient.quantity,
       })),
       description: formData.description
     };
-    createPremix(dataToSend).then((res) => {
-      setSearchPremixes((prev) => [...prev, res]);
-    });
-    setEditPremix(false);
+    const quantity = selectedIngredients.every(ingredient => ingredient.quantity > 0);
+    !dataToSend.name && setHesErrorName(true);
+    !selectedIngredients.length && setHesErrorIngredients(true);
+    !quantity && setErrorQuantity(true);
+
+    if (selectedIngredients.length && dataToSend.name && quantity) {
+      setLoadingSubmit(true);
+      deletePremix(currentPremix.id).then(() => {
+        createPremix(dataToSend).then((res) => {
+          setSearchPremixes((prev) => prev.filter((item) => item.id !== currentPremix.id));
+          setSearchPremixes((prev) => [...prev, res]);
+          setEditPremix(false);
+          setLoadingSubmit(false);
+        });
+      });
+    }
   };
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   getAllPremixes()
-  //     .then((res) => {
-  //       setPremixes(res);
-
-  //       setSearchPremixes(res);
-  //       // localStorage.setItem('premixes', JSON.stringify(res));
-  //     })
-  //     .catch((err) => {
-  //       // console.log(err);
-  //       // const LS = JSON.parse(localStorage.getItem('premixes'));
-  //       // setPremixes(LS);
-  //       // alert('Помилка при завантаженні преміксів');
-  //     })
-  //     .finally(() => {
-  //       console.log('премікси завантажені');
-  //       setLoading(false);
-  //     });
-  //   getAllIngredients().then((res) => {
-  //     setIngredients(res);
-  //   });
-  // }, []);
 
   const options = useMemo(() => convertToOptionsSelect(premixes), [premixes]);
 
@@ -129,12 +152,6 @@ export function Premix() {
   }, [premixes]);
 
   const optionsForm = useMemo(() => convertToOptionsSelect(ingredients), [ingredients]);
-
-  const updateOptionsForm = useCallback((options) => {
-    setSearchIngredients(filteredItems(ingredients, optionsForm));
-    console.log(searchIngredients);
-  }, [ingredients]);
-
 
   const handleToggle = (id) => {
     setOpenDetailId((prevId) => (prevId === id ? null : id));
@@ -168,7 +185,8 @@ export function Premix() {
                     setCurrentPremix(premix);
                     setEditPremix(false);
                     setFormData(premix);
-                    handleToggle(premix.id)
+                    handleToggle(premix.id);
+                    setSelectedIngredients(premix.premix_ingredients);
                   }}
                 >
                   {premix.name}
@@ -176,16 +194,12 @@ export function Premix() {
                 {!editPremix ? (
                   <div>
                     <strong>Опис:</strong>
-                    <p>{premix.description}</p>
+                    <p>{premix.description || 'немає опису'}</p>
                     <ul>
                       <strong>Інгредієнти:</strong>
-                      {premix.premix_ingredients.map((premix_ingredient) => (
+                      {selectedIngredients.map((premix_ingredient) => (
                         <li
                           key={premix_ingredient.ingredient_id} className="premixLi"
-                        // onClick={
-                        //   getAllIngredients().then((res) => {
-                        //     setIngredients(res);
-                        //   })}
                         >
                           <strong>{premix_ingredient.ingredient.name}:</strong> {premix_ingredient.quantity} {premix_ingredient.ingredient.measure}
                         </li>
@@ -198,21 +212,20 @@ export function Premix() {
                         type='button'
                         onClick={() => {
                           setEditPremix(!editPremix);
-                          // getAllIngredients().then((res) => {
-                          //   setIngredients(res);
-                          // });
                         }}
                       >
                         Редагувати
                       </button>
                       <button
-                        className='button is-rounded is-danger is-hovered is-outlined'
+                        className={cn('button', 'is-ounded', 'is-danger', 'is-hovered', 'is-outlined', { 'is-loading': loadingDelete })}
                         type='button'
                         onClick={() => {
+                          setLoadingDelete(true);
                           deletePremix(premix.id).then(() => {
                             setSearchPremixes((perv) => {
                               return perv.filter((item) => item.id !== premix.id);
                             });
+                            setLoadingDelete(false);
                           });
                         }}
                       >
@@ -233,6 +246,7 @@ export function Premix() {
                           onChange={handleChange}
                         />
                       </div>
+                      {hesErrorName && <p className='error has-text-danger'>Поле не може бути пустим</p>}
                     </div>
                     <div className='field'>
                       <label className='label'>Опис:</label>
@@ -247,29 +261,51 @@ export function Premix() {
                     </div>
                     <div className='field'>
                       <label className='label'>Інгредієнти:</label>
-                      <SearchSelect
-                        options={optionsForm}
-                        updateOptions={updateOptionsForm}
-                        placeholder='Пошук інгредієнтів...'
-                        selectOpen={true}
-                        path='/'
-                        onSelect={handleIngredientSelect}
-                      />
-                      {selectedIngredients.map(ingredient => (
-                        <div key={ingredient.ingredient.id} className='field'>
-                          <label className='label'>{ingredient.ingredient.name} - {ingredient.ingredient.measure}</label>
-                          <div className='control'>
-                            <input
-                              type="number"
-                              className="input"
-                              value={ingredient.quantity}
-                              onChange={(e) => handleIngredientQuantityChange(ingredient.ingredient.id, parseFloat(e.target.value))}
-                            />
-                          </div>
-                        </div>
-                      ))}
+                      <div className='ingredients-search-select'>
+                        <SearchSelect
+                          options={optionsForm}
+                          placeholder='Пошук інгредієнтів...'
+                          selectOpen={true}
+                          size='is-medium'
+                          path='/'
+                          onSelect={handleIngredientSelect}
+                        />
+                      </div>
+                      {hesErrorIngredients && <p className='error has-text-danger'>Страва не може бути без інгредієнтів</p>}
+                      <ul className='field'>
+                        {selectedIngredients.map(ingredient => (
+                          <li key={ingredient.ingredient_id} className='control'>
+                            <label htmlFor='edit-ingredient-premix' className='label-ingredient'>{ingredient.ingredient.name} - </label>
+                            <div className='control-end'>
+                              <input
+                                id='edit-ingredient-premix'
+                                type="number"
+                                className="input-edit-premix"
+                                value={ingredient.quantity}
+                                onChange={(e) => handleIngredientQuantityChange(ingredient.ingredient_id, parseFloat(e.target.value))}
+                              />
+                              <div className='ingredient-measure'>
+                                {ingredient.ingredient.measure}
+                              </div>
+                              <button
+                                type='button'
+                                className='icon-delete-ingredient'
+                                onClick={() => {
+                                  console.log(selectedIngredients);
+                                  console.log(ingredient);
+                                  const filtredIngredients = selectedIngredients.filter((item) => item.ingredient_id !== ingredient.ingredient_id);
+                                  setSelectedIngredients(filtredIngredients);
+                                }}
+                              >
+                                <i className='icon delete'></i>
+                              </button>
+                            </div>
+                            {errorQuantity && ingredient.quantity === 0 && <p className='error has-text-danger'> не може бути менше 0</p>}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <button type="submit" className='button is-primary'>Відправити</button>
+                    <button type="submit" className={cn('button', 'is-primary', { 'is-loading': loadingSubmit })}>Відправити</button>
                   </form>
                 )}
               </details>
