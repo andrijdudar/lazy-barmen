@@ -119,11 +119,11 @@ export function AddPremix() {
         >
           <div className='field'>
             <label className='label'>Назва:</label>
-            <div className='control'>
+            <div className='control constrol-input'>
               <input
                 type="text"
                 name="name"
-                className="input"
+                className="input input-name"
                 value={formData.name}
                 onChange={handleChange}
               />

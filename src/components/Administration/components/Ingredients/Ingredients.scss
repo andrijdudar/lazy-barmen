@@ -4,7 +4,6 @@
   color: #fff;
   border-radius: 10px;
   margin-bottom: 100vh;
-  
 
   h2 {
     text-align: center;
@@ -20,14 +19,11 @@
     align-items: center;
     padding: 10px;
 
-    input,
-    select {
-      padding: 5px 10px;
-      text-align: center;
+    .input,
+    .select {
       border-radius: 25px;
-      // background-color: var(--colorTextOrangeHover);
-      background-color: rgb(203, 145, 35);
-      width: 100px;
+      width: 50px;
+      padding: 0 10px;
     }
   }
 

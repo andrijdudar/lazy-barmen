@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
-import './SearchSelect.css';
+import './SearchSelect.scss';
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
 

@@ -104,9 +104,9 @@ export function Users() {
           <div key={user.id} className="user-card">
             {editingUserId === user.id ? (
               <form className='formEditUser' onSubmit={handleSubmit}>
-                <label> Логін
+                <label> Логін:
                   <input
-                    className='input'
+                    className='input-search input'
                     type="text"
                     name="username"
                     value={editedUser.username}
@@ -114,9 +114,9 @@ export function Users() {
                     placeholder="Логін"
                   />
                 </label>
-                <label>Ім'я
+                <label>Ім'я:
                   <input
-                    className='input'
+                    className='input-search input'
                     type="text"
                     name="first_name"
                     value={editedUser.first_name}
@@ -124,9 +124,9 @@ export function Users() {
                     placeholder="Ім'я"
                   />
                 </label>
-                <label> Прізвище
+                <label> Прізвище:
                   <input
-                    className='input'
+                    className='input-search input'
                     type="text"
                     name="last_name"
                     value={editedUser.last_name}
@@ -134,9 +134,10 @@ export function Users() {
                     placeholder="Прізвище"
                   />
                 </label>
-                <label>Email
+                <label>Email:
                   <input
-                    className='input input-email-edit-user'
+                    // className='input input-email-edit-user'
+                    className='input-search input'
                     type="email"
                     name="email"
                     value={editedUser.email}
@@ -144,9 +145,9 @@ export function Users() {
                     placeholder="Email"
                   />
                 </label>
-                <label>Інформація
+                <label>Інформація:
                   <input
-                    className='input'
+                    className='input-search input'
                     type="text"
                     name="information"
                     value={editedUser.information}
@@ -154,9 +155,9 @@ export function Users() {
                     placeholder="Інформація"
                   />
                 </label>
-                <label>Роль
+                <label>Роль:
                   <input
-                    className='input'
+                    className='input-search input'
                     type="text"
                     name="role"
                     value={editedUser.role}

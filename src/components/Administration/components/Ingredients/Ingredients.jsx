@@ -134,6 +134,7 @@ export function Ingredients() {
                     <li className='ingredientsLi'>
                       <div><strong>Одиниці вимірювання:</strong></div>
                       <input
+                        className='input-search input'
                         type='text'
                         name='measure'
                         value={formData.measure}
@@ -143,6 +144,7 @@ export function Ingredients() {
                     <li className='ingredientsLi'>
                       <div><strong>Мінімальний залишок:</strong></div>
                       <input
+                        className='input-search input'
                         type='number'
                         name='stock_minimum'
                         value={formData.stock_minimum}
@@ -153,6 +155,7 @@ export function Ingredients() {
                     <li className='ingredientsLi'>
                       <strong>Мінімально прийнятний залишок:</strong>
                       <input
+                        className='input-search input'
                         type='number'
                         name='min_acceptable'
                         value={formData.min_acceptable}
@@ -163,6 +166,7 @@ export function Ingredients() {
                     <li className='ingredientsLi'>
                       <strong>Максимальний залишок:</strong>
                       <input
+                        className='input-search input'
                         type='number'
                         name='stock_maximum'
                         value={formData.stock_maximum}
@@ -173,6 +177,7 @@ export function Ingredients() {
                     <li className='ingredientsLi'>
                       <strong>Стандартний контейнер:</strong>
                       <input
+                        className='input-search input'
                         type='number'
                         name='standart_container'
                         value={formData.standart_container}
@@ -183,6 +188,7 @@ export function Ingredients() {
                     <li className='ingredientsLi'>
                       <strong>Використовується:</strong>
                       <select
+                        className='input-search input'
                         name='using'
                         value={formData.using}
                         onChange={(e) => handleChange({ ...e, target: { ...e.target, name: 'using', value: e.target.value === 'true' } })}
@@ -195,6 +201,7 @@ export function Ingredients() {
                     <li className='ingredientsLi'>
                       <strong>Постачальник ID:</strong>
                       <input
+                        className='input-search input'
                         type='number'
                         name='provider_id'
                         value={formData.provider_id || ""}

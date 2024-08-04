@@ -76,7 +76,7 @@ export const Categories = () => {
                 <label className='label'>
                   Назва категорії:
                   <input
-                    className='inputEdit input is-rounded'
+                    className='inputEdit input-search input is-rounded'
                     type="text"
                     value={editedName}
                     onChange={(e) => setEditedName(e.target.value)}

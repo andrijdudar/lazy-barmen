@@ -6,17 +6,35 @@
     margin-bottom: 30px;
   }
   .form-add-category {
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
     background-color: transparent;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 1),
       -2px -2px 5px rgba(255, 255, 255, 0.14);
   }
 
   .field-add-category {
-    background-color: transparent;
+    // background-color: transparent;
+
+    // &:focus {
+    //   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    //   outline: none;
+    // }
   }
 
   .inputAddCategory {
-    height: 40px;
+    // box-shadow: 2px 1px 5px rgba(0, 0, 0, 1),
+    //   -2px -2px 5px rgba(255, 255, 255, 0.14);
+    // background-color: transparent;
+    // height: 40px;
+    &:focus {
+      // border: 1px solid transparent;
+      // box-shadow: 1px 1px 10px rgba(0, 0, 0, 1),
+      //   -1px -1px 3px rgba(255, 255, 255, 0.3),
+      //   inset 1px 1px 8px rgba(0, 0, 0, 2),
+      //   inset -3px -3px 5px rgba(255, 255, 255, 0.2);
+    }
   }
 
   .searchSelectEdit {
@@ -33,5 +51,18 @@
     font-size: 16px;
     margin: 0 auto;
     color: var(--colorTextOrange);
+  }
+  .button-add-category {
+    background-color: transparent;
+    color: var(--colorTextOrange);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 1),
+      -2px -2px 5px rgba(255, 255, 255, 0.14);
+    &:hover {
+      box-shadow: 3px 3px 5px rgba(0, 0, 0, 1),
+        -3px -3px 5px rgba(255, 255, 255, 0.14);
+      color: var(--colorTextOrangeHover);
+    }
   }
 }

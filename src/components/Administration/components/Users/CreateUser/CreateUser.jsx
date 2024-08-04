@@ -58,6 +58,7 @@ export const CreateUser = () => {
         <label>
           Username:
           <input
+            className='input-search input'
             type="text"
             name="username"
             value={formData.username}
@@ -67,6 +68,7 @@ export const CreateUser = () => {
         <label>
           First Name:
           <input
+            className='input-search input'
             type="text"
             name="first_name"
             value={formData.first_name}
@@ -76,6 +78,7 @@ export const CreateUser = () => {
         <label>
           Last Name:
           <input
+            className='input-search input'
             type="text"
             name="last_name"
             value={formData.last_name}
@@ -85,6 +88,7 @@ export const CreateUser = () => {
         <label>
           Phone:
           <input
+            className='input-search input'
             type="text"
             name="phone"
             value={formData.phone}
@@ -94,6 +98,7 @@ export const CreateUser = () => {
         <label>
           Email:
           <input
+            className='input-search input'
             type="email"
             name="email"
             value={formData.email}
@@ -103,6 +108,8 @@ export const CreateUser = () => {
         <label>
           Information:
           <textarea
+            rows="5"
+            className='input-search input textarea'
             name="information"
             value={formData.information}
             onChange={handleChange}
@@ -111,6 +118,7 @@ export const CreateUser = () => {
         <label>
           Password:
           <input
+            className='input-search input'
             type="password"
             name="password"
             value={formData.password}
@@ -120,13 +128,14 @@ export const CreateUser = () => {
         <label>
           Refresh Token:
           <input
+            className='input-search input'
             type="text"
             name="refresh_token"
             value={formData.refresh_token}
             onChange={handleChange}
           />
         </label>
-        <button type="submit">Create User</button>
+        <button className='button-add-user button' type="submit">Create User</button>
       </form>
     </div>
   );

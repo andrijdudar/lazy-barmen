@@ -237,11 +237,11 @@ console.log(selectedOption);
                   <form onSubmit={handleSubmit}>
                     <div className='field'>
                       <label className='label'>Назва:</label>
-                      <div className='control'>
-                        <input
+                      <div className='control container-input'>
+                          <input
                           type="text"
                           name="name"
-                          className="input"
+                          className="input input-search is-medium is-rounded"
                           value={formData.name}
                           onChange={handleChange}
                         />
@@ -250,10 +250,10 @@ console.log(selectedOption);
                     </div>
                     <div className='field'>
                       <label className='label'>Опис:</label>
-                      <div className='control'>
+                      <div className='control container-input'>
                         <textarea
                           name="description"
-                          className="textarea"
+                          className="textarea input-search"
                           value={formData.description}
                           onChange={handleChange}
                         />

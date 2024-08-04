@@ -62,7 +62,7 @@ export const AddCategory = () => {
           <label className="label">Назва категорії: <span className="selectedCategory">{nameCategory}</span></label>
           <div className="control">
             <input
-              className="inputAddCategory input is-rounded" type="text" placeholder="Назва категорії"
+              className="input-search input is-medium is-rounded" type="text" placeholder="Назва категорії"
               value={nameCategory}
               onChange={(e) => setNameCategory(e.target.value)}
             />
@@ -88,7 +88,7 @@ export const AddCategory = () => {
           <div className="control">
             <button
               type="submit"
-              className={cn('button', {
+              className={cn('button button-add-category', {
                 "is-loading": loading,
               })}
             >
