@@ -49,10 +49,12 @@ h6 .span {
   place-content: center;
   color: #c4c3ca;
   /* height: 100vh; */
-  /* owerfloy-y: none; */
+  max-height: 100vh;
+  overfloy-y: none;
 
   @media (orientation: portrait) {
     padding: 10px;
+
   }
 }
 
