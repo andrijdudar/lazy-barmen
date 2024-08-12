@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css';
 import useStore from '../../../StoreZustand';
+import cn from 'classnames';
 
 
 export const Login = () => {
@@ -23,7 +24,7 @@ export const Login = () => {
               <h6 className="mb-0 pb-3">
                 <button
                   type='button'
-                  className='span'
+                  className={cn('span', { 'active': !isChecked })}
                   onClick={() => setIsChecked(false)}
 
                 >
@@ -32,7 +33,8 @@ export const Login = () => {
                 </button>
                 <button
                   type='button'
-                  className='span'
+                  className={cn('span', { 'active': isChecked })}
+
                   onClick={() => setIsChecked(true)}
                 >
                   Реістрація
