@@ -2,6 +2,12 @@ import { create } from "zustand";
 import { TAGS } from "./Obgects";
 
 const useStore = create((set) => ({
+  formLogin: false,
+  setFormLogin: (formLogin) => set({ formLogin }),
+
+  user: null,
+  setUser: (user) => set({ user }),
+
   titleCategory: 'Всі страви',
   setTitleCategory: (titleCategory) => set({ titleCategory }),
 

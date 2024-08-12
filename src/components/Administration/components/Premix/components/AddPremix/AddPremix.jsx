@@ -6,6 +6,7 @@ import './AddPremix.scss';
 import { Loaderr } from '../../../../../utils/Loader/Loaderr';
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
+
 export function AddPremix() {
   const [ingredients, setIngredients] = useState([]);
   const [selectedIngredients, setSelectedIngredients] = useState([]);

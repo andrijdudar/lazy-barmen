@@ -8,6 +8,8 @@ import { NavBar } from './components/navBar/NavBar';
 import Footer from './components/footer/Footer';
 import { ALLDISHES, OBG } from './Obgects';
 import { useEffect } from 'react';
+import useStore from './StoreZustand';
+import { Login } from './components/utils/Login/Login';
 // import { useEffect } from 'react';
 // import { getAllCategories, getAllDishes, getAllIngredients, getAllPremixes, getAllProviders, getAllTags, getAllUsers, getDishesInStopList, getDishesToBeSold, getIngredientOrders } from './utils/fetch';
 // import { ALLDISHES, OBG, TAGS } from './Obgects';
@@ -16,6 +18,8 @@ import { useEffect } from 'react';
 const App = () => {
   // const { state } = useMyContext(AppContext);
   // const { formLogin } = state;
+  // const user = useStore((state) => state.user);
+  const formLogin = useStore((state) => state.formLogin);
 
   useEffect(() => {
     localStorage.setItem('categories', JSON.stringify(OBG));
@@ -75,9 +79,9 @@ const App = () => {
     //   // localStorage.setItem('few', JSON.stringify([]));
   }, []);
 
-  // if (formLogin) {
-  //   return <Login />;
-  // }
+  if (!formLogin) {
+    return <Login />;
+  }
 
   // localStorage.setItem('dishes', JSON.stringify(ALLDISHES));
   // const dishesFromStorage = JSON.parse(localStorage.getItem('dishes'));
