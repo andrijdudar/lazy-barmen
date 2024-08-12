@@ -1,6 +1,6 @@
 
-
 export const SERVER_URL = 'https://ago-ago-8570935a.koyeb.app';
+const accessToken = localStorage.getItem('accessToken');
 
 const handleResponse = async (response) => {
   if (!response.ok) {
@@ -16,6 +16,7 @@ export const client = {
       const response = await fetch(SERVER_URL + url, {
         method: "get",
         headers: new Headers({
+          'Authorization': `Bearer ${accessToken}`,
           "ngrok-skip-browser-warning": "69420",
         }),
         credentials: 'include',
@@ -41,6 +42,7 @@ export const client = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
         },
         credentials: 'include',
         // body: formData,
@@ -59,6 +61,7 @@ export const client = {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data),
         credentials: 'include',
@@ -76,6 +79,7 @@ export const client = {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data),
         credentials: 'include',
@@ -92,6 +96,9 @@ export const client = {
       const response = await fetch(SERVER_URL + url, {
         method: 'DELETE',
         credentials: 'include',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
       });
       return await handleResponse(response);
     } catch (error) {

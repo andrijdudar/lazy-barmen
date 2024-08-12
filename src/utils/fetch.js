@@ -2,6 +2,14 @@ import { client } from '../services/httpClient';
 
 //? GET
 // #region  GET
+// Гугл авторизація
+export const googleAutorization = () => {
+  return client.get('/api/google_login');
+};
+// отримати інформацію про поточного користувача
+export const getCurentUser = () => {
+  return client.get('/api/users/me');
+};
 //Отримати всі об'єкти dishes
 export const getAllDishes = () => {
   return client.get('/api/dishes/');
@@ -75,6 +83,15 @@ export const getFewDishes = () => {
 
 //? POST
 // #region  POST
+
+// POST-запит для авторизації користувача
+export const SignIn = (formData) => {
+  // return client.post('/api/auth/signup', formData);
+};
+// POST-запит для регістрації користувача
+export const SignUp = (formData) => {
+  return client.post('/api/auth/signup', formData);
+};
 
 // Створення нового об'єкту dishes
 export const createNewDish = (formData) => {

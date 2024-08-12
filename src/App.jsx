@@ -6,7 +6,6 @@ import './App.scss';
 import "./components/navBar/NavBar.css";
 import { NavBar } from './components/navBar/NavBar';
 import Footer from './components/footer/Footer';
-import { ALLDISHES, OBG } from './Obgects';
 import { useEffect } from 'react';
 import useStore from './StoreZustand';
 import { Login } from './components/utils/Login/Login';
@@ -16,14 +15,45 @@ import { Login } from './components/utils/Login/Login';
 
 
 const App = () => {
-  // const { state } = useMyContext(AppContext);
-  // const { formLogin } = state;
   // const user = useStore((state) => state.user);
+  // const setUser = useStore((state) => state.setUser);
+
   const formLogin = useStore((state) => state.formLogin);
+  // const setFormLogin = useStore((state) => state.setFormLogin);
+
+  // // const access_token = useStore((state) => state.access_token);
+  // const setAccessToken = useStore((state) => state.setAccessToken);
+
+  // // const refresh_token = useStore((state) => state.refresh_token);
+  // const setRefreshToken = useStore((state) => state.setRefreshToken);
+
+  // // const token_type = useStore((state) => state.token_type);
+  // const setTokenType = useStore((state) => state.setTokenType);
 
   useEffect(() => {
-    localStorage.setItem('categories', JSON.stringify(OBG));
-    localStorage.setItem('dishes', JSON.stringify(ALLDISHES));
+    // getCurentUser().then((res) => {
+    //   console.log(res);
+    //   if (res.status === 200) {
+    //     setUser(res.data);
+    //     setFormLogin(true);
+    //   }
+    //   if(res.refresh_token){
+    //     setRefreshToken(res.refresh_token);
+    //   }
+    //   if(res.access_token){
+    //     setAccessToken(res.access_token);
+    //   }
+    //   if(res.token_type){
+    //     setTokenType(res.token_type);
+    //   }
+    //   if(res.role){
+    //     setUser(res.role);
+    //   }
+    // });
+
+    // localStorage.setItem('categories', JSON.stringify(OBG));
+    // localStorage.setItem('dishes', JSON.stringify(ALLDISHES));
+    // localStorage.setItem('user', JSON.stringify(user));
 
     //   getAllDishes().then((data) => {
     //     localStorage.setItem('dishes', JSON.stringify(data));
