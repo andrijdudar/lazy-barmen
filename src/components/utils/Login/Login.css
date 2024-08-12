@@ -42,7 +42,7 @@ h6 .span {
   display: grid;
   place-content: center;
   color: #c4c3ca;
-  height: 100vh;
+  /* height: 100vh; */
   /* owerfloy-y: none; */
 
   @media (orientation: portrait) {

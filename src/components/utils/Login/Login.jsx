@@ -17,11 +17,12 @@ export const Login = () => {
   return (
     <div className="section">
       <div className="container-logo">
-        {/* <div className="row full-height justify-content-center"> */}
-          {/* <div className="col-12 text-center align-self-center py-5"> */}
+        <div className="row full-height justify-content-center">
+          <div className="col-12 text-center align-self-center py-5">
             <div className="section pb-5 pt-5 pt-sm-2 text-center">
               <h6 className="mb-0 pb-3">
                 <button
+                  type='button'
                   className='span'
                   onClick={() => setIsChecked(false)}
 
@@ -30,13 +31,21 @@ export const Login = () => {
 
                 </button>
                 <button
+                  type='button'
                   className='span'
                   onClick={() => setIsChecked(true)}
                 >
                   Реістрація
                 </button>
               </h6>
-              <input className="checkbox" type="checkbox" id="reg-log" name="reg-log" checked={isChecked} onClick={()  => setIsChecked(!isChecked)}/>
+              <input
+                className="checkbox"
+                type="checkbox"
+                id="reg-log"
+                name="reg-log"
+                checked={isChecked}
+                onClick={() => setIsChecked(!isChecked)}
+              />
               <label htmlFor="reg-log"></label>
               <div className="card-3d-wrap mx-auto">
                 <div className="card-3d-wrapper">
@@ -70,7 +79,7 @@ export const Login = () => {
                         <a
                           href="#/"
                           className="btn-login mt-4"
-                          // onClick={() => { handleLogin() }}
+                        // onClick={() => { handleLogin() }}
                         >
                           Увійти через Google
                         </a>
@@ -114,8 +123,8 @@ export const Login = () => {
                 </div>
               </div>
             </div>
-          {/* </div> */}
-        {/* </div> */}
+          </div>
+        </div>
       </div>
     </div>
   );
