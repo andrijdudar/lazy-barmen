@@ -3,9 +3,11 @@ import './Login.scss';
 import useStore from '../../../StoreZustand';
 import cn from 'classnames';
 import { getCurentUser, googleAutorization, SignUp } from '../../../utils/fetch';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Login = () => {
+  const nsvigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   // const user = useStore((state) => state.user);
   const setUser = useStore((state) => state.setUser);
@@ -120,6 +122,8 @@ export const Login = () => {
   const handleGoogleAutorization = () => {
     // window.location.href = 'http://google.com';
     // window.location.href = '/menu';
+    // setFormLogin(true);
+    // nsvigate('/test-page');
 
     googleAutorization().then((res) => {
       console.log(res);

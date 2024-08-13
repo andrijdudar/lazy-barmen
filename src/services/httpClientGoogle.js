@@ -1,6 +1,5 @@
 
-// export const SERVER_URL = 'https://ago-ago-8570935a.koyeb.app';
-export const SERVER_URL = 'https://2fbc-194-44-160-206.ngrok-free.app';
+export const SERVER_URL_GOOGLE = 'https://ago-ago-8570935a.koyeb.app';
 // const accessToken = localStorage.getItem('access_token');
 // const refreshToken = localStorage.getItem('refresh_token');
 
@@ -69,7 +68,7 @@ const handleResponse = async (response) => {
 }
 
 export const client = {
-  async get(url) {
+  async getGoogle(url) {
     try {
       const response = await fetch(SERVER_URL + url, {
         method: "get",
@@ -87,7 +86,7 @@ export const client = {
     }
   },
 
-  async post(url, data) {
+  async postGoogle(url, data) {
     try {
       const formData = new FormData();
       // formData.append(data);
@@ -113,7 +112,7 @@ export const client = {
     }
   },
 
-  async put(url, data) {
+  async putGoogle(url, data) {
     try {
       const response = await fetch(SERVER_URL + url, {
         method: 'PUT',
@@ -131,7 +130,7 @@ export const client = {
     }
   },
 
-  async patch(url, data) {
+  async patchGoogle(url, data) {
     try {
       const response = await fetch(SERVER_URL + url, {
         method: 'PATCH',
@@ -149,7 +148,7 @@ export const client = {
     }
   },
 
-  async delete(url) {
+  async deleteGoogle(url) {
     try {
       const response = await fetch(SERVER_URL + url, {
         method: 'DELETE',

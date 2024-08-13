@@ -4,7 +4,7 @@ import { client } from '../services/httpClient';
 // #region  GET
 // Гугл авторизація
 export const googleAutorization = () => {
-  return client.get('/api/google_login');
+  return client.get('/api/auth/google_login');
 };
 
 // отримати інформацію про поточного користувача

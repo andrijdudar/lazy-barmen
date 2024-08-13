@@ -6,6 +6,7 @@ import Footer from './components/footer/Footer';
 import { useEffect } from 'react';
 import useStore from './StoreZustand';
 import { Login } from './components/utils/Login/Login';
+import { TestPage } from './components/utils/TestPage/TestPage';
 
 
 const App = () => {
@@ -53,17 +54,20 @@ const App = () => {
 
   if (!formLogin) {
     return <Login />;
+    // return <TestPage />;
   }
 
   return (
-    <div className="App">
-      <div className="scroll-to-top">
+    <div>
+      <div className="App">
+        <div className="scroll-to-top">
+        </div>
+        <NavBar />
+        <div className="conten">
+          <Outlet />
+        </div>
+        <Footer />
       </div>
-      <NavBar />
-      <div className="conten">
-        <Outlet />
-      </div>
-      <Footer />
     </div>
   );
 };
