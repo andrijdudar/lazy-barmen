@@ -1,6 +1,6 @@
 
 // export const SERVER_URL = 'https://ago-ago-8570935a.koyeb.app';
-export const SERVER_URL = 'https://2fbc-194-44-160-206.ngrok-free.app';
+export const SERVER_URL = 'https://4d3b-194-44-160-206.ngrok-free.app';
 // const accessToken = localStorage.getItem('access_token');
 // const refreshToken = localStorage.getItem('refresh_token');
 

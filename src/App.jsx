@@ -6,7 +6,7 @@ import Footer from './components/footer/Footer';
 import { useEffect } from 'react';
 import useStore from './StoreZustand';
 import { Login } from './components/utils/Login/Login';
-import { TestPage } from './components/utils/TestPage/TestPage';
+// import { TestPage } from './components/utils/TestPage/TestPage';
 
 
 const App = () => {
