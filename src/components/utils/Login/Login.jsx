@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Login.scss';
 import useStore from '../../../StoreZustand';
 import cn from 'classnames';
-import { getCurentUser, googleAutorization, SignIn, SignUp } from '../../../utils/fetch';
+import { getCurentUser, googleAutorization, SignUp } from '../../../utils/fetch';
 
 
 export const Login = () => {
@@ -16,46 +16,46 @@ export const Login = () => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
-  const setAccessToken = useStore((state) => state.setAccessToken);
-  const setRefreshToken = useStore((state) => state.setRefreshToken);
-  const setTokenType = useStore((state) => state.setTokenType);
+  // const setAccessToken = useStore((state) => state.setAccessToken);
+  // const setRefreshToken = useStore((state) => state.setRefreshToken);
+  // const setTokenType = useStore((state) => state.setTokenType);
 
   const handleLogin = () => {
-    if (inputEmail === '' || inputPassword === '') {
-      alert('Заповніть всі поля');
-      return;
-    }
+    // if (inputEmail === '' || inputPassword === '') {
+    //   alert('Заповніть всі поля');
+    //   return;
+    // }
 
-    const data = {
-      email: inputEmail,
-      password: inputPassword //str(min_length = 6)
-    };
+    // const data = {
+    //   email: inputEmail,
+    //   password: inputPassword //str(min_length = 6)
+    // };
 
-    SignIn(data).then((res) => {
-      console.log(res);
-      if (res.status === 200) {
-        alert('Ви успішно увійшли');
-        getCurentUser().then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            setUser(res.data);
-          }
-        });
-        if (res.refresh_token) {
-          localStorage.setItem('refresh_token', res.refresh_token);
-          setRefreshToken(res.refresh_token);
-        }
-        if (res.access_token) {
-          localStorage.setItem('access_token', res.access_token);
-          setAccessToken(res.access_token);
-        }
-        if (res.token_type) {
-          localStorage.setItem('token_type', res.token_type);
-          setTokenType(res.token_type);
-        }
-        setFormLogin(true);
-      }
-    });
+    // SignIn(data).then((res) => {
+    //   console.log(res);
+    //   if (res.status === 200) {
+    //     alert('Ви успішно увійшли');
+    //     getCurentUser().then((res) => {
+    //       console.log(res);
+    //       if (res.status === 200) {
+    //         setUser(res.data);
+    //       }
+    //     });
+    //     // if (res.refresh_token) {
+    //     //   localStorage.setItem('refresh_token', res.refresh_token);
+    //     //   setRefreshToken(res.refresh_token);
+    //     // }
+    //     // if (res.access_token) {
+    //     //   localStorage.setItem('access_token', res.access_token);
+    //     //   setAccessToken(res.access_token);
+    //     // }
+    //     // if (res.token_type) {
+    //     //   localStorage.setItem('token_type', res.token_type);
+    //     //   setTokenType(res.token_type);
+    //     // }
+    //   }
+    // });
+    // setFormLogin(true);
   }
 
   const handleRegistration = () => {
@@ -101,23 +101,26 @@ export const Login = () => {
       if (res.status === 403) {
         alert('Доступ заборонено');
       }
-      if (res.refresh_token) {
-        localStorage.setItem('refresh_token', res.refresh_token);
-        setRefreshToken(res.refresh_token);
-      }
-      if (res.access_token) {
-        localStorage.setItem('access_token', res.access_token);
-        setAccessToken(res.access_token);
-      }
-      if (res.token_type) {
-        localStorage.setItem('token_type', res.token_type);
-        setTokenType(res.token_type);
-      }
+      // if (res.refresh_token) {
+      //   localStorage.setItem('refresh_token', res.refresh_token);
+      //   setRefreshToken(res.refresh_token);
+      // }
+      // if (res.access_token) {
+      //   localStorage.setItem('access_token', res.access_token);
+      //   setAccessToken(res.access_token);
+      // }
+      // if (res.token_type) {
+      //   localStorage.setItem('token_type', res.token_type);
+      //   setTokenType(res.token_type);
+      // }
       setFormLogin(true);
     });
   }
 
   const handleGoogleAutorization = () => {
+    // window.location.href = 'http://google.com';
+    // window.location.href = '/menu';
+
     googleAutorization().then((res) => {
       console.log(res);
       if (res.status === 200) {
@@ -128,20 +131,21 @@ export const Login = () => {
             setUser(res.data);
           }
         });
-        setFormLogin(true);
+        // setFormLogin(true);
       }
-      if (res.refresh_token) {
-        localStorage.setItem('refresh_token', res.refresh_token);
-        setRefreshToken(res.refresh_token);
-      }
-      if (res.access_token) {
-        localStorage.setItem('access_token', res.access_token);
-        setAccessToken(res.access_token);
-      }
-      if (res.token_type) {
-        localStorage.setItem('token_type', res.token_type);
-        setTokenType(res.token_type);
-      }
+
+      // if (res.refresh_token) {
+      //   localStorage.setItem('refresh_token', res.refresh_token);
+      //   setRefreshToken(res.refresh_token);
+      // }
+      // if (res.access_token) {
+      //   localStorage.setItem('access_token', res.access_token);
+      //   setAccessToken(res.access_token);
+      // }
+      // if (res.token_type) {
+      //   localStorage.setItem('token_type', res.token_type);
+      //   setTokenType(res.token_type);
+      // }
     });
   }
 
@@ -208,7 +212,7 @@ export const Login = () => {
                           />
                           <i className="input-icon uil uil-lock-alt"></i>
                         </div>
-                        <a href="#/" className="btn-login mt-4">Увійти</a>
+                        <a href="#/" className="btn-login mt-4" onClick={handleLogin}>Увійти</a>
                         <a
                           href="#/"
                           className="btn-login mt-4"
@@ -219,7 +223,7 @@ export const Login = () => {
                         <a
                           href="#/"
                           className="btn-login mt-4"
-                          onClick={handleLogin}
+                          onClick={() => setFormLogin(true)}
                         >
                           Пропустити
                         </a>

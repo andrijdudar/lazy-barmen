@@ -6,10 +6,18 @@ import { client } from '../services/httpClient';
 export const googleAutorization = () => {
   return client.get('/api/google_login');
 };
+
 // отримати інформацію про поточного користувача
 export const getCurentUser = () => {
   return client.get('/api/users/me');
 };
+// отримати інформацію про поточного користувача
+export const getRefreshToken = () => {
+  return client.getRefresh('api/auth/refresh_token');
+};
+
+
+
 //Отримати всі об'єкти dishes
 export const getAllDishes = () => {
   return client.get('/api/dishes/');
