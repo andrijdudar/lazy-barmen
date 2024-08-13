@@ -126,17 +126,17 @@ export const Login = () => {
     // nsvigate('/test-page');
 
     googleAutorization().then((res) => {
-      console.log(res);
-      if (res.status === 200) {
-        alert('Ви успішно увійшли');
-        getCurentUser().then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            setUser(res.data);
-          }
-        });
-        // setFormLogin(true);
-      }
+      console.log(res, 'googleAutorization');
+      // if (res.status === 200) {
+      //   alert('Ви успішно увійшли');
+      //   getCurentUser().then((res) => {
+      //     console.log(res);
+      //     if (res.status === 200) {
+      //       setUser(res.data);
+      //     }
+      //   });
+      //   // setFormLogin(true);
+      // }
 
       // if (res.refresh_token) {
       //   localStorage.setItem('refresh_token', res.refresh_token);
