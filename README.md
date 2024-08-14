@@ -1,3 +1,3 @@
 # Lazy Barmen
 
-[DEMO LINK](https://andrijdudar.github.io/lazy-barmen/)
+[DEMO LINK](https://andrijdudar.github.io/lazy-barman/)
