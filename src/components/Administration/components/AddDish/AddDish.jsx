@@ -27,50 +27,33 @@ import { getAllDishes } from '../../../../utils/fetch';
 // }
 
 export const AddDish = () => {
-  const [dishes, setDishes] = useState([]);
-  const [editingDishId, setEditingDishId] = useState(null);
-  const [formDish, setFormDish] = useState({
-    dish_name: '',
-    description: '',
-    comment: '',
-    ingredients: [],
-    premixes: [],
-    tags: [],
-    category: '',
-    price: 0,
-  });
+  const [dishName, setDishName] = useState('');
+  const [description, setDescription] = useState('');
+  const [selectedIngredients, setIngredients] = useState([]);
+  const [selectedPremixes, setPremixes] = useState([]);
+  const [selectedTags, setTags] = useState([]);
+  const [category, setCategory] = useState('');
+  const [price, setPrice] = useState(0);
+
   const [isAdding, setIsAdding] = useState(false);
   // const [successMessage, setSuccessMessage] = useState('');
   // const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    getAllDishes()
-      .then((data) => {
-        setDishes(data);
-      })
-      .catch((error) => console.error('Error fetching dishes:', error));
+
   }, []);
 
   const startEditing = (dish) => {
     setEditingDishId(dish.id);
-    setFormDish({
-      dish_name: dish.dish_name,
-      description: dish.description,
-      comment: dish.comments.map(comment => comment.comment).join(', '),
-      ingredients: dish.dish_ingredients.map(ingredient => ({
-        id: ingredient.ingredient_id,
-        name: ingredient.ingredient.name,
-        quantity: ingredient.quantity,
-      })),
-      premixes: dish.dish_premixes.map(premix => ({
-        id: premix.premix_id,
-        name: premix.premix.name,
-        quantity: premix.quantity,
-      })),
-      tags: dish.tags.map(tag => tag.name_tag),
-      category: dish.category_name,
+    const dataToSend = {
+      dish_name: dishName,
+      description: description,
+      ingredients: selectedIngredients,
+      premixes: selectedPremixes,
+      tags: selectedTags,
+      category: category,
       price: dish.price,
-    });
+    };
     setIsAdding(false);
   };
 
