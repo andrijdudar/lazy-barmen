@@ -5,7 +5,7 @@ import Footer from './components/footer/Footer';
 import './App.scss';
 
 
- const App = () => {
+const App = () => {
   // const user = useStoreAuth((state) => state.user);
   // const setUser = useStoreAuth((state) => state.setUser);
 
@@ -56,6 +56,7 @@ import './App.scss';
   return (
     <div className="App">
       <NavBar />
+      <h1>HELLO</h1>
       <div className="conten">
         <Outlet />
       </div>
