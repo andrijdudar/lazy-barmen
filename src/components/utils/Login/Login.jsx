@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import './Login.scss';
-import useStore from '../../../StoreZustand';
 import cn from 'classnames';
 import { getCurentUser, googleAutorization, SignUp } from '../../../utils/fetch';
 import { useNavigate } from 'react-router-dom';
+import useStoreAuth from '../../../utils/StoreAuth';
 
 
 export const Login = () => {
-  const nsvigate = useNavigate();
+  const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
-  // const user = useStore((state) => state.user);
-  const setUser = useStore((state) => state.setUser);
-  // const formLogin = useStore((state) => state.formLogin);
-  const setFormLogin = useStore((state) => state.setFormLogin);
+  // const user = useStoreAuth((state) => state.user);
+  const setUser = useStoreAuth((state) => state.setUser);
+  // const formLogin = useStoreAuth((state) => state.formLogin);
+  const setFormLogin = useStoreAuth((state) => state.setFormLogin);
   const [inputName, setInputName] = useState('');
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
@@ -23,6 +23,7 @@ export const Login = () => {
   // const setTokenType = useStore((state) => state.setTokenType);
 
   const handleLogin = () => {
+    navigate('./test')
     // if (inputEmail === '' || inputPassword === '') {
     //   alert('Заповніть всі поля');
     //   return;
@@ -181,14 +182,14 @@ export const Login = () => {
                 id="reg-log"
                 name="reg-log"
                 checked={isChecked}
-                onClick={() => setIsChecked(!isChecked)}
+                onChange={() => setIsChecked(!isChecked)}
               />
               <label htmlFor="reg-log"></label>
               <div className="card-3d-wrap mx-auto">
                 <div className="card-3d-wrapper">
                   <div className="card-front">
                     <div className="center-wrap">
-                      <div className="section text-center">
+                      <form className="section text-center">
                         <h4 className="mb-4 pb-3">Вхід</h4>
                         <div className="form-group">
                           <input
@@ -198,7 +199,7 @@ export const Login = () => {
                             className="form-style"
                             placeholder="Ваш Емейл"
                             id="logemail"
-                            autocomplete="off"
+                            autoComplete="off"
                             onChange={(e) => setInputEmail(e.target.value)}
                           />
                           <i className="input-icon uil uil-at"></i>
@@ -211,7 +212,7 @@ export const Login = () => {
                             className="form-style"
                             placeholder="Ваш Пароль"
                             id="logpass"
-                            autocomplete="off"
+                            autoComplete="off"
                             onChange={(e) => setInputPassword(e.target.value)}
                           />
                           <i className="input-icon uil uil-lock-alt"></i>
@@ -232,12 +233,12 @@ export const Login = () => {
                           Пропустити
                         </a>
                         {/* <p className="mb-0 mt-4 text-center"><a href="#0" className="link">Forgot your password?</a></p> */}
-                      </div>
+                      </form>
                     </div>
                   </div>
                   <div className="card-back">
                     <div className="center-wrap">
-                      <div className="section text-center">
+                      <form className="section text-center">
                         <h4 className="mb-4 pb-3">Реістрація</h4>
                         <div className="form-group">
                           <input
@@ -247,7 +248,7 @@ export const Login = () => {
                             className="form-style"
                             placeholder="Ваше Імʼя"
                             id="logname"
-                            autocomplete="off"
+                            autoComplete="off"
                             onChange={(e) => setInputName(e.target.value)}
                           />
                           <i className="input-icon uil uil-user"></i>
@@ -260,7 +261,7 @@ export const Login = () => {
                             className="form-style"
                             placeholder="Ваше Прізвище"
                             id="logLastName"
-                            autocomplete="off"
+                            autoComplete="off"
                             onChange={(e) => setInputLastName(e.target.value)}
                           />
                           <i className="input-icon uil uil-user"></i>
@@ -272,8 +273,8 @@ export const Login = () => {
                             name="logemail"
                             className="form-style"
                             placeholder="Ваш Емейл"
-                            id="logemail"
-                            autocomplete="off"
+                            id="logemail1"
+                            autoComplete="off"
                             onChange={(e) => setInputEmail(e.target.value)}
                           />
                           <i className="input-icon uil uil-at"></i>
@@ -285,8 +286,8 @@ export const Login = () => {
                             name="logpass"
                             className="form-style"
                             placeholder="Ваш Пароль"
-                            id="logpass"
-                            autocomplete="off"
+                            id="logpass1"
+                            autoComplete="off"
                             onChange={(e) => setInputPassword(e.target.value)}
                           />
                           <i className="input-icon uil uil-lock-alt"></i>
@@ -294,7 +295,7 @@ export const Login = () => {
                         <a href="#/" className="btn-login mt-4" onClick={handleRegistration}>
                           Зареєструватися
                         </a>
-                      </div>
+                      </form>
                     </div>
                   </div>
                 </div>

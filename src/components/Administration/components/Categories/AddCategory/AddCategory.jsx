@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { convertToOptionsSelect } from "../../../../utils/SearchSelect/SearchUtils";
-import { addCategory, addCategoryHome, getAllCategories } from "../../../../../utils/fetch";
+import { addCategory, getAllCategories } from "../../../../../utils/fetch";
 import cn from "classnames";
 import SearchSelect from "../../../../utils/SearchSelect/SearchSelect";
 import "./AddCategory.scss";
@@ -8,12 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export const AddCategory = () => {
-  const [categories, setCategories] = useState([{
-    child: true,
-    dishes: false,
-    name: "Головна категорія",
-    parent_id: null,
-  }]);
+  const [categories, setCategories] = useState([]);
   const [nameCategory, setNameCategory] = useState('');
   const [parentCategory, setParentCategory] = useState('');
   const [loading, setLoading] = useState(true);
@@ -32,19 +27,17 @@ export const AddCategory = () => {
 
   const saveCategory = (e) => {
     e.preventDefault();
-    if (!nameCategory || !parentCategory) {
-      return;
-    }
-    if (parentCategory.value === 'Головна категорія') {
-      addCategoryHome({ name: nameCategory }).then(() => {
-        navigate('/admin/categories');
-      });
+    // if (!nameCategory || !parentCategory) {
+    //   return;
+    // }
+    if (!!parentCategory) {
+      alert('Не вибрана батьківська категорія');
       return;
     }
 
     const newCategory = {
       name: nameCategory,
-      parent: parentCategory.value,
+      parent: parentCategory.id,
     }
     setLoading(true);
     addCategory(newCategory).then((res) => {
@@ -68,7 +61,7 @@ export const AddCategory = () => {
             />
             <div className='searchSelectEdit'>
               <div className='label'>
-                Батьківська категорія: <span className="selectedCategory">{parentCategory.value|| '---'}</span>
+                Батьківська категорія: <span className="selectedCategory">{parentCategory.value || '---'}</span>
               </div>
               <SearchSelect
                 className='searchSelect'
@@ -76,10 +69,7 @@ export const AddCategory = () => {
                 placeholder='Пошук батьківськї категорії...'
                 selectOpen={true}
                 path='/'
-                onSelect={(category) => {
-                  console.log(category);
-                  setParentCategory(category)
-                }}
+                onSelect={(category) => setParentCategory(category)}
               />
             </div>
           </div>

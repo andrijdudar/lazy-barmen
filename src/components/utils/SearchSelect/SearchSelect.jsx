@@ -62,7 +62,7 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
         <p className="control has-icons-left">
           <input
             className={`input-search input is-rounded ${size}`}
-            style={{ 'padding-left': '40px' }}
+            style={{ 'paddingLeft': '40px' }}
             type="text"
             value={selected}
             placeholder={placeholder}

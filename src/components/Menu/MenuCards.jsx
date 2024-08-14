@@ -1,7 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
 import { useEffect, useState } from 'react';
-import useStore from "../../StoreZustand";
 import './MenuCards.scss';
 import { getAllDishes, patchDish } from '../../utils/fetch';
 import { Link } from 'react-router-dom';
@@ -9,6 +7,7 @@ import listIcon from '../../img/ListIconsolid.svg';
 import tableIcon from '../../img/ListIconlarge.svg';
 import cn from 'classnames';
 import { Loaderr } from '../utils/Loader/Loaderr';
+import useStore from '../../utils/Store';
 // import cn from 'classnames';
 
 export const MenuCards = () => {
@@ -21,7 +20,7 @@ export const MenuCards = () => {
   const setSearchDishes = useStore((state) => state.setSearchDishes);
   const view = useStore((state) => state.view);
   const setView = useStore((state) => state.setView);
-const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(false)
 
   // const setTitleCategory = useStore((state) => state.setTitleCategory);
 
@@ -36,6 +35,7 @@ const [loader, setLoader] = useState(false)
     setLoader(true);
     getAllDishes()
       .then((data) => {
+        console.log(data);
         setDishes(data);
         setSearchDishes(data);
         setDishesCategory(data);
@@ -67,109 +67,109 @@ const [loader, setLoader] = useState(false)
     <div className="menuCards">
       {loader ? (
         <Loaderr />
-      ):(
-      <div>
-        <div className='cardsHeader'>
-          <h1>
-            {titleCategory.charAt(0).toUpperCase() + titleCategory.slice(1)}
-          </h1>
-          <div className='view'>
-            <button type='button' onClick={() => setView(!view)}>
-              {view ? (
-                <img src={listIcon} alt="card" />
-              ) : (
-                <img src={tableIcon} alt="card" />
-              )}
-            </button>
+      ) : (
+        <div>
+          <div className='cardsHeader'>
+            <h1>
+              {titleCategory.charAt(0).toUpperCase() + titleCategory.slice(1)}
+            </h1>
+            <div className='view'>
+              <button type='button' onClick={() => setView(!view)}>
+                {view ? (
+                  <img src={listIcon} alt="card" />
+                ) : (
+                  <img src={tableIcon} alt="card" />
+                )}
+              </button>
+            </div>
           </div>
-        </div>
 
 
-        <div className="cards">
-          {searchDishes.map(card => (
-            <div
-              key={card.id}
-              className={cn('card',
-                { 'cardList': !view },
-                { 'cardTable': view },
-                { 'active': currentCardId === card.id }
-              )}
-              onClick={() => toggleCard(card)}
-              style={{
-                backgroundImage: card.image_url && `url(${card.image_url})`
-              }}
-            >
+          <div className="cards">
+            {searchDishes.map(card => (
+              <div
+                key={card.id}
+                className={cn('card',
+                  { 'cardList': !view },
+                  { 'cardTable': view },
+                  { 'active': currentCardId === card.id }
+                )}
+                onClick={() => toggleCard(card)}
+                style={{
+                  backgroundImage: card.image_url && `url(${card.image_url})`
+                }}
+              >
 
-              <div className="card__content">
-                <div className="card__content-inner">
-                  <div className="card__title">{card.dish_name}</div>
-                  <div className="card__description">
-                    <ul className="ingredients">
-                      <li>
-                        <h2>Склад:</h2>
-                        <ul>
-                          {card.dish_ingredients.map((item, index) => (
-                            <div key={index}>
-                              <li >{`${item.ingredient.name} - ${item.quantity} ${item.ingredient.measure}`}</li>
-                              <hr />
-                            </div>
-                          ))}
-                        </ul>
-                        <ul>
-                          {card.dish_premixes.map((item, index) => (
-                            <>
-                              <li key={index}>{`${item.premix.name} - ${item.quantity}`}</li>
-                              <hr />
-                            </>
-                          ))}
-                        </ul>
-                      </li>
+                <div className="card__content">
+                  <div className="card__content-inner">
+                    <div className="card__title">{card.dish_name}</div>
+                    <div className="card__description">
+                      <ul className="ingredients">
+                        <li>
+                          <h2>Склад:</h2>
+                          <ul>
+                            {card.dish_ingredients.map((item, index) => (
+                              <div key={index}>
+                                <li >{`${item.ingredient.name} - ${item.quantity} ${item.ingredient.measure}`}</li>
+                                <hr />
+                              </div>
+                            ))}
+                          </ul>
+                          <ul>
+                            {card.dish_premixes.map((item, index) => (
+                              <>
+                                <li key={index}>{`${item.premix.name} - ${item.quantity}`}</li>
+                                <hr />
+                              </>
+                            ))}
+                          </ul>
+                        </li>
 
-                    </ul>
-                    <div className="description">
-                      <h2>Опис:</h2>
-                      {card.description}
-                    </div>
-                    <div className="btn-card">
-                      <Link to={`/detailsDish/${card.id}`} className="button is-info is-outlined is-rounded is-hover">
-                        Детальніше
-                      </Link>
+                      </ul>
+                      <div className="description">
+                        <h2>Опис:</h2>
+                        {card.description}
+                      </div>
+                      <div className="btn-card">
+                        <Link to={`/detailsDish/${card.id}`} className="button is-info is-outlined is-rounded is-hover">
+                          Детальніше
+                        </Link>
 
-                      {!!card.dish_to_sold ? (
-                        <button
-                          className="button is-success is-outlined is-rounded is-hover"
-                          onClick={() => patchDish({ id: card.id, dish_to_sold: false })}
-                        >
-                          Видалити з пріоритетних
-                        </button>) : (
-                        <button
-                          className="button is-warning is-outlined is-rounded is-hover"
-                          onClick={() => patchDish({ id: card.id, dish_to_sold: true })}
-                        >
-                          Додати в пріоритет
-                        </button>)}
-                      {!!card.stop_list ? (<button
-                        className="button is-danger is-outlined is-rounded is-hover"
-                        onClick={() => patchDish({ id: card.id, stop_list: false })}
-                      >
-                        Видалити з стоп листа
-                      </button>) : (
-                        <button
+                        {!!card.dish_to_sold ? (
+                          <button
+                            className="button is-success is-outlined is-rounded is-hover"
+                            onClick={() => patchDish({ id: card.id, dish_to_sold: false })}
+                          >
+                            Видалити з пріоритетних
+                          </button>) : (
+                          <button
+                            className="button is-warning is-outlined is-rounded is-hover"
+                            onClick={() => patchDish({ id: card.id, dish_to_sold: true })}
+                          >
+                            Додати в пріоритет
+                          </button>)}
+                        {!!card.stop_list ? (<button
                           className="button is-danger is-outlined is-rounded is-hover"
-                          onClick={() => patchDish({ id: card.id, stop_list: true })}
+                          onClick={() => patchDish({ id: card.id, stop_list: false })}
                         >
-                          Додати в стоп лист
-                        </button>)}
+                          Видалити з стоп листа
+                        </button>) : (
+                          <button
+                            className="button is-danger is-outlined is-rounded is-hover"
+                            onClick={() => patchDish({ id: card.id, stop_list: true })}
+                          >
+                            Додати в стоп лист
+                          </button>)}
+                      </div>
                     </div>
-                  </div>
 
+                  </div>
                 </div>
               </div>
-            </div>
-          )
-          )}
-        </div>
-      </div >)}
+            )
+            )}
+          </div>
+        </div >)}
     </div>
   );
 };

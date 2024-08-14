@@ -4,8 +4,8 @@ import { getAllIngredients, patchIngredient } from '../../../../utils/fetch';
 import './Ingredients.scss';
 import SearchSelect from '../../../utils/SearchSelect/SearchSelect';
 import { Loaderr } from '../../../utils/Loader/Loaderr';
-import useStore from '../../../../StoreZustand';
 import { convertToOptionsSelect, filteredItems } from '../../../utils/SearchSelect/SearchUtils';
+import useStore from '../../../../utils/Store';
 
 export function Ingredients() {
   const ingredients = useStore((state) => state.ingredients);

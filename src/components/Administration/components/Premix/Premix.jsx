@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import cn from 'classnames';
-import useStore from '../../../../../StoreZustand';
-import { createPremix, deletePremix, getAllIngredients, getAllPremixes } from '../../../../../utils/fetch';
-import { Loaderr } from '../../../../utils/Loader/Loaderr';
-import SearchSelect from '../../../../utils/SearchSelect/SearchSelect';
-import { convertToOptionsSelect, filteredItems } from '../../../../utils/SearchSelect/SearchUtils';
+import { createPremix, deletePremix, getAllIngredients, getAllPremixes } from '../../../../utils/fetch';
+import { Loaderr } from '../../../utils/Loader/Loaderr';
+import SearchSelect from '../../../utils/SearchSelect/SearchSelect';
+import { convertToOptionsSelect, filteredItems } from '../../../utils/SearchSelect/SearchUtils';
 import './Premix.scss';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import useStore from '../../../../utils/Store';
 
 
 
@@ -99,15 +99,15 @@ export function Premix() {
     //     }));
     //   return [...prevSelected, ...newIngredients];
     // });
-      const newIngredient ={
-          ingredient: {
-          id: selectedOption.id,
-          name: selectedOption.value,
-          measure: selectedOption.measure || 'кг',
-          },
-        ingredient_id: selectedOption.id,
-        quantity: selectedOption.quantity || 0,
-      };
+    const newIngredient = {
+      ingredient: {
+        id: selectedOption.id,
+        name: selectedOption.value,
+        measure: selectedOption.measure || 'кг',
+      },
+      ingredient_id: selectedOption.id,
+      quantity: selectedOption.quantity || 0,
+    };
     const ingredientTrue = !selectedIngredients.find((item) => item.ingredient_id === newIngredient.ingredient_id);
     if (ingredientTrue) {
       setSelectedIngredients((prevSelected) => [...prevSelected, newIngredient]);
@@ -223,7 +223,7 @@ export function Premix() {
                     <div className='field'>
                       <label className='label'>Назва:</label>
                       <div className='control container-input'>
-                          <input
+                        <input
                           type="text"
                           name="name"
                           className="input input-search is-medium is-rounded"
@@ -290,25 +290,25 @@ export function Premix() {
                         ))}
                       </ul>
                     </div>
-                      <div className='button-submit-prmix'>
-                        <button type="submit" className={cn('button', 'is-primary', { 'is-loading': loadingSubmit })}>Відправити</button>
-                        <button
-                          className={cn('button', { 'is-loading': loadingDelete })}
-                          type='button'
-                          onClick={() => {
-                            setLoadingDelete(true);
-                            deletePremix(premix.id).then(() => {
-                              setSearchPremixes((perv) => {
-                                return perv.filter((item) => item.id !== premix.id);
-                              });
-                              setLoadingDelete(false);
+                    <div className='button-submit-prmix'>
+                      <button type="submit" className={cn('button', 'is-primary', { 'is-loading': loadingSubmit })}>Відправити</button>
+                      <button
+                        className={cn('button', { 'is-loading': loadingDelete })}
+                        type='button'
+                        onClick={() => {
+                          setLoadingDelete(true);
+                          deletePremix(premix.id).then(() => {
+                            setSearchPremixes((perv) => {
+                              return perv.filter((item) => item.id !== premix.id);
                             });
-                          }}
-                        >
-                          Видалити
-                        </button>
-                        
-                      </div>
+                            setLoadingDelete(false);
+                          });
+                        }}
+                      >
+                        Видалити
+                      </button>
+
+                    </div>
                   </form>
                 )}
               </details>

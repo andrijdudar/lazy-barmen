@@ -16,6 +16,7 @@ export const Categories = () => {
 
   useEffect(() => {
     getAllCategories().then((data) => {
+      console.log(data);
       setCategories(data);
       setSearchCategories(data);
       setLoading(false);
@@ -39,10 +40,18 @@ export const Categories = () => {
 
   const delCategory = (id) => {
     deleteCategory(id)
-      const updatedCategories = categories.filter((category) => category.id !== id);
-      setCategories(updatedCategories);
-      setSearchCategories(filteredItems(updatedCategories, options));
-      stopEditing();
+    const updatedCategories = categories.filter((category) => category.id !== id);
+    setCategories(updatedCategories);
+    setSearchCategories(filteredItems(updatedCategories, options));
+    stopEditing();
+  };
+
+  const getParentCategory = (id) => {
+    const parentCategory = searchCategories.find((cat) => cat.id === id);
+    if (parentCategory) {
+      return parentCategory.name;
+    }
+    return 'Без батьківської категорії';
   };
 
   const options = useMemo(() => convertToOptionsSelect(categories), [categories]);
@@ -75,23 +84,25 @@ export const Categories = () => {
               <div className="editCategory">
                 <label className='label'>
                   Назва категорії:
-                  <input
-                    className='inputEdit input-search input is-rounded'
-                    type="text"
-                    value={editedName}
-                    onChange={(e) => setEditedName(e.target.value)}
-                  />
+                    <input
+                      className='inputEdit input-search input is-rounded'
+                      type="text"
+                      value={editedName}
+                      onChange={(e) => setEditedName(e.target.value)}
+                    />
                 </label>
                 <div className='searchSelectEdit'>
                   <label className='label'>
-                    Батьківська категорія:
-                    <SearchSelect
-                      options={options}
-                      // updateOptions={updateOptions}
-                      placeholder='Пошук батьківськї категорії...'
-                      selectOpen={true}
-                      path='/'
-                    />
+                    Батьківська категорія: {getParentCategory(category.parent_id)}
+                    <div className='searchContainer'>
+                      <SearchSelect
+                        options={options}
+                        // updateOptions={updateOptions}
+                        placeholder='Пошук батьківськї категорії...'
+                        selectOpen={true}
+                        path='/'
+                      />
+                    </div>
                   </label>
 
                 </div>

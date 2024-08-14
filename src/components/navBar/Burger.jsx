@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useStore from "../../StoreZustand";
+import useStore from "../../utils/Store";
 import "./Burger.css";
 import cn from "classnames";
 import { useLocation } from "react-router-dom";

@@ -2,9 +2,9 @@
 import { useEffect, useState } from 'react';
 // import { useLocalStorage } from '../../utils/useLocalStorege';
 import './StopList.css';
-import useStore from '../../StoreZustand';
-import { getDishesInStopList } from '../../utils/fetch';
+// import { getDishesInStopList } from '../../utils/fetch';
 import { Loaderr } from '../utils/Loader/Loaderr';
+import useStore from '../../utils/Store';
 
 
 const StopList = () => {
@@ -12,15 +12,15 @@ const StopList = () => {
   // const [fewDishesLS, setFewDishesLS] = useLocalStorage('fewDishes', []);
   // const [dishesToBeSoldLS, setDishesToBeSoldLS] = useLocalStorage('dishesToBeSold', []);
   const fewDishes = useStore((state) => state.fewDishes);
-  const setFewDishes = useStore((state) => state.setFewDishes);
+  // const setFewDishes = useStore((state) => state.setFewDishes);
 
   const stopList = useStore((state) => state.stopList);
-  const setStopList = useStore((state) => state.setStopList);
+  // const setStopList = useStore((state) => state.setStopList);
 
   const dishesToBeSold = useStore((state) => state.dish_to_sold);
-  const setDishToSold = useStore((state) => state.setDishToSold);
+  // const setDishToSold = useStore((state) => state.setDishToSold);
 
-  const [loader, setLoader] = useState(false)
+  const [loader] = useState(false)
 
   useEffect(() => {
     // const fetchDishesInStopList = async () => {
@@ -37,18 +37,18 @@ const StopList = () => {
     // };
 
     // fetchDishesInStopList();
-    setLoader(true)
-    getDishesInStopList()
-      .then((res) => {
-        // console.log(res);
-        // setStopListLS(res);
-        setStopList(res.stop_list);
-        setFewDishes(res.runing_out);
-        setDishToSold(res.need_to_sold);
+    // setLoader(true)
+    // getDishesInStopList()
+    //   .then((res) => {
+    //     // console.log(res);
+    //     // setStopListLS(res);
+    //     setStopList(res.stop_list);
+    //     setFewDishes(res.runing_out);
+    //     setDishToSold(res.need_to_sold);
 
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoader(false));
+    //   })
+    //   .catch((err) => console.log(err))
+    //   .finally(() => setLoader(false));
 
     // getDishesToBeSold()
     //   .then((res) => {

@@ -1,22 +1,22 @@
 
-// export const SERVER_URL = 'https://ago-ago-8570935a.koyeb.app';
-export const SERVER_URL = 'https://30d8-194-44-160-206.ngrok-free.app';
+export const SERVER_URL = 'https://ago-ago-8570935a.koyeb.app';
+// export const SERVER_URL = 'https://30d8-194-44-160-206.ngrok-free.app';
 // const accessToken = localStorage.getItem('access_token');
 // const refreshToken = localStorage.getItem('refresh_token');
 
 const handleResponse = async (response) => {
-  if (response.status === 401) {
-    const refreshResponse = await fetch(SERVER_URL + '/api/auth/refresh_token', {
-      method: 'GET',
-      credentials: 'include',
-    });
+  // if (response.status === 401) {
+  //   const refreshResponse = await fetch(SERVER_URL + '/api/auth/refresh_token', {
+  //     method: 'GET',
+  //     credentials: 'include',
+  //   });
 
-    if (!refreshResponse.ok) {
-      window.location.href = '/login';
-      throw new Error('Помилка авторизації. Не вдалося оновити токен.');
-    }
-    return await refreshResponse.json();
-  }
+  //   if (!refreshResponse.ok) {
+  //     window.location.href = '/login';
+  //     throw new Error('Помилка авторизації. Не вдалося оновити токен.');
+  //   }
+  //   return await refreshResponse.json();
+  // }
 
 
   if (!response.ok) {
@@ -72,11 +72,11 @@ export const client = {
   async get(url) {
     try {
       const response = await fetch(SERVER_URL + url, {
-        method: "get",
+        method: "GET",
         credentials: 'include',
         headers: new Headers({
           // 'Authorization': `Bearer ${accessToken}`,
-          "ngrok-skip-browser-warning": "69420",
+          // "ngrok-skip-browser-warning": "69420",
         }),
       });
       return await handleResponse(response);
@@ -155,7 +155,7 @@ export const client = {
         method: 'DELETE',
         credentials: 'include',
         // headers: {
-          // 'Authorization': `Bearer ${accessToken}`,
+        // 'Authorization': `Bearer ${accessToken}`,
         // },
       });
       return await handleResponse(response);

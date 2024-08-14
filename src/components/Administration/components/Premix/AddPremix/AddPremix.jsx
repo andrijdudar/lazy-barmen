@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { createPremix, getAllIngredients } from '../../../../../../utils/fetch';
-import SearchSelect from '../../../../../utils/SearchSelect/SearchSelect';
-import { convertToOptionsSelect, filteredItems } from '../../../../../utils/SearchSelect/SearchUtils';
+import { createPremix, getAllIngredients } from '../../../../../utils/fetch';
+import SearchSelect from '../../../../utils/SearchSelect/SearchSelect';
+import { convertToOptionsSelect, filteredItems } from '../../../../utils/SearchSelect/SearchUtils';
 import './AddPremix.scss';
-import { Loaderr } from '../../../../../utils/Loader/Loaderr';
+import { Loaderr } from '../../../../utils/Loader/Loaderr';
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 

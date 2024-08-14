@@ -2,6 +2,30 @@ import React, { useEffect, useState } from 'react';
 import './AddDish.scss';
 import { getAllDishes } from '../../../../utils/fetch';
 
+// const testDishe = {
+//   "dish_name": "string",
+//   "description": "string",
+//   "ingredients": [
+//     {
+//       "id": 0,
+//       "name": "string",
+//       "quantity": 0
+//     }
+//   ],
+//   "premixes": [
+//     {
+//       "id": 0,
+//       "name": "string",
+//       "quantity": 0
+//     }
+//   ],
+//   "tags": [
+//     "string"
+//   ],
+//   "category": "string",
+//   "price": 0
+// }
+
 export const AddDish = () => {
   const [dishes, setDishes] = useState([]);
   const [editingDishId, setEditingDishId] = useState(null);
@@ -16,8 +40,8 @@ export const AddDish = () => {
     price: 0,
   });
   const [isAdding, setIsAdding] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  // const [successMessage, setSuccessMessage] = useState('');
+  // const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     getAllDishes()
@@ -110,8 +134,8 @@ export const AddDish = () => {
   return (
     <div className="dish-list-container">
       <h2>Список страв</h2>
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {/* {successMessage && <p className="success-message">{successMessage}</p>} */}
+      {/* {errorMessage && <p className="error-message">{errorMessage}</p>} */}
       <button className="button" onClick={handleAddNew}>
         Додати нову страву
       </button>

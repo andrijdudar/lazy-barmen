@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import './Administration.scss';
-import { SideBarAdmin } from './components/SideBarAdmin/SideBarAdmin';
 import { useEffect, useRef, useState } from 'react';
+import { SideBarAdmin } from './components/SideBarAdmin/SideBarAdmin';
 
 
 export function Administration() {

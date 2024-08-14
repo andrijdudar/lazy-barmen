@@ -1,14 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import './SideBar.css';
-// import { useNavigate } from 'react-router-dom';
-import useStore from "../../StoreZustand";
 import SearchSelect from '../utils/SearchSelect/SearchSelect';
 import cn from 'classnames';
 import { getAllCategories } from '../../utils/fetch';
 import { Loaderr } from '../utils/Loader/Loaderr';
 import { useLocation } from 'react-router-dom';
 import { convertToOptionsSelect, filteredItems } from '../utils/SearchSelect/SearchUtils';
+import useStore from '../../utils/Store';
 
 
 function SideBar() {

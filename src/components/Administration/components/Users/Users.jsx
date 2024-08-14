@@ -174,7 +174,7 @@ export function Users() {
                       checked={editedUser.forward_provider_message}
                       onChange={handleCheckboxChange}
                     />
-                  Пересилання повідомлень
+                    Пересилання повідомлень
                   </label>
                 </div>
                 <div className="buttons-container">
