@@ -165,7 +165,7 @@ export const Login = () => {
       <div className="container-logo">
         <CustomAlert
           massage="Дякуємо за реєстрацію. На ваш email відправлено лист для підтвердження та посилання на наш телеграм бот"
-          link="https://mail.google.com"
+          link="https://plotnikov.evgenij@ukr.net"
           buttonText="Перевірити пошту"
         />
         <div className="row full-height justify-content-center">
