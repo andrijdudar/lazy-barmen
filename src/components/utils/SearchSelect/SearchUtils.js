@@ -7,6 +7,6 @@ export const filteredItems = (items, options) => {
 export const convertToOptionsSelect = (obg) => {
   return obg.map((value) => ({
     id: value.id,
-    value: value.name || value.dish_name,
+    value: value.name || value.dish_name || value.name_tag,
   }));
 };

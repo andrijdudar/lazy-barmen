@@ -56,8 +56,8 @@ const App = () => {
   return (
     <div className="App">
       <NavBar />
-      <h1>HELLO</h1>
       <div className="conten">
+        <h1>hi</h1>
         <Outlet />
       </div>
       <Footer />

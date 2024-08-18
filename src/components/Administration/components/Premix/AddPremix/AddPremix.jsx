@@ -6,6 +6,7 @@ import './AddPremix.scss';
 import { Loaderr } from '../../../../utils/Loader/Loaderr';
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
+import IconDelete from '../../../../../img/delete-forever-24px.svg'
 
 export function AddPremix() {
   const [ingredients, setIngredients] = useState([]);
@@ -42,20 +43,6 @@ export function AddPremix() {
 
   const handleIngredientSelect = (selectedOption) => {
     selectedOption.length && setHesErrorIngredients(false);
-
-
-    // setSelectedIngredients((prevSelected) => {
-    //   const prevIds = new Set(prevSelected.map(item => item.id));
-    //   const newIngredients = selectedIngredients
-    //     .filter(option => !prevIds.has(option.id))
-    //     .map(option => ({
-    //       id: option.id,
-    //       name: option.value,
-    //       measure: ingredients.find(ingredient => ingredient.id === option.id).measure,
-    //       quantity: 1, // Default quantity
-    //     }));
-    //   return [...prevSelected, ...newIngredients];
-    // });
     const newIngredient = {
       ingredient: {
         id: selectedOption.id,
@@ -172,11 +159,11 @@ export function AddPremix() {
                 {/* <p>{ingredient.name}</p> */}
                 <li className='control'>
                   <div className='control'>
-                    <label className='label-ingredient'>{ingredient.name}</label>
+                    <label className='label-ingredient'>{ingredient.ingredient.name}</label>
                     <div className='control-end'>
                       <input
                         type="number"
-                        className="input-edit-premix"
+                        className="input-edit-premix input-search"
                         value={ingredient.quantity}
                         onChange={(e) => {
                           handleIngredientQuantityChange(ingredient.id, parseFloat(e.target.value));
@@ -185,13 +172,13 @@ export function AddPremix() {
                       <div className='ingredient-measure'>{ingredient.measure}</div>
                       <button
                         type="button"
-                        className='icon-delete-ingredient'
+                        className='icon-delete-ingredient button'
                         onClick={() => {
                           const filtredIngredients = selectedIngredients.filter((item) => item.id !== ingredient.id);
                           setSelectedIngredients(filtredIngredients);
                         }}
                       >
-                        <i className='icon delete'></i>
+                        <img src={IconDelete} alt="delete" width={20} />
                       </button>
                     </div>
                   </div>
