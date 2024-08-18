@@ -22,6 +22,12 @@ const App = () => {
   // const setTokenType = useStoreAuth((state) => state.setTokenType);
 
   useEffect(() => {
+
+
+
+
+
+
     // const refreshToken = localStorage.getItem('refreshToken');
     // const tokenType = localStorage.getItem('tokenType');
     // const accessToken = localStorage.getItem('accessToken');
@@ -60,7 +66,7 @@ const App = () => {
         <Outlet />
       </div>
       <Footer />
-    </div>
+    </div >
   );
 };
 

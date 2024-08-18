@@ -1,7 +1,9 @@
 import { create } from "zustand";
 
 const useStoreAuth = create((set) => ({
-  formLogin: true,
+
+
+  formLogin: false,
   setFormLogin: (formLogin) => set({ formLogin }),
 
   user: null,
@@ -15,6 +17,7 @@ const useStoreAuth = create((set) => ({
 
   token_type: JSON.parse(localStorage.getItem('token_type')) | null,
   setTokenType: (token_type) => set({ token_type }),
+
 }));
 
 export default useStoreAuth;

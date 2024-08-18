@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
 import { getCurentUser, googleAutorization, SignUp } from '../../../utils/fetch';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import useStoreAuth from '../../../utils/StoreAuth';
+import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
 
 
 export const Login = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   // const user = useStoreAuth((state) => state.user);
   const setUser = useStoreAuth((state) => state.setUser);
@@ -22,8 +23,8 @@ export const Login = () => {
   // const setRefreshToken = useStore((state) => state.setRefreshToken);
   // const setTokenType = useStore((state) => state.setTokenType);
 
-  const handleLogin = () => {
-    navigate('./test')
+  // const handleLogin = () => {
+  //   navigate('./test')
     // if (inputEmail === '' || inputPassword === '') {
     //   alert('Заповніть всі поля');
     //   return;
@@ -59,7 +60,7 @@ export const Login = () => {
     //   }
     // });
     // setFormLogin(true);
-  }
+  // }
 
   const handleRegistration = () => {
     if (inputName === '' || inputLastName === '' || inputEmail === '' || inputPassword === '') {
@@ -153,10 +154,20 @@ export const Login = () => {
       // }
     });
   }
-
+  function showAlert() {
+    const alertBox = document.getElementById('custom-alert');
+    if (alertBox) {
+      alertBox.classList.add('show');
+    }
+  }
   return (
     <div className="section">
       <div className="container-logo">
+        <CustomAlert
+          massage="Дякуємо за реєстрацію. На ваш email відправлено лист для підтвердження та посилання на наш телеграм бот"
+          link="https://mail.google.com"
+          buttonText="Перевірити пошту"
+        />
         <div className="row full-height justify-content-center">
           <div className="col-12 text-center align-self-center py-5">
             <div className="section pb-5 pt-5 pt-sm-2 text-center">
@@ -217,7 +228,13 @@ export const Login = () => {
                           />
                           <i className="input-icon uil uil-lock-alt"></i>
                         </div>
-                        <a href="#/" className="btn-login mt-4" onClick={handleLogin}>Увійти</a>
+                        <button
+                          type='button'
+                          className="btn-login mt-4"
+                          onClick={() => showAlert()}
+                        >
+                          Увійти
+                        </button>
                         <a
                           href="#/"
                           className="btn-login mt-4"
