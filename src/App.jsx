@@ -57,7 +57,6 @@ const App = () => {
     <div className="App">
       <NavBar />
       <div className="conten">
-        <h1>hi</h1>
         <Outlet />
       </div>
       <Footer />
