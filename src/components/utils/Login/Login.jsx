@@ -165,7 +165,7 @@ export const Login = () => {
       <div className="container-logo">
         <CustomAlert
           massage="Дякуємо за реєстрацію. На ваш email відправлено лист для підтвердження та посилання на наш телеграм бот"
-          link="https://plotnikov.evgenij@ukr.net"
+          link="https://www.google.com/search?q=%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BD%D0%BD%D0%B0+%D0%BF%D0%BE%D1%88%D1%82%D0%B0&sca_esv=3586d42fed26ceb9&sxsrf=ADLYWILaOwZnwhtt3Q-kYpCOmoF4PidVLQ%3A1724018679391&source=hp&ei=92_CZp2nFbH7wPAPuojF2Ak&iflsig=AL9hbdgAAAAAZsJ-B2NFmF8gXhbSLnptvMFnaWm-nmvH&oq=%D0%B5%D0%BB%D0%BA%D1%83%D1%82%D1%80%D0%BE%D0%BD%D0%B0&gs_lp=Egdnd3Mtd2l6IhLQtdC70LrRg9GC0YDQvtC90LAqAggBMgoQABiABBixAxgNMgoQABiABBixAxgNMgcQABiABBgNMgoQABiABBixAxgNMgoQABiABBixAxgNMgoQABiABBixAxgNMgcQABiABBgNMgcQABiABBgNMgcQABiABBgNMg0QABiABBixAxiDARgNSLdlUJADWKJYcAd4AJABAJgBYKAB0wqqAQIxNbgBAcgBAPgBAZgCFqACnQuoAgrCAgcQIxgnGOoCwgIKECMYgAQYJxiKBcICBBAjGCfCAg4QLhiABBixAxjRAxjHAcICFxAuGIAEGLEDGIMBGMcBGJgFGJkFGK8BwgIREC4YgAQYsQMY0QMYgwEYxwHCAgUQABiABMICCxAAGIAEGLEDGIMBwgIOEAAYgAQYsQMYgwEYigXCAggQLhiABBixA8ICCBAAGIAEGLEDwgILEC4YgAQYsQMYgwHCAgsQLhiABBjRAxjHAcICEBAAGIAEGLEDGIMBGIoFGArCAgsQLhiABBjHARivAcICBxAAGIAEGArCAg0QLhiABBjRAxjHARgKwgIFEC4YgATCAgwQIxiABBgTGCcYigXCAg4QLhiABBixAxiDARiKBcICDhAuGIAEGLEDGMcBGK8BwgIEEAAYA8ICChAAGIAEGLEDGAqYAwSSBwQyMC4yoAf0qQE&sclient=gws-wiz"
           buttonText="Перевірити пошту"
         />
         <div className="row full-height justify-content-center">
