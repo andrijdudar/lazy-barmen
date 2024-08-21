@@ -25,41 +25,41 @@ export const Login = () => {
 
   // const handleLogin = () => {
   //   navigate('./test')
-    // if (inputEmail === '' || inputPassword === '') {
-    //   alert('Заповніть всі поля');
-    //   return;
-    // }
+  // if (inputEmail === '' || inputPassword === '') {
+  //   alert('Заповніть всі поля');
+  //   return;
+  // }
 
-    // const data = {
-    //   email: inputEmail,
-    //   password: inputPassword //str(min_length = 6)
-    // };
+  // const data = {
+  //   email: inputEmail,
+  //   password: inputPassword //str(min_length = 6)
+  // };
 
-    // SignIn(data).then((res) => {
-    //   console.log(res);
-    //   if (res.status === 200) {
-    //     alert('Ви успішно увійшли');
-    //     getCurentUser().then((res) => {
-    //       console.log(res);
-    //       if (res.status === 200) {
-    //         setUser(res.data);
-    //       }
-    //     });
-    //     // if (res.refresh_token) {
-    //     //   localStorage.setItem('refresh_token', res.refresh_token);
-    //     //   setRefreshToken(res.refresh_token);
-    //     // }
-    //     // if (res.access_token) {
-    //     //   localStorage.setItem('access_token', res.access_token);
-    //     //   setAccessToken(res.access_token);
-    //     // }
-    //     // if (res.token_type) {
-    //     //   localStorage.setItem('token_type', res.token_type);
-    //     //   setTokenType(res.token_type);
-    //     // }
-    //   }
-    // });
-    // setFormLogin(true);
+  // SignIn(data).then((res) => {
+  //   console.log(res);
+  //   if (res.status === 200) {
+  //     alert('Ви успішно увійшли');
+  //     getCurentUser().then((res) => {
+  //       console.log(res);
+  //       if (res.status === 200) {
+  //         setUser(res.data);
+  //       }
+  //     });
+  //     // if (res.refresh_token) {
+  //     //   localStorage.setItem('refresh_token', res.refresh_token);
+  //     //   setRefreshToken(res.refresh_token);
+  //     // }
+  //     // if (res.access_token) {
+  //     //   localStorage.setItem('access_token', res.access_token);
+  //     //   setAccessToken(res.access_token);
+  //     // }
+  //     // if (res.token_type) {
+  //     //   localStorage.setItem('token_type', res.token_type);
+  //     //   setTokenType(res.token_type);
+  //     // }
+  //   }
+  // });
+  // setFormLogin(true);
   // }
 
   const handleRegistration = () => {
@@ -323,4 +323,5 @@ export const Login = () => {
       </div>
     </div>
   );
-}
+};
+
