@@ -107,7 +107,7 @@ console.log(searchParams, 'searchParams');
       // window.location.href = '/dashboard';
     }
 
-    sendToken().then((res) => {
+    sendToken(searchParams.substr(1)).then((res) => {
       console.log(res);
     });
   }, [location]);
