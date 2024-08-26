@@ -20,8 +20,9 @@ const handleResponse = async (response) => {
 
 
   if (!response.ok) {
-    console.log('Дані з сервера не отримано');
-    throw new Error('Дані з сервера не отримано');
+    console.log('помилка');
+    // console.log('Дані з сервера не отримано');
+    // throw new Error('Дані з сервера не отримано');
   }
 
   // if (response.status === 401) {
