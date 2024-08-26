@@ -20,7 +20,7 @@ export const Login = () => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
-  // const location = useLocation();
+  const location = useLocation();
 
   useEffect(() => {
     // function send() {
@@ -94,23 +94,23 @@ export const Login = () => {
 
 
     // Тут перевіряємо, чи є у URL потрібні параметри
-    // const searchParams = new URLSearchParams(location.search);
+    const searchParams = new URLSearchParams(location.search);
+
+    const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
+    // // const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
+
+    if (token) {
+      console.log('Token:', token);
+      // Ти можеш зберегти токен у localStorage або в контексті
+      localStorage.setItem('token', token);
+      // Додатково можна зробити редирект на іншу сторінку
+      // window.location.href = '/dashboard';
+    }
+
     sendToken().then((res) => {
       console.log(res);
     });
-    // const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
-    // // const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
-
-    // if (token) {
-    //   console.log('Token:', token);
-    //   // Ти можеш зберегти токен у localStorage або в контексті
-    //   localStorage.setItem('token', token);
-    //   // Додатково можна зробити редирект на іншу сторінку
-    //   // window.location.href = '/dashboard';
-    // }
-
-
-  }, []);
+  }, [location]);
 
   // const setAccessToken = useStore((state) => state.setAccessToken);
   // const setRefreshToken = useStore((state) => state.setRefreshToken);
