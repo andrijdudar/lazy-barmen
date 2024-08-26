@@ -128,7 +128,7 @@ export const Login = () => {
     // nsvigate('/test-page');
 
     googleAutorization().then((res) => {
-      console.log(res, 'googleAutorization');
+      console.log(res || 'no data');
       console.table(res);
       window.location.href = res.location
 
