@@ -130,7 +130,7 @@ export const Login = () => {
     googleAutorization().then((res) => {
       console.log(res || 'no data');
       console.table(res);
-      window.location.href = res.location.href;
+      window.location.href = "https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=281094189618-bhuu95f4r37sp7crc1tr5lt6ae4g9ksh.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fandrijdudar.github.io%2Flazy-barmen&scope=openid+email+profile&state=kulPcEd9gNvgFGtblNLq1wXagllQNQ&nonce=uuQ7srJLZ3ra53hpuRtw";
 
       // if (res.status === 200) {
       //   alert('Ви успішно увійшли');
