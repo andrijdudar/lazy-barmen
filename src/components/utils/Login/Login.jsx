@@ -127,12 +127,12 @@ export const Login = () => {
     // setFormLogin(true);
     // nsvigate('/test-page');
 
-    googleAutorization().then((res) => {
-      console.log(res || 'no data');
-      console.table(res);
-      const googleAuthUrl = res.url;
-      console.log(googleAuthUrl);
-      // window.location.href = googleAuthUrl;
+    window.location.href = 'https://3489-194-44-160-206.ngrok-free.apppath/api/auth/google_login';
+    // googleAutorization().then((res) => {
+    //   console.log(res || 'no data');
+    //   console.table(res);
+    //   const googleAuthUrl = res.url;
+    //   console.log(googleAuthUrl);
 
       // if (res.status === 200) {
       //   alert('Ви успішно увійшли');
@@ -157,7 +157,7 @@ export const Login = () => {
       //   localStorage.setItem('token_type', res.token_type);
       //   setTokenType(res.token_type);
       // }
-    });
+    // });
   }
   function showAlert() {
     const alertBox = document.getElementById('custom-alert');
