@@ -36,10 +36,36 @@ export const Login = () => {
       }
       req.withCredentials = true;
       req.responseType = 'json';
-      req.open("get", "/api/auth/token?" + window.location.search.substr(1), true);
+      req.open("get", "https://3489-194-44-160-206.ngrok-free.app/api/auth/token?" + window.location.search.substr(1), true);
       req.send("");
 
     }
+
+
+
+    // function send() {
+    //   var req = new XMLHttpRequest();
+    //   req.onreadystatechange = function () {
+    //     if (req.readyState === 4) { // Запит завершено
+    //       if (req.status === 200) { // Перевірка статусу HTTP відповіді
+    //         const response = req.response;
+    //         if (response.result === true) { // Перевірка результату
+    //           window.localStorage.setItem('jwt', response.access_token);
+    //           window.localStorage.setItem('refresh', response.refresh_token);
+    //         } else {
+    //           console.error('Authentication failed');
+    //         }
+    //       } else {
+    //         console.error('Request failed with status:', req.status);
+    //       }
+    //     }
+    //   };
+
+    //   req.withCredentials = true; // Включення відправки куків
+    //   req.responseType = 'json'; // Встановлення типу відповіді
+    //   req.open("GET", "/api/auth/token?" + window.location.search.substr(1), true);
+    //   req.send();
+    // }
     send();
 
 
