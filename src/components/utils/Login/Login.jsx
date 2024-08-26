@@ -19,6 +19,8 @@ export const Login = () => {
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+
+  
   const location = useLocation();
 
   useEffect(() => {
