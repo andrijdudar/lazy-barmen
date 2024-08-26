@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
-import { getCurentUser, googleAutorization, SignUp } from '../../../utils/fetch';
+import { getCurentUser, SignUp } from '../../../utils/fetch';
 // import { useNavigate } from 'react-router-dom';
 import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 
 export const Login = () => {
@@ -20,22 +20,46 @@ export const Login = () => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
-  const location = useLocation();
+  // const location = useLocation();
 
   useEffect(() => {
-    // Тут перевіряємо, чи є у URL потрібні параметри
-    const searchParams = new URLSearchParams(location.search);
-    const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
-    // const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
+    function send() {
+      var req = new XMLHttpRequest();
+      req.onreadystatechange = function () {
+        if (req.readyState === 4) {
+          console.log(req.response);
+          if (req.response["result"] === true) {
+            window.localStorage.setItem('jwt', req.response["access_token"]);
+            window.localStorage.setItem('refresh', req.response["refresh_token"]);
+          }
+        }
+      }
+      req.withCredentials = true;
+      req.responseType = 'json';
+      req.open("get", "/api/auth/token?" + window.location.search.substr(1), true);
+      req.send("");
 
-    if (token) {
-      console.log('Token:', token);
-      // Ти можеш зберегти токен у localStorage або в контексті
-      localStorage.setItem('token', token);
-      // Додатково можна зробити редирект на іншу сторінку
-      // window.location.href = '/dashboard';
     }
-  }, [location]);
+    send();
+
+
+
+    // // Тут перевіряємо, чи є у URL потрібні параметри
+    // const searchParams = new URLSearchParams(location.search);
+    // const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
+    // // const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
+
+    // if (token) {
+    //   console.log('Token:', token);
+    //   // Ти можеш зберегти токен у localStorage або в контексті
+    //   localStorage.setItem('token', token);
+    //   // Додатково можна зробити редирект на іншу сторінку
+    //   // window.location.href = '/dashboard';
+    // }
+
+
+  // }, [location]);
+  }, []);
 
   // const setAccessToken = useStore((state) => state.setAccessToken);
   // const setRefreshToken = useStore((state) => state.setRefreshToken);
