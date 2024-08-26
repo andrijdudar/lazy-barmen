@@ -1,11 +1,10 @@
 
 // export const SERVER_URL = 'https://ago-ago-8570935a.koyeb.app';
-export const SERVER_URL = 'https://3489-194-44-160-206.ngrok-free.app';
+export const SERVER_URL = 'https://5fd0-194-44-160-206.ngrok-free.app';
 // const accessToken = localStorage.getItem('access_token');
 // const refreshToken = localStorage.getItem('refresh_token');
 
 const handleResponse = async (response) => {
-  console.log('response', response);
   // if (response.status === 401) {
   //   const refreshResponse = await fetch(SERVER_URL + '/api/auth/refresh_token', {
   //     method: 'GET',
@@ -26,47 +25,47 @@ const handleResponse = async (response) => {
     // throw new Error('Дані з сервера не отримано');
   }
 
-  // if (response.status === 401) {
-  //   console.log('Помилка авторизації');
+  if (response.status === 401) {
+    console.log('Помилка авторизації');
 
-  //   const refreshResponse = await fetch(SERVER_URL + '/api/auth/refresh_token', {
-  //     method: "GET",
-  //     headers: new Headers({
-  //       'Authorization': `Bearer ${refreshToken}`,
-  //       "ngrok-skip-browser-warning": "69420",
-  //     }),
-  //     credentials: 'include',
-  //   });
+    const refreshResponse = await fetch(SERVER_URL + '/api/auth/refresh_token', {
+      method: "GET",
+      headers: new Headers({
+        'Authorization': `Bearer ${refreshToken}`,
+        "ngrok-skip-browser-warning": "69420",
+      }),
+      credentials: 'include',
+    });
 
-  //   if (!refreshResponse.ok) {
-  //     console.log('Помилка оновлення токена. Потрібно залогінитись заново.');
+    if (!refreshResponse.ok) {
+      console.log('Помилка оновлення токена. Потрібно залогінитись заново.');
 
-  //     localStorage.removeItem('accessToken');
-  //     localStorage.removeItem('refreshToken');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
 
-  //     // Перенаправляємо користувача на сторінку логіну
-  //     window.location.href = 'https://andrijdudar.github.io/lazy-barmen/'; // Замініть на правильний шлях до сторінки логіну
-  //     return;
-  //   }
+      // Перенаправляємо користувача на сторінку логіну
+      window.location.href = 'https://andrijdudar.github.io/lazy-barmen/'; // Замініть на правильний шлях до сторінки логіну
+      return;
+    }
 
-  //   const refreshData = await refreshResponse.json();
+    const refreshData = await refreshResponse.json();
 
-  //   localStorage.setItem('access_token', refreshData.access_token);
-  //   localStorage.setItem('refresh_token', refreshData.refresh_token);
-  //   localStorage.setItem('token_type', refreshData.token_type);
+    localStorage.setItem('access_token', refreshData.access_token);
+    localStorage.setItem('refresh_token', refreshData.refresh_token);
+    localStorage.setItem('token_type', refreshData.token_type);
 
-  //   const retryResponse = await fetch(response.url, {
-  //     method: response.config.method,
-  //     headers: {
-  //       ...response.config.headers,
-  //       'Authorization': `Bearer ${refreshData.access_token}`,
-  //     },
-  //     body: response.config.body,
-  //     credentials: 'include',
-  //   });
+    const retryResponse = await fetch(response.url, {
+      method: response.config.method,
+      headers: {
+        ...response.config.headers,
+        'Authorization': `Bearer ${refreshData.access_token}`,
+      },
+      body: response.config.body,
+      credentials: 'include',
+    });
 
-  //   return await handleResponse(retryResponse);
-  // }
+    return await handleResponse(retryResponse);
+  }
   return await response.json();
 }
 

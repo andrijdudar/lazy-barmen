@@ -95,7 +95,7 @@ export const Login = () => {
 
     // Тут перевіряємо, чи є у URL потрібні параметри
     const searchParams = new URLSearchParams(location.search);
-
+console.log(searchParams, 'searchParams');
     const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
     // // const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
 
