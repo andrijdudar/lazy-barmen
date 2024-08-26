@@ -73,6 +73,7 @@ export const client = {
     try {
       const response = await fetch(SERVER_URL + url, {
         method: "GET",
+        mode: 'no-cors',
         credentials: 'include',
         headers: new Headers({
           // 'Authorization': `Bearer ${accessToken}`,
