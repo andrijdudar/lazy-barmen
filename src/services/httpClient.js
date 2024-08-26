@@ -25,48 +25,48 @@ const handleResponse = async (response) => {
     // throw new Error('Дані з сервера не отримано');
   }
 
-  if (response.status === 401) {
-    console.log('Помилка авторизації');
+  // if (response.status === 401) {
+  //   console.log('Помилка авторизації');
 
-    const refreshResponse = await fetch(SERVER_URL + '/api/auth/refresh_token', {
-      method: "GET",
-      headers: new Headers({
-        'Authorization': `Bearer ${refreshToken}`,
-        "ngrok-skip-browser-warning": "69420",
-      }),
-      credentials: 'include',
-    });
+  //   const refreshResponse = await fetch(SERVER_URL + '/api/auth/refresh_token', {
+  //     method: "GET",
+  //     headers: new Headers({
+  //       'Authorization': `Bearer ${refreshToken}`,
+  //       "ngrok-skip-browser-warning": "69420",
+  //     }),
+  //     credentials: 'include',
+  //   });
 
-    if (!refreshResponse.ok) {
-      console.log('Помилка оновлення токена. Потрібно залогінитись заново.');
+  //   if (!refreshResponse.ok) {
+  //     console.log('Помилка оновлення токена. Потрібно залогінитись заново.');
 
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
+  //     localStorage.removeItem('accessToken');
+  //     localStorage.removeItem('refreshToken');
 
-      // Перенаправляємо користувача на сторінку логіну
-      window.location.href = 'https://andrijdudar.github.io/lazy-barmen/'; // Замініть на правильний шлях до сторінки логіну
-      return;
-    }
+  //     // Перенаправляємо користувача на сторінку логіну
+  //     window.location.href = 'https://andrijdudar.github.io/lazy-barmen/'; // Замініть на правильний шлях до сторінки логіну
+  //     return;
+  //   }
 
-    const refreshData = await refreshResponse.json();
+  //   const refreshData = await refreshResponse.json();
 
-    localStorage.setItem('access_token', refreshData.access_token);
-    localStorage.setItem('refresh_token', refreshData.refresh_token);
-    localStorage.setItem('token_type', refreshData.token_type);
+  //   localStorage.setItem('access_token', refreshData.access_token);
+  //   localStorage.setItem('refresh_token', refreshData.refresh_token);
+  //   localStorage.setItem('token_type', refreshData.token_type);
 
-    const retryResponse = await fetch(response.url, {
-      method: response.config.method,
-      headers: {
-        ...response.config.headers,
-        'Authorization': `Bearer ${refreshData.access_token}`,
-      },
-      body: response.config.body,
-      credentials: 'include',
-    });
+  //   const retryResponse = await fetch(response.url, {
+  //     method: response.config.method,
+  //     headers: {
+  //       ...response.config.headers,
+  //       'Authorization': `Bearer ${refreshData.access_token}`,
+  //     },
+  //     body: response.config.body,
+  //     credentials: 'include',
+  //   });
 
-    return await handleResponse(retryResponse);
-  }
-  return await response.json();
+  //   return await handleResponse(retryResponse);
+  // }
+  // return await response.json();
 }
 
 export const client = {
