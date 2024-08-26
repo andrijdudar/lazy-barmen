@@ -127,7 +127,7 @@ export const Login = () => {
     // setFormLogin(true);
     // nsvigate('/test-page');
 
-    window.location.href = 'https://3489-194-44-160-206.ngrok-free.apppath/api/auth/google_login';
+    window.location.href = 'https://3489-194-44-160-206.ngrok-free.app/api/auth/google_login';
     // googleAutorization().then((res) => {
     //   console.log(res || 'no data');
     //   console.table(res);
