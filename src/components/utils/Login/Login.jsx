@@ -23,23 +23,46 @@ export const Login = () => {
   // const location = useLocation();
 
   useEffect(() => {
-    function send() {
-      var req = new XMLHttpRequest();
-      req.onreadystatechange = function () {
-        if (req.readyState === 4) {
-          console.log(req.response);
-          if (req.response["result"] === true) {
-            window.localStorage.setItem('jwt', req.response["access_token"]);
-            window.localStorage.setItem('refresh', req.response["refresh_token"]);
-          }
-        }
-      }
-      req.withCredentials = true;
-      req.responseType = 'json';
-      req.open("get", "https://3489-194-44-160-206.ngrok-free.app/api/auth/token?" + window.location.search.substr(1), true);
-      req.send("");
+    // function send() {
+    //   var req = new XMLHttpRequest();
+    //   req.onreadystatechange = function () {
+    //     if (req.readyState === 4) {
+    //       console.log(req.response);
+    //       if (req.response["result"] === true) {
+    //         window.localStorage.setItem('jwt', req.response["access_token"]);
+    //         window.localStorage.setItem('refresh', req.response["refresh_token"]);
+    //       }
+    //     }
+    //   }
+    //   req.withCredentials = true;
+    //   req.responseType = 'json';
+    //   req.open("get", "https://3489-194-44-160-206.ngrok-free.app/api/auth/token?" + window.location.search.substr(1), true);
+    //   req.send("");
 
+    // }
+
+
+    async function send() {
+      try {
+        const response = await fetch("https://3489-194-44-160-206.ngrok-free.app/api/auth/token?" + window.location.search.substr(1), {
+          method: "GET",
+          credentials: "include" // Включити куки
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.result === true) {
+            window.localStorage.setItem('jwt', data.access_token);
+            window.localStorage.setItem('refresh', data.refresh_token);
+          }
+        } else {
+          console.error('Request failed with status:', response.status);
+        }
+      } catch (error) {
+        console.error('Request failed:', error);
+      }
     }
+
 
 
 
