@@ -130,7 +130,7 @@ export const Login = () => {
     googleAutorization().then((res) => {
       console.log(res || 'no data');
       console.table(res);
-      window.location.href = res.location
+      window.location.href = res.location.href;
 
       // if (res.status === 200) {
       //   alert('Ви успішно увійшли');
