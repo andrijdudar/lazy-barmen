@@ -276,7 +276,7 @@ export const Login = () => {
                           Увійти
                         </button>
                         <a
-                          href="https://5fd0-194-44-160-206.ngrok-free.app/auth/google_login"
+                          href="https://5fd0-194-44-160-206.ngrok-free.app/api/auth/google_login"
                           className="btn-login mt-4"
                           // onClick={handleGoogleAutorization}
                         >
