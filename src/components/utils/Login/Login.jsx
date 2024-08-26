@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
 import { getCurentUser, googleAutorization, SignUp } from '../../../utils/fetch';
 // import { useNavigate } from 'react-router-dom';
 import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
+import { useLocation } from 'react-router-dom';
 
 
 export const Login = () => {
@@ -18,6 +19,23 @@ export const Login = () => {
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+
+  const location = useLocation();
+
+  useEffect(() => {
+    // Тут перевіряємо, чи є у URL потрібні параметри
+    const searchParams = new URLSearchParams(location.search);
+    const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
+    // const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
+
+    if (token) {
+      console.log('Token:', token);
+      // Ти можеш зберегти токен у localStorage або в контексті
+      localStorage.setItem('token', token);
+      // Додатково можна зробити редирект на іншу сторінку
+      // window.location.href = '/dashboard';
+    }
+  }, [location]);
 
   // const setAccessToken = useStore((state) => state.setAccessToken);
   // const setRefreshToken = useStore((state) => state.setRefreshToken);
