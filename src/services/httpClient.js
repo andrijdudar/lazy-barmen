@@ -5,6 +5,7 @@ export const SERVER_URL = 'https://3489-194-44-160-206.ngrok-free.app';
 // const refreshToken = localStorage.getItem('refresh_token');
 
 const handleResponse = async (response) => {
+  console.log('response', response);
   // if (response.status === 401) {
   //   const refreshResponse = await fetch(SERVER_URL + '/api/auth/refresh_token', {
   //     method: 'GET',
