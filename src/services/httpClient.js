@@ -1,6 +1,6 @@
 
 // export const SERVER_URL = 'https://ago-ago-8570935a.koyeb.app';
-export const SERVER_URL = 'https://5fd0-194-44-160-206.ngrok-free.app';
+export const SERVER_URL = 'https://3489-194-44-160-206.ngrok-free.app';
 // const accessToken = localStorage.getItem('access_token');
 // const refreshToken = localStorage.getItem('refresh_token');
 
@@ -66,7 +66,7 @@ const handleResponse = async (response) => {
 
   //   return await handleResponse(retryResponse);
   // }
-  // return await response.json();
+  return await response.json();
 }
 
 export const client = {
