@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
-import { getCurentUser, sendToken, SignUp } from '../../../utils/fetch';
+import { getCurentUser, SignUp } from '../../../utils/fetch';
 // import { useNavigate } from 'react-router-dom';
 import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
@@ -19,98 +19,33 @@ export const Login = () => {
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
-
   const location = useLocation();
 
   useEffect(() => {
-    // function send() {
-    //   var req = new XMLHttpRequest();
-    //   req.onreadystatechange = function () {
-    //     if (req.readyState === 4) {
-    //       console.log(req.response);
-    //       if (req.response["result"] === true) {
-    //         window.localStorage.setItem('jwt', req.response["access_token"]);
-    //         window.localStorage.setItem('refresh', req.response["refresh_token"]);
-    //       }
-    //     }
-    //   }
-    //   req.withCredentials = true;
-    //   req.responseType = 'json';
-    //   req.open("get", "https://3489-194-44-160-206.ngrok-free.app/api/auth/token?" + window.location.search.substr(1), true);
-    //   req.send("");
+    async function fetchToken() {
+      const queryParams = new URLSearchParams(location.search).toString();
+      const url = `https://5fd0-194-44-160-206.ngrok-free.app/api/auth/token?${queryParams}`;
 
-    // }
+      try {
+        const response = await fetch(url, {
+          method: 'GET',
+          credentials: 'include', // Для відправки куків, якщо потрібно
+        });
+        const data = await response.json();
 
+        console.log(data);
 
-    // async function send() {
-    //   try {
-    //     const response = await fetch("https://3489-194-44-160-206.ngrok-free.app/api/auth/token?" + window.location.search.substr(1), {
-    //       method: "GET",
-    //       credentials: "include" // Включити куки
-    //     });
-
-    //     if (response.ok) {
-    //       const data = await response.json();
-    //       if (data.result === true) {
-    //         window.localStorage.setItem('jwt', data.access_token);
-    //         window.localStorage.setItem('refresh', data.refresh_token);
-    //       }
-    //     } else {
-    //       console.error('Request failed with status:', response.status);
-    //     }
-    //   } catch (error) {
-    //     console.error('Request failed:', error);
-    //   }
-    // }
-
-
-
-
-    // function send() {
-    //   var req = new XMLHttpRequest();
-    //   req.onreadystatechange = function () {
-    //     if (req.readyState === 4) { // Запит завершено
-    //       if (req.status === 200) { // Перевірка статусу HTTP відповіді
-    //         const response = req.response;
-    //         if (response.result === true) { // Перевірка результату
-    //           window.localStorage.setItem('jwt', response.access_token);
-    //           window.localStorage.setItem('refresh', response.refresh_token);
-    //         } else {
-    //           console.error('Authentication failed');
-    //         }
-    //       } else {
-    //         console.error('Request failed with status:', req.status);
-    //       }
-    //     }
-    //   };
-
-    //   req.withCredentials = true; // Включення відправки куків
-    //   req.responseType = 'json'; // Встановлення типу відповіді
-    //   req.open("GET", "/api/auth/token?" + window.location.search.substr(1), true);
-    //   req.send();
-    // }
-    // send();
-
-
-
-    // Тут перевіряємо, чи є у URL потрібні параметри
-    const searchParams = new URLSearchParams(location.search);
-console.log(searchParams, 'searchParams');
-    const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
-    // // const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
-
-    if (token) {
-      console.log('Token:', token);
-      // Ти можеш зберегти токен у localStorage або в контексті
-      localStorage.setItem('token', token);
-      // Додатково можна зробити редирект на іншу сторінку
-      // window.location.href = '/dashboard';
+        if (data.result === true) {
+          window.localStorage.setItem('jwt', data.access_token);
+          window.localStorage.setItem('refresh', data.refresh_token);
+        }
+      } catch (error) {
+        console.error('Error fetching token:', error);
+      }
     }
 
-    sendToken(searchParams.substr(1)).then((res) => {
-      console.log(res);
-    });
-  }, [location]);
+    fetchToken();
+  }, [location.search]);
 
   // const setAccessToken = useStore((state) => state.setAccessToken);
   // const setRefreshToken = useStore((state) => state.setRefreshToken);
@@ -336,7 +271,7 @@ console.log(searchParams, 'searchParams');
                         <a
                           href="https://3489-194-44-160-206.ngrok-free.app/api/auth/google_login"
                           className="btn-login mt-4"
-                        // onClick={handleGoogleAutorization}
+                        onClick={handleGoogleAutorization}
                         >
                           Увійти через Google
                         </a>
