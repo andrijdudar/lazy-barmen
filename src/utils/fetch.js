@@ -6,6 +6,9 @@ import { client } from '../services/httpClient';
 export const googleAutorization = () => {
   return client.get('/api/auth/google_login');
 };
+export const sendToken = () => {
+  return client.get('/api/auth/token');
+};
 
 // отримати інформацію про поточного користувача
 export const getCurentUser = () => {

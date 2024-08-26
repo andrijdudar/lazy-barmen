@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
-import { getCurentUser, SignUp } from '../../../utils/fetch';
+import { getCurentUser, sendToken, SignUp } from '../../../utils/fetch';
 // import { useNavigate } from 'react-router-dom';
 import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
-// import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 export const Login = () => {
@@ -66,35 +66,38 @@ export const Login = () => {
 
 
 
-    function send() {
-      var req = new XMLHttpRequest();
-      req.onreadystatechange = function () {
-        if (req.readyState === 4) { // Запит завершено
-          if (req.status === 200) { // Перевірка статусу HTTP відповіді
-            const response = req.response;
-            if (response.result === true) { // Перевірка результату
-              window.localStorage.setItem('jwt', response.access_token);
-              window.localStorage.setItem('refresh', response.refresh_token);
-            } else {
-              console.error('Authentication failed');
-            }
-          } else {
-            console.error('Request failed with status:', req.status);
-          }
-        }
-      };
+    // function send() {
+    //   var req = new XMLHttpRequest();
+    //   req.onreadystatechange = function () {
+    //     if (req.readyState === 4) { // Запит завершено
+    //       if (req.status === 200) { // Перевірка статусу HTTP відповіді
+    //         const response = req.response;
+    //         if (response.result === true) { // Перевірка результату
+    //           window.localStorage.setItem('jwt', response.access_token);
+    //           window.localStorage.setItem('refresh', response.refresh_token);
+    //         } else {
+    //           console.error('Authentication failed');
+    //         }
+    //       } else {
+    //         console.error('Request failed with status:', req.status);
+    //       }
+    //     }
+    //   };
 
-      req.withCredentials = true; // Включення відправки куків
-      req.responseType = 'json'; // Встановлення типу відповіді
-      req.open("GET", "/api/auth/token?" + window.location.search.substr(1), true);
-      req.send();
-    }
-    send();
+    //   req.withCredentials = true; // Включення відправки куків
+    //   req.responseType = 'json'; // Встановлення типу відповіді
+    //   req.open("GET", "/api/auth/token?" + window.location.search.substr(1), true);
+    //   req.send();
+    // }
+    // send();
 
 
 
-    // // Тут перевіряємо, чи є у URL потрібні параметри
+    // Тут перевіряємо, чи є у URL потрібні параметри
     // const searchParams = new URLSearchParams(location.search);
+    sendToken().then((res) => {
+      console.log(res);
+    });
     // const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
     // // const token = searchParams.get('token');  // Приклад: витягуємо токен з URL
 
@@ -107,7 +110,6 @@ export const Login = () => {
     // }
 
 
-  // }, [location]);
   }, []);
 
   // const setAccessToken = useStore((state) => state.setAccessToken);
@@ -225,29 +227,29 @@ export const Login = () => {
     //   const googleAuthUrl = res.url;
     //   console.log(googleAuthUrl);
 
-      // if (res.status === 200) {
-      //   alert('Ви успішно увійшли');
-      //   getCurentUser().then((res) => {
-      //     console.log(res);
-      //     if (res.status === 200) {
-      //       setUser(res.data);
-      //     }
-      //   });
-      //   // setFormLogin(true);
-      // }
+    // if (res.status === 200) {
+    //   alert('Ви успішно увійшли');
+    //   getCurentUser().then((res) => {
+    //     console.log(res);
+    //     if (res.status === 200) {
+    //       setUser(res.data);
+    //     }
+    //   });
+    //   // setFormLogin(true);
+    // }
 
-      // if (res.refresh_token) {
-      //   localStorage.setItem('refresh_token', res.refresh_token);
-      //   setRefreshToken(res.refresh_token);
-      // }
-      // if (res.access_token) {
-      //   localStorage.setItem('access_token', res.access_token);
-      //   setAccessToken(res.access_token);
-      // }
-      // if (res.token_type) {
-      //   localStorage.setItem('token_type', res.token_type);
-      //   setTokenType(res.token_type);
-      // }
+    // if (res.refresh_token) {
+    //   localStorage.setItem('refresh_token', res.refresh_token);
+    //   setRefreshToken(res.refresh_token);
+    // }
+    // if (res.access_token) {
+    //   localStorage.setItem('access_token', res.access_token);
+    //   setAccessToken(res.access_token);
+    // }
+    // if (res.token_type) {
+    //   localStorage.setItem('token_type', res.token_type);
+    //   setTokenType(res.token_type);
+    // }
     // });
   }
   function showAlert() {
@@ -334,7 +336,7 @@ export const Login = () => {
                         <a
                           href="https://3489-194-44-160-206.ngrok-free.app/api/auth/google_login"
                           className="btn-login mt-4"
-                          // onClick={handleGoogleAutorization}
+                        // onClick={handleGoogleAutorization}
                         >
                           Увійти через Google
                         </a>
