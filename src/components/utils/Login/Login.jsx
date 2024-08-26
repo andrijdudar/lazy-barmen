@@ -20,7 +20,7 @@ export const Login = () => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
-  
+
   const location = useLocation();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const Login = () => {
       try {
         const response = await fetch(url, {
           method: "GET",
-          mode: 'no-cors',
+          // mode: 'no-cors',
           credentials: 'include',
           headers: new Headers({
             // 'Authorization': `Bearer ${accessToken}`,
@@ -278,7 +278,7 @@ export const Login = () => {
                         <a
                           href="https://3489-194-44-160-206.ngrok-free.app/api/auth/google_login"
                           className="btn-login mt-4"
-                          onClick={handleGoogleAutorization}
+                          // onClick={handleGoogleAutorization}
                         >
                           Увійти через Google
                         </a>
