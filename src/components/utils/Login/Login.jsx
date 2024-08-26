@@ -28,8 +28,13 @@ export const Login = () => {
 
       try {
         const response = await fetch(url, {
-          method: 'GET',
-          credentials: 'include', // Для відправки куків, якщо потрібно
+          method: "GET",
+          mode: 'no-cors',
+          credentials: 'include',
+          headers: new Headers({
+            // 'Authorization': `Bearer ${accessToken}`,
+            // "ngrok-skip-browser-warning": "69420",
+          })
         });
         const data = await response.json();
 
@@ -271,7 +276,7 @@ export const Login = () => {
                         <a
                           href="https://3489-194-44-160-206.ngrok-free.app/api/auth/google_login"
                           className="btn-login mt-4"
-                        onClick={handleGoogleAutorization}
+                          onClick={handleGoogleAutorization}
                         >
                           Увійти через Google
                         </a>
