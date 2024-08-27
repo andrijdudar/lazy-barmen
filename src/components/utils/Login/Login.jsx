@@ -37,6 +37,7 @@ export const Login = () => {
             headers: {
               'Content-Type': 'application/json',
             },
+            mode: 'no-cors',
             credentials: 'include', // Якщо потрібно передавати куки
             params: { code },
           });
