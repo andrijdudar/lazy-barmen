@@ -36,7 +36,7 @@ export const Login = () => {
           const response = await fetch('https://db3d-92-253-236-241.ngrok-free.app/api/auth/token', {
             method: 'GET',
             headers: {
-              'Authorization': 'Bearer your-token-here',
+              'Authorization': `Bearer ${code}`,
               'Content-Type': 'application/json',
               'Accept': 'application/json',
             },
@@ -293,7 +293,7 @@ export const Login = () => {
                         <a
                           href="https://db3d-92-253-236-241.ngrok-free.app/api/auth/google_login"
                           className="btn-login mt-4"
-                          // onClick={handleGoogleAutorization}
+                        // onClick={handleGoogleAutorization}
                         >
                           Увійти через Google
                         </a>
