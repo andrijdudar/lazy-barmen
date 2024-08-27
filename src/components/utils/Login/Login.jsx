@@ -6,6 +6,7 @@ import { getCurentUser, SignUp } from '../../../utils/fetch';
 import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { SERVER_URL } from '../../../services/httpClient';
 
 
 export const Login = () => {
@@ -24,50 +25,50 @@ export const Login = () => {
   // const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchTokens = async () => {
+    // const fetchTokens = async () => {
       // Отримуємо код із URL
       // const queryParams = location.search.substring(1);
       // const code = queryParams.get('code');
       // console.log('code:', code);
 
-      if (true) {
-        try {
-          // Відправляємо код на бекенд для обміну на токен
-          const response = await fetch('https://bf2a-92-253-236-241.ngrok-free.app/api/auth/token', {
-            method: 'GET',
-            headers: {
-              // 'Authorization': queryParams,
-              'Content-Type': 'application/json',
-              // 'Accept': 'application/json',
-            },
-            // mode: 'no-cors',
-            credentials: 'include', // Якщо потрібно передавати куки
-            // params: queryParams,
-          });
+    //   if (true) {
+    //     try {
+    //       // Відправляємо код на бекенд для обміну на токен
+    //       const response = await fetch(SERVER_URL + '/api/auth/google_login', {
+    //         method: 'GET',
+    //         headers: {
+    //           // 'Authorization': queryParams,
+    //           'Content-Type': 'application/json',
+    //           // 'Accept': 'application/json',
+    //         },
+    //         // mode: 'no-cors',
+    //         credentials: 'include', // Якщо потрібно передавати куки
+    //         // params: queryParams,
+    //       });
 
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
+    //       if (!response.ok) {
+    //         throw new Error('Network response was not ok');
+    //       }
 
-          // Отримуємо дані з відповіді
-          const data = await response.json();
-          const { access_token, refresh_token } = data;
+    //       // Отримуємо дані з відповіді
+    //       const data = await response.json();
+    //       const { access_token, refresh_token } = data;
 
-          // Зберігаємо токен у локальному сховищі або cookies
-          localStorage.setItem('access_token', access_token);
-          localStorage.setItem('refresh_token', refresh_token);
-          console.log('access_token:', access_token);
-          console.log('refresh_token:', refresh_token);
+    //       // Зберігаємо токен у локальному сховищі або cookies
+    //       localStorage.setItem('access_token', access_token);
+    //       localStorage.setItem('refresh_token', refresh_token);
+    //       console.log('access_token:', access_token);
+    //       console.log('refresh_token:', refresh_token);
 
-          // Перенаправляємо користувача на головну сторінку або dashboard
-          // navigate('/dashboard');
-        } catch (error) {
-          console.error('Authentication failed:', error);
-        }
-      }
-    };
+    //       // Перенаправляємо користувача на головну сторінку або dashboard
+    //       // navigate('/dashboard');
+    //     } catch (error) {
+    //       console.error('Authentication failed:', error);
+    //     }
+    //   }
+    // };
 
-    fetchTokens();
+    // fetchTokens();
   }, []);
 
 
@@ -179,7 +180,7 @@ export const Login = () => {
     // setFormLogin(true);
     // nsvigate('/test-page');
 
-    window.location.href = 'https://bf2a-92-253-236-241.ngrok-free.app/api/auth/google_login';
+    window.location.href = SERVER_URL + '/api/auth/google_login';
     // googleAutorization().then((res) => {
     //   console.log(res || 'no data');
     //   console.table(res);
@@ -293,7 +294,7 @@ export const Login = () => {
                           Увійти
                         </button>
                         <a
-                          href="https://bf2a-92-253-236-241.ngrok-free.app/api/auth/google_login"
+                          href="https://0e9c-92-253-236-241.ngrok-free.app/api/auth/google_login"
                           className="btn-login mt-4"
                         // onClick={handleGoogleAutorization}
                         >
