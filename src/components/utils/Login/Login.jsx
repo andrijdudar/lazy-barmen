@@ -26,7 +26,7 @@ export const Login = () => {
   useEffect(() => {
     const fetchTokens = async () => {
       // Отримуємо код із URL
-      const queryParams = location.search.code;
+      const queryParams = location.search.substring(1);
       const code = queryParams.get('code');
       console.log('code:', code);
 
