@@ -36,13 +36,13 @@ export const Login = () => {
           const response = await fetch('https://db3d-92-253-236-241.ngrok-free.app/api/auth/token', {
             method: 'GET',
             headers: {
-              'Authorization': code,
+              'Authorization': queryParams,
               'Content-Type': 'application/json',
               'Accept': 'application/json',
             },
             // mode: 'no-cors',
             credentials: 'include', // Якщо потрібно передавати куки
-            params: { code },
+            params: queryParams,
           });
 
           if (!response.ok) {
