@@ -5,7 +5,7 @@ import { getCurentUser, SignUp } from '../../../utils/fetch';
 // import { useNavigate } from 'react-router-dom';
 import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 export const Login = () => {
@@ -20,39 +20,50 @@ export const Login = () => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
-
   const location = useLocation();
+  // const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchToken() {
-      const queryParams = new URLSearchParams(location.search).toString();
-      const url = `https://5fd0-194-44-160-206.ngrok-free.app/api/auth/token?${queryParams}`;
+    const fetchTokens = async () => {
+      // Отримуємо код із URL
+      const queryParams = new URLSearchParams(location.search);
+      const code = queryParams.get('code');
 
-      try {
-        const response = await fetch(url, {
-          method: "GET",
-          // mode: 'no-cors',
-          credentials: 'include',
-          headers: new Headers({
-            // 'Authorization': `Bearer ${accessToken}`,
-            // "ngrok-skip-browser-warning": "69420",
-          })
-        });
-        const data = await response.json();
+      if (code) {
+        try {
+          // Відправляємо код на бекенд для обміну на токен
+          const response = await fetch('https://db3d-92-253-236-241.ngrok-free.app/auth/token', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include', // Якщо потрібно передавати куки
+            params: { code },
+          });
 
-        console.log(data);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
 
-        if (data.result === true) {
-          window.localStorage.setItem('jwt', data.access_token);
-          window.localStorage.setItem('refresh', data.refresh_token);
+          // Отримуємо дані з відповіді
+          const data = await response.json();
+          const { access_token, refresh_token } = data;
+
+          // Зберігаємо токен у локальному сховищі або cookies
+          localStorage.setItem('access_token', access_token);
+          localStorage.setItem('refresh_token', refresh_token);
+
+          // Перенаправляємо користувача на головну сторінку або dashboard
+          // navigate('/dashboard');
+        } catch (error) {
+          console.error('Authentication failed:', error);
         }
-      } catch (error) {
-        console.error('Error fetching token:', error);
       }
-    }
+    };
 
-    fetchToken();
-  }, [location.search]);
+    fetchTokens();
+  }, [location]);
+
 
   // const setAccessToken = useStore((state) => state.setAccessToken);
   // const setRefreshToken = useStore((state) => state.setRefreshToken);
