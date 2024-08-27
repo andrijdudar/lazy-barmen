@@ -29,7 +29,7 @@ export const Login = () => {
       const queryParams = new URLSearchParams(location.search);
       const code = queryParams.get('code');
 
-      if (code) {
+      if (true) {
         try {
           // Відправляємо код на бекенд для обміну на токен
           const response = await fetch('https://db3d-92-253-236-241.ngrok-free.app/api/auth/token', {
@@ -37,7 +37,7 @@ export const Login = () => {
             headers: {
               'Content-Type': 'application/json',
             },
-            mode: 'no-cors',
+            // mode: 'no-cors',
             credentials: 'include', // Якщо потрібно передавати куки
             params: { code },
           });
