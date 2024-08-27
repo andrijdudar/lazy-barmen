@@ -21,13 +21,13 @@ export const Login = () => {
   const [inputPassword, setInputPassword] = useState('');
 
   const location = useLocation();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTokens = async () => {
       // Отримуємо код із URL
       const queryParams = new URLSearchParams(location.search);
-      const code = queryParams.get('code');
+      // const code = queryParams.get('code');
 
       if (true) {
         try {
@@ -35,11 +35,13 @@ export const Login = () => {
           const response = await fetch('https://db3d-92-253-236-241.ngrok-free.app/api/auth/token', {
             method: 'GET',
             headers: {
+              'Authorization': 'Bearer your-token-here',
               'Content-Type': 'application/json',
+              'Accept': 'application/json',
             },
             // mode: 'no-cors',
             credentials: 'include', // Якщо потрібно передавати куки
-            params: { code },
+            params: queryParams,
           });
 
           if (!response.ok) {
@@ -55,7 +57,7 @@ export const Login = () => {
           localStorage.setItem('refresh_token', refresh_token);
 
           // Перенаправляємо користувача на головну сторінку або dashboard
-          // navigate('/dashboard');
+          navigate('/dashboard');
         } catch (error) {
           console.error('Authentication failed:', error);
         }
@@ -63,7 +65,7 @@ export const Login = () => {
     };
 
     fetchTokens();
-  }, [location]);
+  }, [location, navigate]);
 
 
   // const setAccessToken = useStore((state) => state.setAccessToken);
