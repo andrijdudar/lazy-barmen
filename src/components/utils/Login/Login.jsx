@@ -27,7 +27,8 @@ export const Login = () => {
     const fetchTokens = async () => {
       // Отримуємо код із URL
       const queryParams = new URLSearchParams(location.search);
-      // const code = queryParams.get('code');
+      const code = queryParams.get('code');
+      console.log('code:', code);
 
       if (true) {
         try {
@@ -41,7 +42,7 @@ export const Login = () => {
             },
             // mode: 'no-cors',
             credentials: 'include', // Якщо потрібно передавати куки
-            params: queryParams,
+            params: { code },
           });
 
           if (!response.ok) {
