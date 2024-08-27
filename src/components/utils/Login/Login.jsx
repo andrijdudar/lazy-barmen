@@ -20,29 +20,29 @@ export const Login = () => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
-  const location = useLocation();
-  const navigate = useNavigate();
+  // const location = useLocation();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTokens = async () => {
       // Отримуємо код із URL
-      const queryParams = location.search.substring(1);
-      const code = queryParams.get('code');
-      console.log('code:', code);
+      // const queryParams = location.search.substring(1);
+      // const code = queryParams.get('code');
+      // console.log('code:', code);
 
       if (true) {
         try {
           // Відправляємо код на бекенд для обміну на токен
-          const response = await fetch('https://db3d-92-253-236-241.ngrok-free.app/api/auth/token', {
+          const response = await fetch('https://bf2a-92-253-236-241.ngrok-free.app/api/auth/token', {
             method: 'GET',
             headers: {
-              'Authorization': queryParams,
+              // 'Authorization': queryParams,
               'Content-Type': 'application/json',
-              'Accept': 'application/json',
+              // 'Accept': 'application/json',
             },
             // mode: 'no-cors',
             credentials: 'include', // Якщо потрібно передавати куки
-            params: queryParams,
+            // params: queryParams,
           });
 
           if (!response.ok) {
@@ -56,9 +56,11 @@ export const Login = () => {
           // Зберігаємо токен у локальному сховищі або cookies
           localStorage.setItem('access_token', access_token);
           localStorage.setItem('refresh_token', refresh_token);
+          console.log('access_token:', access_token);
+          console.log('refresh_token:', refresh_token);
 
           // Перенаправляємо користувача на головну сторінку або dashboard
-          navigate('/dashboard');
+          // navigate('/dashboard');
         } catch (error) {
           console.error('Authentication failed:', error);
         }
@@ -66,7 +68,7 @@ export const Login = () => {
     };
 
     fetchTokens();
-  }, [location, navigate]);
+  }, []);
 
 
   // const setAccessToken = useStore((state) => state.setAccessToken);
@@ -177,7 +179,7 @@ export const Login = () => {
     // setFormLogin(true);
     // nsvigate('/test-page');
 
-    window.location.href = 'https://3489-194-44-160-206.ngrok-free.app/api/auth/google_login';
+    window.location.href = 'https://bf2a-92-253-236-241.ngrok-free.app/api/auth/google_login';
     // googleAutorization().then((res) => {
     //   console.log(res || 'no data');
     //   console.table(res);
@@ -291,7 +293,7 @@ export const Login = () => {
                           Увійти
                         </button>
                         <a
-                          href="https://db3d-92-253-236-241.ngrok-free.app/api/auth/google_login"
+                          href="https://bf2a-92-253-236-241.ngrok-free.app/api/auth/google_login"
                           className="btn-login mt-4"
                         // onClick={handleGoogleAutorization}
                         >
