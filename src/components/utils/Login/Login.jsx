@@ -32,7 +32,7 @@ export const Login = () => {
       if (code) {
         try {
           // Відправляємо код на бекенд для обміну на токен
-          const response = await fetch('https://db3d-92-253-236-241.ngrok-free.app/auth/token', {
+          const response = await fetch('https://db3d-92-253-236-241.ngrok-free.app/api/auth/token', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
