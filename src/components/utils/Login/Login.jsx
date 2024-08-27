@@ -26,7 +26,7 @@ export const Login = () => {
   useEffect(() => {
     const fetchTokens = async () => {
       // Отримуємо код із URL
-      const queryParams = new URLSearchParams(location.search);
+      const queryParams = location.search.code;
       const code = queryParams.get('code');
       console.log('code:', code);
 
@@ -36,7 +36,7 @@ export const Login = () => {
           const response = await fetch('https://db3d-92-253-236-241.ngrok-free.app/api/auth/token', {
             method: 'GET',
             headers: {
-              'Authorization': queryParams,
+              'Authorization': code,
               'Content-Type': 'application/json',
               'Accept': 'application/json',
             },
