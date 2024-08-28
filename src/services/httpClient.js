@@ -1,7 +1,7 @@
 
 // export const SERVER_URL = 'https://ago-ago-8570935a.koyeb.app';
-export const SERVER_URL = 'https://0e9c-92-253-236-241.ngrok-free.app';
-// const accessToken = localStorage.getItem('access_token');
+export const SERVER_URL = 'https://441e-92-253-236-241.ngrok-free.app';
+const accessToken = localStorage.getItem('access_token');
 // const refreshToken = localStorage.getItem('refresh_token');
 
 const handleResponse = async (response) => {
@@ -74,10 +74,10 @@ export const client = {
     try {
       const response = await fetch(SERVER_URL + url, {
         method: "GET",
-        mode: 'no-cors',
+        // mode: 'no-cors',
         credentials: 'include',
         headers: new Headers({
-          // 'Authorization': `Bearer ${accessToken}`,
+          'Authorization': `Bearer ${accessToken}`,
           // "ngrok-skip-browser-warning": "69420",
         }),
       });
@@ -103,7 +103,7 @@ export const client = {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${accessToken}`,
+          'Authorization': `Bearer ${accessToken}`,
         },
         // body: formData,
         body: JSON.stringify(data),
@@ -122,7 +122,7 @@ export const client = {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${accessToken}`,
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data),
       });
@@ -140,7 +140,7 @@ export const client = {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${accessToken}`,
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data),
       });
@@ -156,9 +156,9 @@ export const client = {
       const response = await fetch(SERVER_URL + url, {
         method: 'DELETE',
         credentials: 'include',
-        // headers: {
-        // 'Authorization': `Bearer ${accessToken}`,
-        // },
+        headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        },
       });
       return await handleResponse(response);
     } catch (error) {

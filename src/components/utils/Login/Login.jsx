@@ -5,8 +5,10 @@ import { getCurentUser, SignUp } from '../../../utils/fetch';
 // import { useNavigate } from 'react-router-dom';
 import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
-import { useLocation, useNavigate } from 'react-router-dom';
+// import { useLocation, useNavigate } from 'react-router-dom';
 import { SERVER_URL } from '../../../services/httpClient';
+import Cookies from 'js-cookie';
+
 
 
 export const Login = () => {
@@ -20,21 +22,32 @@ export const Login = () => {
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+  const allCookies = Cookies.get();
+  console.log('cookies:', allCookies);
+
+  // localStorage.clear();
+
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    const value = localStorage.getItem(key);
+    console.log(`${key}: ${value}`);
+  }
 
   // const location = useLocation();
   // const navigate = useNavigate();
 
   useEffect(() => {
     // const fetchTokens = async () => {
-      // Отримуємо код із URL
-      // const queryParams = location.search.substring(1);
-      // const code = queryParams.get('code');
-      // console.log('code:', code);
+    // Отримуємо код із URL
+    // const queryParams = location.search.substring(1);
+    // const code = queryParams.get('code');
+    // console.log('code:', code);
 
     //   if (true) {
     //     try {
     //       // Відправляємо код на бекенд для обміну на токен
-    //       const response = await fetch(SERVER_URL + '/api/auth/google_login', {
+    // const response = await fetch(SERVER_URL + '/auth/token', {
     //         method: 'GET',
     //         headers: {
     //           // 'Authorization': queryParams,
@@ -174,13 +187,13 @@ export const Login = () => {
     });
   }
 
-  const handleGoogleAutorization = () => {
+  // const handleGoogleAutorization = () => {
     // window.location.href = 'http://google.com';
     // window.location.href = '/menu';
     // setFormLogin(true);
     // nsvigate('/test-page');
 
-    window.location.href = SERVER_URL + '/api/auth/google_login';
+    // window.location.href = SERVER_URL + '/api/auth/google_login';
     // googleAutorization().then((res) => {
     //   console.log(res || 'no data');
     //   console.table(res);
@@ -211,7 +224,7 @@ export const Login = () => {
     //   setTokenType(res.token_type);
     // }
     // });
-  }
+  // }
   function showAlert() {
     const alertBox = document.getElementById('custom-alert');
     if (alertBox) {
@@ -294,7 +307,7 @@ export const Login = () => {
                           Увійти
                         </button>
                         <a
-                          href="https://0e9c-92-253-236-241.ngrok-free.app/api/auth/google_login"
+                          href={SERVER_URL + "/api/auth/google_login"}
                           className="btn-login mt-4"
                         // onClick={handleGoogleAutorization}
                         >
