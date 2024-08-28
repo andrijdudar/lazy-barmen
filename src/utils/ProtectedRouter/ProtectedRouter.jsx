@@ -11,7 +11,7 @@ export const ProtectedRoutes = () => {
   const refreshToken = useStoreAuth((state) => state.refresh_token);
   const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTokens = async () => {
