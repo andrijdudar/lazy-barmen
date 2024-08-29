@@ -22,6 +22,7 @@ export const Login = () => {
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+  useEffect(() => {
   const allCookies = Cookies.get();
   console.log('cookies:', allCookies);
 
@@ -33,6 +34,7 @@ export const Login = () => {
     const value = localStorage.getItem(key);
     console.log(`${key}: ${value}`);
   }
+}, []);
 
   // const location = useLocation();
   // const navigate = useNavigate();
