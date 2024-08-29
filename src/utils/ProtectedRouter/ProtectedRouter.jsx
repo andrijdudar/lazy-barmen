@@ -18,67 +18,68 @@ export const ProtectedRoutes = () => {
   //
   useEffect(() => {
 
-    const allCookies = Cookies.get();
-    console.log('cookies:', allCookies);
-    const access_token = Cookies.get('access_token');
-    const refresh_token = Cookies.get('refresh_token');
+    // const allCookies = Cookies.get();
+    // console.log('cookies:', allCookies);
+    // const access_token = Cookies.get('access_token');
+    // const refresh_token = Cookies.get('refresh_token');
 
-    setAccessToken(access_token);
-    setRefreshToken(refresh_token);
+    // setAccessToken(access_token);
+    // setRefreshToken(refresh_token);
 
-    localStorage.setItem('access_token', access_token);
-    localStorage.setItem('refresh_token', refresh_token);
+    // localStorage.setItem('access_token', access_token);
+    // localStorage.setItem('refresh_token', refresh_token);
 
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      const value = localStorage.getItem(key);
-      console.log(`${key}: ${value}`);
-    }
-    //   const fetchTokens = async () => {
-    //     // Отримуємо код із URL
-    //     const queryParams = new URLSearchParams(location.search);
-    //     const code = queryParams.get('code');
+    // for (let i = 0; i < localStorage.length; i++) {
+    //   const key = localStorage.key(i);
+    //   const value = localStorage.getItem(key);
+    //   console.log(`${key}: ${value}`);
+    // }
+      const fetchTokens = async () => {
+        // Отримуємо код із URL
+        const queryParams = new URLSearchParams(location.search);
+        const code = queryParams.get('code');
 
-    //     if (code) {
-    //       try {
-    //         // Відправляємо код на бекенд для обміну на токен
-    //         const response = await fetch(SERVER_URL + '/auth/token', {
-    //           method: 'GET',
-    //           headers: {
-    //             'Content-Type': 'application/json',
-    //           },
-    //           credentials: 'include', // Якщо потрібно передавати куки
-    //           params: { code },
-    //         });
+        if (code) {
+          try {
+            // Відправляємо код на бекенд для обміну на токен
+            const response = await fetch(SERVER_URL + '/auth/token', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              credentials: 'include', // Якщо потрібно передавати куки
+              params: { code },
+            });
 
-    //         if (!response.ok) {
-    //           throw new Error('Network response was not ok');
-    //         }
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
 
-    //         // Отримуємо дані з відповіді
-    //         const data = await response.json();
-    //         const { access_token, refresh_token } = data;
+            // Отримуємо дані з відповіді
+            const data = await response.json();
+            const { access_token, refresh_token } = data;
 
-    //         // Зберігаємо токен у локальному сховищі або cookies
-    //         localStorage.setItem('access_token', access_token);
-    //         localStorage.setItem('refresh_token', refresh_token);
+            // Зберігаємо токен у локальному сховищі або cookies
+            localStorage.setItem('access_token', access_token);
+            localStorage.setItem('refresh_token', refresh_token);
+
+            const allCookies = await Cookies.get();
+            console.log('cookies:', allCookies);
+            // Зберігаємо токен у сторі
+            setAccessToken(access_token);
+            setRefreshToken(refresh_token);
 
 
-    //         // Зберігаємо токен у сторі
-    //         setAccessToken(access_token);
-    //         setRefreshToken(refresh_token);
 
+            // Перенаправляємо користувача на головну сторінку або dashboard
+            // navigate('/dashboard');
+          } catch (error) {
+            console.error('Authentication failed:', error);
+          }
+        }
+      };
 
-
-    //         // Перенаправляємо користувача на головну сторінку або dashboard
-    //         // navigate('/dashboard');
-    //       } catch (error) {
-    //         console.error('Authentication failed:', error);
-    //       }
-    //     }
-    //   };
-
-    //   fetchTokens();
+      fetchTokens();
   }, [location]);
 
   return (formLogin) ? <Outlet /> : <Navigate to="/login" />
