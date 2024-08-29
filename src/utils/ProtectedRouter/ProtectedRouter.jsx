@@ -20,6 +20,7 @@ export const ProtectedRoutes = () => {
 
     const allCookies = Cookies.get();
     console.log('cookies:', allCookies);
+    
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       const value = localStorage.getItem(key);
@@ -87,5 +88,5 @@ export const ProtectedRoutes = () => {
     //   fetchTokens();
   }, []);
 
-  return (accsessToken && refreshToken) ? <Outlet /> : <Navigate to="/login" />
+  return (accsessToken || refreshToken) ? <Outlet /> : <Navigate to="/login" />
 };
