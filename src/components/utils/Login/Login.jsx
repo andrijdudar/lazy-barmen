@@ -22,24 +22,39 @@ export const Login = () => {
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
-  useEffect(() => {
-  const allCookies = Cookies.get();
-  console.log('cookies:', allCookies);
-
-  // localStorage.clear();
 
 
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    const value = localStorage.getItem(key);
-    console.log(`${key}: ${value}`);
-  }
-}, []);
+  localStorage.clear();
+
 
   // const location = useLocation();
   // const navigate = useNavigate();
 
   useEffect(() => {
+    const allCookies = Cookies.get();
+    console.log('cookies:', allCookies);
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      const value = localStorage.getItem(key);
+      console.log(`${key}: ${value}`);
+    }
+
+    const access_token = Cookies.get('access_token');
+    const refresh_token = Cookies.get('refresh_token');
+
+    // setAccessToken(access_token);
+    // setRefreshToken(refresh_token);
+    console.log('access_token_cook:', access_token);
+    console.log('refresh_token_coock:', refresh_token);
+
+    localStorage.setItem('access_token', access_token);
+    localStorage.setItem('refresh_token', refresh_token);
+    console.log('access_token_local:', localStorage.getItem('access_token'));
+    console.log('refresh_token_local:', localStorage.getItem('refresh_token'));
+
+
+
+
     // const fetchTokens = async () => {
     // Отримуємо код із URL
     // const queryParams = location.search.substring(1);
@@ -189,44 +204,44 @@ export const Login = () => {
     });
   }
 
-  const handleGoogleAutorization = () => {
-    // window.location.href = 'http://google.com';
-    // window.location.href = '/menu';
-    setFormLogin(true);
-    // nsvigate('/test-page');
+  // const handleGoogleAutorization = () => {
+  // window.location.href = 'http://google.com';
+  // window.location.href = '/menu';
+  // setFormLogin(true);
+  // nsvigate('/test-page');
 
-    // window.location.href = SERVER_URL + '/api/auth/google_login';
-    // googleAutorization().then((res) => {
-    //   console.log(res || 'no data');
-    //   console.table(res);
-    //   const googleAuthUrl = res.url;
-    //   console.log(googleAuthUrl);
+  // window.location.href = SERVER_URL + '/api/auth/google_login';
+  // googleAutorization().then((res) => {
+  //   console.log(res || 'no data');
+  //   console.table(res);
+  //   const googleAuthUrl = res.url;
+  //   console.log(googleAuthUrl);
 
-    // if (res.status === 200) {
-    //   alert('Ви успішно увійшли');
-    //   getCurentUser().then((res) => {
-    //     console.log(res);
-    //     if (res.status === 200) {
-    //       setUser(res.data);
-    //     }
-    //   });
-    //   // setFormLogin(true);
-    // }
+  // if (res.status === 200) {
+  //   alert('Ви успішно увійшли');
+  //   getCurentUser().then((res) => {
+  //     console.log(res);
+  //     if (res.status === 200) {
+  //       setUser(res.data);
+  //     }
+  //   });
+  //   // setFormLogin(true);
+  // }
 
-    // if (res.refresh_token) {
-    //   localStorage.setItem('refresh_token', res.refresh_token);
-    //   setRefreshToken(res.refresh_token);
-    // }
-    // if (res.access_token) {
-    //   localStorage.setItem('access_token', res.access_token);
-    //   setAccessToken(res.access_token);
-    // }
-    // if (res.token_type) {
-    //   localStorage.setItem('token_type', res.token_type);
-    //   setTokenType(res.token_type);
-    // }
-    // });
-  }
+  // if (res.refresh_token) {
+  //   localStorage.setItem('refresh_token', res.refresh_token);
+  //   setRefreshToken(res.refresh_token);
+  // }
+  // if (res.access_token) {
+  //   localStorage.setItem('access_token', res.access_token);
+  //   setAccessToken(res.access_token);
+  // }
+  // if (res.token_type) {
+  //   localStorage.setItem('token_type', res.token_type);
+  //   setTokenType(res.token_type);
+  // }
+  // });
+  // }
   function showAlert() {
     const alertBox = document.getElementById('custom-alert');
     if (alertBox) {
