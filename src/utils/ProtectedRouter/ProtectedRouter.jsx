@@ -8,9 +8,9 @@ import Cookies from 'js-cookie';
 
 
 export const ProtectedRoutes = () => {
-  // const accsessToken = useStoreAuth((state) => state.access_token);
+  const accsessToken = useStoreAuth((state) => state.access_token);
   const setAccessToken = useStoreAuth((state) => state.setAccessToken);
-  // const refreshToken = useStoreAuth((state) => state.refresh_token);
+  const refreshToken = useStoreAuth((state) => state.refresh_token);
   const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
   const location = useLocation();
   // const navigate = useNavigate();
