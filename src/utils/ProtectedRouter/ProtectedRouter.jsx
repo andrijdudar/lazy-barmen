@@ -2,6 +2,8 @@
 import { Outlet, Navigate, useLocation } from "react-router-dom";
 import useStoreAuth from "../StoreAuth";
 import { useEffect } from "react";
+import Cookies from 'js-cookie';
+
 // import { SERVER_URL } from '../../services/httpClient';
 
 
