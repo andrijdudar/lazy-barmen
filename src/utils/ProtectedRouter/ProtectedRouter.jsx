@@ -8,9 +8,10 @@ import Cookies from 'js-cookie';
 
 
 export const ProtectedRoutes = () => {
-  const accsessToken = useStoreAuth((state) => state.access_token);
+  const formLogin = useStoreAuth((state) => state.formLogin);
+  // const accsessToken = useStoreAuth((state) => state.access_token);
   const setAccessToken = useStoreAuth((state) => state.setAccessToken);
-  const refreshToken = useStoreAuth((state) => state.refresh_token);
+  // const refreshToken = useStoreAuth((state) => state.refresh_token);
   const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
   const location = useLocation();
   // const navigate = useNavigate();
@@ -80,5 +81,5 @@ export const ProtectedRoutes = () => {
     //   fetchTokens();
   }, [location]);
 
-  return (accsessToken && refreshToken) ? <Outlet /> : <Navigate to="/login" />
+  return (formLogin) ? <Outlet /> : <Navigate to="/login" />
 };

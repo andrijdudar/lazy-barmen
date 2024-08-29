@@ -189,10 +189,10 @@ export const Login = () => {
     });
   }
 
-  // const handleGoogleAutorization = () => {
+  const handleGoogleAutorization = () => {
     // window.location.href = 'http://google.com';
     // window.location.href = '/menu';
-    // setFormLogin(true);
+    setFormLogin(true);
     // nsvigate('/test-page');
 
     // window.location.href = SERVER_URL + '/api/auth/google_login';
@@ -226,7 +226,7 @@ export const Login = () => {
     //   setTokenType(res.token_type);
     // }
     // });
-  // }
+  }
   function showAlert() {
     const alertBox = document.getElementById('custom-alert');
     if (alertBox) {
