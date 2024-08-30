@@ -180,61 +180,62 @@ export const Login = () => {
   const handleGoogleAutorization = () => {
     window.location.href = SERVER_URL + '/api/auth/google_login';
 
-    // const fetchTokens = async () => {
-    //   // const queryParams = location.search.substring(1);
-    //   // const code = queryParams.get('code');
-    //   // console.log('code:', code);
+    const fetchTokens = async () => {
+      // const queryParams = location.search.substring(1);
+      // const code = queryParams.get('code');
+      // console.log('code:', code);
 
-    //   // if (true) {
-    //   try {
-    //     // Відправляємо код на бекенд для обміну на токен
-    //     const response = await fetch(SERVER_URL + "/api/auth/google_login", {
-    //       method: 'GET',
-    //       headers: {
-    //         // 'Authorization': queryParams,
-    //         'Content-Type': 'application/json',
-    //         // 'Accept': 'application/json',
-    //       },
-    //       // mode: 'no-cors',
-    //       credentials: 'include', // Якщо потрібно передавати куки
-    //       // params: queryParams,
-    //     });
+      // if (true) {
+      try {
+        // Відправляємо код на бекенд для обміну на токен
+        const response = await fetch(SERVER_URL + "/api/auth/google_login", {
+          method: 'GET',
+          headers: {
+            // 'Authorization': queryParams,
+            'Content-Type': 'application/json',
+            // 'Accept': 'application/json',
+          },
+          // mode: 'no-cors',
+          credentials: 'include', // Якщо потрібно передавати куки
+          // params: queryParams,
+        });
 
-    //     if (!response.ok) {
-    //       throw new Error('Network response was not ok');
-    //     }
-    //     const accessToken = response.headers.get('access_token');
-    //     const refreshToken = response.headers.get('refresh-token');
-    //     const tokenType = response.headers.get('token_type');
-    //     const allHeaders = response.headers;
-    //     setAccessToken(accessToken);
-    //     setRefreshToken(refreshToken);
-    //     setTokenType(tokenType);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+          console.log('Network response was not ok');
+        }
+        const accessToken = response.headers.get('access_token');
+        const refreshToken = response.headers.get('refresh-token');
+        const tokenType = response.headers.get('token_type');
+        const allHeaders = response.headers;
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
+        setTokenType(tokenType);
 
-    //     console.log('access_token_header_Login_Button:', accessToken);
-    //     console.log('refresh_token_header_Login_Button:', refreshToken);
-    //     console.log('token_type_header_Login_Button:', tokenType);
-    //     console.log('allHeaders_Login_Button:', allHeaders);
-    //     const allCookies = Cookies.get();
-    //     console.log('cookies_Login_Button:', allCookies);
-    //     // Отримуємо дані з відповіді
-    //     const data = await response.json();
-    //     const { access_token, refresh_token } = data;
+        console.log('access_token_header_Login_Button:', accessToken);
+        console.log('refresh_token_header_Login_Button:', refreshToken);
+        console.log('token_type_header_Login_Button:', tokenType);
+        console.log('allHeaders_Login_Button:', allHeaders);
+        const allCookies = Cookies.get();
+        console.log('cookies_Login_Button:', allCookies);
+        // Отримуємо дані з відповіді
+        const data = await response.json();
+        const { access_token, refresh_token } = data;
 
-    //     // Зберігаємо токен у локальному сховищі або cookies
-    //     localStorage.setItem('access_token', access_token);
-    //     localStorage.setItem('refresh_token', refresh_token);
-    //     console.log('access_token_Login_Button:', access_token);
-    //     console.log('refresh_token_Login_Button:', refresh_token);
+        // Зберігаємо токен у локальному сховищі або cookies
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('refresh_token', refresh_token);
+        console.log('access_token_Login_Button:', access_token);
+        console.log('refresh_token_Login_Button:', refresh_token);
 
-    //     // Перенаправляємо користувача на головну сторінку або dashboard
-    //     // navigate('/dashboard');
-    //   } catch (error) {
-    //     console.error('Authentication failed_Login_Button:', error);
-    //   }
-    // };
+        // Перенаправляємо користувача на головну сторінку або dashboard
+        // navigate('/dashboard');
+      } catch (error) {
+        console.error('Authentication failed_Login_Button:', error);
+      }
+    };
 
-    // fetchTokens();
+    fetchTokens();
   }
   function showAlert() {
     const alertBox = document.getElementById('custom-alert');
