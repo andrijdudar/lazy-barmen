@@ -82,6 +82,9 @@ const App = () => {
               // params: queryParams,
             });
 
+            const allCookies = Cookies.get();
+            console.log('cookies_APP_useEffect:', allCookies);
+
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
@@ -97,8 +100,8 @@ const App = () => {
             console.log('refresh_token_header_APP_useEffect:', refreshToken);
             console.log('token_type_header_APP_useEffect:', tokenType);
             console.log('allHeaders_APP_useEffect:', allHeaders);
-            const allCookies = Cookies.get();
-            console.log('cookies_APP_useEffect:', allCookies);
+            // const allCookies = Cookies.get();
+            // console.log('cookies_APP_useEffect:', allCookies);
             // Отримуємо дані з відповіді
             const data = await response.json();
             const { access_token, refresh_token } = data;
