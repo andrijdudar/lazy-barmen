@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { Outlet, Navigate } from "react-router-dom";
-import useStoreAuth from "../StoreAuth";
+// import useStoreAuth from "../StoreAuth";
 // import { useEffect } from "react";
 // import Cookies from 'js-cookie';
 
@@ -9,9 +9,9 @@ import useStoreAuth from "../StoreAuth";
 
 
 export const ProtectedRoutes = () => {
-  const accsessToken = useStoreAuth((state) => state.access_token);
+  // const accsessToken = useStoreAuth((state) => state.access_token);
   // const setAccessToken = useStoreAuth((state) => state.setAccessToken);
-  const refreshToken = useStoreAuth((state) => state.refresh_token);
+  // const refreshToken = useStoreAuth((state) => state.refresh_token);
   // const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
   // const location = useLocation();
   // const navigate = useNavigate();
@@ -99,5 +99,5 @@ export const ProtectedRoutes = () => {
     // fetchTokens();
   // }, []);
 
-  return (accsessToken || refreshToken) ? <Outlet /> : <Navigate to="/login" />
+  return (true) ? <Outlet /> : <Navigate to="/login" />
 };
