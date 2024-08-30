@@ -7,7 +7,7 @@ import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
 // import { useLocation, useNavigate } from 'react-router-dom';
 import { SERVER_URL } from '../../../services/httpClient';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 // import { useLocation } from 'react-router-dom';
 
 
@@ -300,8 +300,8 @@ export const Login = () => {
       console.log('refresh_token_header:', refreshToken);
       console.log('token_type_header:', tokenType);
       console.log('allHeaders:', allHeaders);
-      const allCookies = Cookies.get();
-      console.log('cookies:', allCookies);
+      // const allCookies = Cookies.get();
+      // console.log('cookies:', allCookies);
       // Отримуємо дані з відповіді
       const data = res.json();
       const { access_token, refresh_token } = data;
