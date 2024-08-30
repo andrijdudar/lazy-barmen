@@ -25,10 +25,10 @@ export const Login = () => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
   const cookies = useStoreAuth((state) => state.cookies);
-  const setCookies = useStoreAuth((state) => state.setCookies);
-  // const setAccessToken = useStoreAuth((state) => state.setAccessToken);
-  // const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
-  // const setTokenType = useStoreAuth((state) => state.setTokenType);
+  // const setCookies = useStoreAuth((state) => state.setCookies);
+  const setAccessToken = useStoreAuth((state) => state.setAccessToken);
+  const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
+  const setTokenType = useStoreAuth((state) => state.setTokenType);
   // const location = useLocation();
   // const location = useLocation();
   // const navigate = useNavigate();
@@ -205,10 +205,12 @@ export const Login = () => {
           // params: queryParams,
         });
 
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-          console.log('Network response was not ok');
-        }
+        // const allCookies = Cookies.get();
+        // console.log('cookies_Login_Button:', allCookies);
+
+        // if (!response.ok) {
+        //   throw new Error('Network response was not ok');
+        // }
         const accessToken = response.headers.get('access_token');
         const refreshToken = response.headers.get('refresh-token');
         const tokenType = response.headers.get('token_type');
