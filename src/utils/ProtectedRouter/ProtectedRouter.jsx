@@ -41,57 +41,57 @@ export const ProtectedRoutes = () => {
     console.log('refresh_token_local:', localStorage.getItem('refresh_token'));
 
 
-    //   const fetchTokens = async () => {
-    //     // Отримуємо код із URL
-    //     const queryParams = new URLSearchParams(location.search);
-    //     const code = queryParams.get('code');
+      const fetchTokens = async () => {
+        // Отримуємо код із URL
+        const queryParams = new URLSearchParams(location.search);
+        const code = queryParams.get('code');
 
-    //     if (code) {
-    //       try {
-    //         // Відправляємо код на бекенд для обміну на токен
-    //         const response = await fetch(SERVER_URL + '/auth/token', {
-    //           method: 'GET',
-    //           headers: {
-    //             'Content-Type': 'application/json',
-    //           },
-    //           credentials: 'include', // Якщо потрібно передавати куки
-    //           params: { code },
-    //         });
+        if (code) {
+          try {
+            // Відправляємо код на бекенд для обміну на токен
+            const response = await fetch(SERVER_URL + '/auth/token', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              credentials: 'include', // Якщо потрібно передавати куки
+              params: { code },
+            });
 
-    //         if (!response.ok) {
-    //           throw new Error('Network response was not ok');
-    //         }
-    // const accessToken = response.headers.get('access_token');
-    // const refreshToken = response.headers.get('refresh-token');
-    // const tokenType = response.headers.get('token_type');
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+    const accessToken = response.headers.get('access_token');
+    const refreshToken = response.headers.get('refresh-token');
+    const tokenType = response.headers.get('token_type');
 
-    // console.log('access_token_header:', accessToken);
-    // console.log('refresh_token_header:', refreshToken);
-    // console.log('token_type_header:', tokenType);
-    //         // Отримуємо дані з відповіді
-    //         const data = await response.json();
-    //         const { access_token, refresh_token } = data;
+    console.log('access_token_header:', accessToken);
+    console.log('refresh_token_header:', refreshToken);
+    console.log('token_type_header:', tokenType);
+            // Отримуємо дані з відповіді
+            const data = await response.json();
+            const { access_token, refresh_token } = data;
 
-    //         // Зберігаємо токен у локальному сховищі або cookies
-    //         localStorage.setItem('access_token', access_token);
-    //         localStorage.setItem('refresh_token', refresh_token);
-
-
-    //         // Зберігаємо токен у сторі
-    //         setAccessToken(access_token);
-    //         setRefreshToken(refresh_token);
+            // Зберігаємо токен у локальному сховищі або cookies
+            localStorage.setItem('access_token', access_token);
+            localStorage.setItem('refresh_token', refresh_token);
 
 
+            // Зберігаємо токен у сторі
+            setAccessToken(access_token);
+            setRefreshToken(refresh_token);
 
-    //         // Перенаправляємо користувача на головну сторінку або dashboard
-    //         // navigate('/dashboard');
-    //       } catch (error) {
-    //         console.error('Authentication failed:', error);
-    //       }
-    //     }
-    //   };
 
-    //   fetchTokens();
+
+            // Перенаправляємо користувача на головну сторінку або dashboard
+            // navigate('/dashboard');
+          } catch (error) {
+            console.error('Authentication failed:', error);
+          }
+        }
+      };
+
+      fetchTokens();
   }, []);
 
   return (accsessToken || refreshToken) ? <Outlet /> : <Navigate to="/login" />
