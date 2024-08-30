@@ -36,7 +36,7 @@ const App = () => {
       // setFormLogin(true);
       // nsvigate('/test-page');
 
-      window.location.href = SERVER_URL + '/api/auth/google_login';
+      // window.location.href = SERVER_URL + '/api/auth/google_login';
       googleAutorization().then((res) => {
         console.log(res || 'no data');
 
