@@ -59,7 +59,8 @@ const App = () => {
         // console.log('access_token_local:', localStorage.getItem('access_token'));
         // console.log('refresh_token_local:', localStorage.getItem('refresh_token'));
 
-
+    const allCookies = Cookies.get();
+    console.log('cookies_APP_useEffect:', allCookies);
 
 
         const fetchTokens = async () => {
@@ -72,6 +73,7 @@ const App = () => {
             // Відправляємо код на бекенд для обміну на токен
             const response = await fetch(SERVER_URL + "/api/auth/google_login", {
               method: 'GET',
+              mode: 'no-cors',
               headers: {
                 // 'Authorization': queryParams,
                 'Content-Type': 'application/json',
@@ -82,7 +84,7 @@ const App = () => {
               // params: queryParams,
             });
 
-            const allCookies = Cookies.get();
+            const allCookies = await Cookies.get();
             console.log('cookies_APP_useEffect:', allCookies);
 
             if (!response.ok) {
