@@ -43,10 +43,10 @@ export const ProtectedRoutes = () => {
 
       const fetchTokens = async () => {
         // Отримуємо код із URL
-        const queryParams = new URLSearchParams(location.search);
-        const code = queryParams.get('code');
+        // const queryParams = new URLSearchParams(location.search);
+        // const code = queryParams.get('code');
 
-        if (code) {
+        // if (code) {
           try {
             // Відправляємо код на бекенд для обміну на токен
             const response = await fetch(SERVER_URL + '/auth/token', {
@@ -55,7 +55,7 @@ export const ProtectedRoutes = () => {
                 'Content-Type': 'application/json',
               },
               credentials: 'include', // Якщо потрібно передавати куки
-              params: { code },
+              // params: { code },
             });
 
             if (!response.ok) {
@@ -88,7 +88,7 @@ export const ProtectedRoutes = () => {
           } catch (error) {
             console.error('Authentication failed:', error);
           }
-        }
+        // }
       };
 
       fetchTokens();
