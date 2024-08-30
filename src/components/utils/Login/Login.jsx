@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
 import { getCurentUser, googleAutorization, SignUp } from '../../../utils/fetch';
@@ -26,6 +26,66 @@ export const Login = () => {
   const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
   const setTokenType = useStoreAuth((state) => state.setTokenType);
 
+
+  useEffect(() => {
+    googleAutorization().then((res) => {
+      console.log(res || 'no data');
+
+      const accessToken = res.headers.get('access_token');
+      const refreshToken = res.headers.get('refresh-token');
+      const tokenType = res.headers.get('token_type');
+      const allHeaders = res.headers;
+      setAccessToken(accessToken);
+      setRefreshToken(refreshToken);
+      setTokenType(tokenType);
+
+      console.log('access_token_header:', accessToken);
+      console.log('refresh_token_header:', refreshToken);
+      console.log('token_type_header:', tokenType);
+      console.log('allHeaders:', allHeaders);
+      const allCookies = Cookies.get();
+      console.log('cookies:', allCookies);
+      // Отримуємо дані з відповіді
+      const data = res.json();
+      const { access_token, refresh_token } = data;
+
+      // Зберігаємо токен у локальному сховищі або cookies
+      localStorage.setItem('access_token', access_token);
+      localStorage.setItem('refresh_token', refresh_token);
+      console.log('access_token:', access_token);
+      console.log('refresh_token:', refresh_token);
+      //   console.table(res);
+      //   const googleAuthUrl = res.url;
+      //   console.log(googleAuthUrl);
+
+      // if (res.status === 200) {
+      //   alert('Ви успішно увійшли');
+      //   getCurentUser().then((res) => {
+      //     console.log(res);
+      //     if (res.status === 200) {
+      //       setUser(res.data);
+      //     }
+      //   });
+      //   // setFormLogin(true);
+      // }
+
+      // if (res.refresh_token) {
+      //   localStorage.setItem('refresh_token', res.refresh_token);
+      //   setRefreshToken(res.refresh_token);
+      // }
+      // if (res.access_token) {
+      //   localStorage.setItem('access_token', res.access_token);
+      //   setAccessToken(res.access_token);
+      // }
+      // if (res.token_type) {
+      //   localStorage.setItem('token_type', res.token_type);
+      //   setTokenType(res.token_type);
+      // }
+      // setFormLogin(true);
+    }).catch(error => {
+      console.error('Authentication failed:', error);
+    });
+  }, []);
 
   // localStorage.clear();
 
