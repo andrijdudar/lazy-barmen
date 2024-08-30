@@ -183,7 +183,11 @@ export const Login = () => {
   }
 
   const handleGoogleAutorization = () => {
-    window.location.href = SERVER_URL + '/api/auth/google_login';
+    window.location.href = SERVER_URL + '/api/auth/google_login'
+      .then((res) => {
+        console.log(res);
+        alert('Ви успішно увійшли через Google');
+      });
 
     // const fetchTokens = async () => {
     //   // const queryParams = location.search.substring(1);
