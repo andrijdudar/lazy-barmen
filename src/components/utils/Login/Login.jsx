@@ -31,74 +31,83 @@ export const Login = () => {
   // const navigate = useNavigate();
 
   useEffect(() => {
-    const allCookies = Cookies.get();
-    console.log('cookies:', allCookies);
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      const value = localStorage.getItem(key);
-      console.log(`${key}: ${value}`);
-    }
+    // const allCookies = Cookies.get();
+    // console.log('cookies:', allCookies);
+    // for (let i = 0; i < localStorage.length; i++) {
+    //   const key = localStorage.key(i);
+    //   const value = localStorage.getItem(key);
+    //   console.log(`${key}: ${value}`);
+    // }
 
-    const access_token = Cookies.get('access_token');
-    const refresh_token = Cookies.get('refresh_token');
+    // const access_token = Cookies.get('access_token');
+    // const refresh_token = Cookies.get('refresh_token');
 
-    // setAccessToken(access_token);
-    // setRefreshToken(refresh_token);
-    console.log('access_token_cook:', access_token);
-    console.log('refresh_token_coock:', refresh_token);
+    // // setAccessToken(access_token);
+    // // setRefreshToken(refresh_token);
+    // console.log('access_token_cook:', access_token);
+    // console.log('refresh_token_coock:', refresh_token);
 
-    localStorage.setItem('access_token', access_token);
-    localStorage.setItem('refresh_token', refresh_token);
-    console.log('access_token_local:', localStorage.getItem('access_token'));
-    console.log('refresh_token_local:', localStorage.getItem('refresh_token'));
-
-
+    // localStorage.setItem('access_token', access_token);
+    // localStorage.setItem('refresh_token', refresh_token);
+    // console.log('access_token_local:', localStorage.getItem('access_token'));
+    // console.log('refresh_token_local:', localStorage.getItem('refresh_token'));
 
 
-    // const fetchTokens = async () => {
-    // Отримуємо код із URL
+
+
+    const fetchTokens = async () => {
     // const queryParams = location.search.substring(1);
     // const code = queryParams.get('code');
     // console.log('code:', code);
 
-    //   if (true) {
-    //     try {
-    //       // Відправляємо код на бекенд для обміну на токен
-    // const response = await fetch(SERVER_URL + '/auth/token', {
-    //         method: 'GET',
-    //         headers: {
-    //           // 'Authorization': queryParams,
-    //           'Content-Type': 'application/json',
-    //           // 'Accept': 'application/json',
-    //         },
-    //         // mode: 'no-cors',
-    //         credentials: 'include', // Якщо потрібно передавати куки
-    //         // params: queryParams,
-    //       });
+      // if (true) {
+        try {
+          // Відправляємо код на бекенд для обміну на токен
+    const response = await fetch(SERVER_URL + '/auth/token', {
+            method: 'GET',
+            headers: {
+              // 'Authorization': queryParams,
+              'Content-Type': 'application/json',
+              // 'Accept': 'application/json',
+            },
+            // mode: 'no-cors',
+            credentials: 'include', // Якщо потрібно передавати куки
+            // params: queryParams,
+          });
 
-    //       if (!response.ok) {
-    //         throw new Error('Network response was not ok');
-    //       }
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const accessToken = response.headers.get('access_token');
+          const refreshToken = response.headers.get('refresh-token');
+          const tokenType = response.headers.get('token_type');
+          const allHeaders = response.headers;
 
-    //       // Отримуємо дані з відповіді
-    //       const data = await response.json();
-    //       const { access_token, refresh_token } = data;
+          console.log('access_token_header:', accessToken);
+          console.log('refresh_token_header:', refreshToken);
+          console.log('token_type_header:', tokenType);
+          console.log('allHeaders:', allHeaders);
+          const allCookies = Cookies.get();
+          console.log('cookies:', allCookies);
+          // Отримуємо дані з відповіді
+          const data = await response.json();
+          const { access_token, refresh_token } = data;
 
-    //       // Зберігаємо токен у локальному сховищі або cookies
-    //       localStorage.setItem('access_token', access_token);
-    //       localStorage.setItem('refresh_token', refresh_token);
-    //       console.log('access_token:', access_token);
-    //       console.log('refresh_token:', refresh_token);
+          // Зберігаємо токен у локальному сховищі або cookies
+          localStorage.setItem('access_token', access_token);
+          localStorage.setItem('refresh_token', refresh_token);
+          console.log('access_token:', access_token);
+          console.log('refresh_token:', refresh_token);
 
-    //       // Перенаправляємо користувача на головну сторінку або dashboard
-    //       // navigate('/dashboard');
-    //     } catch (error) {
-    //       console.error('Authentication failed:', error);
-    //     }
-    //   }
-    // };
+          // Перенаправляємо користувача на головну сторінку або dashboard
+          // navigate('/dashboard');
+        } catch (error) {
+          console.error('Authentication failed:', error);
+        }
+      // }
+    };
 
-    // fetchTokens();
+    fetchTokens();
   }, []);
 
 

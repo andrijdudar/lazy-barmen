@@ -18,27 +18,27 @@ export const ProtectedRoutes = () => {
   //
   useEffect(() => {
 
-    const allCookies = Cookies.get();
-    console.log('cookies:', allCookies);
+    // const allCookies = Cookies.get();
+    // console.log('cookies:', allCookies);
 
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      const value = localStorage.getItem(key);
-      console.log(`${key}: ${value}`);
-    }
+    // for (let i = 0; i < localStorage.length; i++) {
+    //   const key = localStorage.key(i);
+    //   const value = localStorage.getItem(key);
+    //   console.log(`${key}: ${value}`);
+    // }
 
-    const access_token = Cookies.get('access_token');
-    const refresh_token = Cookies.get('refresh_token');
+    // const access_token = Cookies.get('access_token');
+    // const refresh_token = Cookies.get('refresh_token');
 
-    setAccessToken(access_token);
-    setRefreshToken(refresh_token);
-    console.log('access_token_cook:', access_token);
-    console.log('refresh_token_coock:', refresh_token);
+    // setAccessToken(access_token);
+    // setRefreshToken(refresh_token);
+    // console.log('access_token_cook:', access_token);
+    // console.log('refresh_token_coock:', refresh_token);
 
-    localStorage.setItem('access_token', access_token);
-    localStorage.setItem('refresh_token', refresh_token);
-    console.log('access_token_local:', localStorage.getItem('access_token'));
-    console.log('refresh_token_local:', localStorage.getItem('refresh_token'));
+    // localStorage.setItem('access_token', access_token);
+    // localStorage.setItem('refresh_token', refresh_token);
+    // console.log('access_token_local:', localStorage.getItem('access_token'));
+    // console.log('refresh_token_local:', localStorage.getItem('refresh_token'));
 
 
     const fetchTokens = async () => {
@@ -70,6 +70,9 @@ export const ProtectedRoutes = () => {
         console.log('refresh_token_header:', refreshToken);
         console.log('token_type_header:', tokenType);
         console.log('allHeaders:', allHeaders);
+
+        const allCookies = Cookies.get();
+        console.log('cookies:', allCookies);
         // Отримуємо дані з відповіді
         const data = await response.json();
         const { access_token, refresh_token } = data;
