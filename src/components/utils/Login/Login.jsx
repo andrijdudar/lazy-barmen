@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
 import { getCurentUser, googleAutorization, SignUp } from '../../../utils/fetch';
@@ -8,7 +8,7 @@ import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
 // import { useLocation, useNavigate } from 'react-router-dom';
 import { SERVER_URL } from '../../../services/httpClient';
 import Cookies from 'js-cookie';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 
 

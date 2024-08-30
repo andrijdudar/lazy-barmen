@@ -6,6 +6,8 @@ import './App.scss';
 import { googleAutorization } from './utils/fetch';
 import useStoreAuth from './utils/StoreAuth';
 import { SERVER_URL } from './services/httpClient';
+import Cookies from 'js-cookie';
+
 
 
 const App = () => {
@@ -92,7 +94,7 @@ const App = () => {
       }).catch(error => {
         console.error('Authentication failed:', error);
       });
-      handleGoogleAutorization();
+
     }
 
 
@@ -120,6 +122,8 @@ const App = () => {
     //     setUser(res.role);
     //   }
     // });
+    handleGoogleAutorization();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // if (!formLogin) {
