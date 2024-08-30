@@ -2,6 +2,8 @@ import { create } from "zustand";
 
 const useStoreAuth = create((set) => ({
 
+  cookies: null,
+  setCookies: (cookies) => set({ cookies }),
 
   formLogin: false,
   setFormLogin: (formLogin) => set({ formLogin }),
