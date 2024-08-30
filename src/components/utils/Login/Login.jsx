@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
 import { getCurentUser, SignUp } from '../../../utils/fetch';
@@ -8,7 +8,7 @@ import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
 // import { useLocation, useNavigate } from 'react-router-dom';
 import { SERVER_URL } from '../../../services/httpClient';
-// import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 // import { useLocation } from 'react-router-dom';
 
 
@@ -24,6 +24,8 @@ export const Login = () => {
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+  const cookies = useStoreAuth((state) => state.cookies);
+  const setCookies = useStoreAuth((state) => state.setCookies);
   // const setAccessToken = useStoreAuth((state) => state.setAccessToken);
   // const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
   // const setTokenType = useStoreAuth((state) => state.setTokenType);
@@ -33,9 +35,11 @@ export const Login = () => {
 
   // localStorage.clear();
 
-  // useEffect(() => {
-  // // const allCookies = Cookies.get();
-  // // console.log('cookies:', allCookies);
+  useEffect(() => {
+    const allCookies = Cookies.get();
+    setCookies(allCookies);
+    console.log('cookies:', allCookies);
+    console.log(cookies);
   // // for (let i = 0; i < localStorage.length; i++) {
   // //   const key = localStorage.key(i);
   // //   const value = localStorage.getItem(key);
@@ -115,7 +119,8 @@ export const Login = () => {
   //   };
 
   //   fetchTokens();
-  // }, [location]);
+  }, []);
+  console.log(cookies);
 
 
   const handleRegistration = () => {

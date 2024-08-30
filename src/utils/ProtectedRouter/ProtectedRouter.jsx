@@ -4,7 +4,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import useStoreAuth from "../StoreAuth";
 import { useEffect } from "react";
 // // import { useEffect } from "react";
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 
 // import { SERVER_URL } from '../../services/httpClient';
 
@@ -14,8 +14,8 @@ export const ProtectedRoutes = () => {
   // const setAccessToken = useStoreAuth((state) => state.setAccessToken);
   const refreshToken = useStoreAuth((state) => state.refresh_token);
   // const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
-  const cookies = useStoreAuth((state) => state.cookies);
-const setCookies = useStoreAuth((state) => state.setCookies);
+  // const cookies = useStoreAuth((state) => state.cookies);
+// const setCookies = useStoreAuth((state) => state.setCookies);
 
   // const location = useLocation();
   // const navigate = useNavigate();
@@ -48,9 +48,9 @@ const setCookies = useStoreAuth((state) => state.setCookies);
 
 
 
-    const allCookies = Cookies.get();
-    setCookies(allCookies);
-    console.log('cookies useEffect protected:', allCookies);
+    // const allCookies = Cookies.get();
+    // setCookies(allCookies);
+    // console.log('cookies useEffect protected:', allCookies);
 
     // for (let i = 0; i < localStorage.length; i++) {
     //   const key = localStorage.key(i);
@@ -128,7 +128,7 @@ const setCookies = useStoreAuth((state) => state.setCookies);
 
     // fetchTokens();
   }, []);
-console.log(cookies);
+// console.log(cookies);
 
   return (accsessToken || refreshToken) ? <Outlet /> : <Navigate to="/login" />
 };
