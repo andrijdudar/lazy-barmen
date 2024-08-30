@@ -1,14 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
-import { getCurentUser, googleAutorization, SignUp } from '../../../utils/fetch';
+import { getCurentUser, SignUp } from '../../../utils/fetch';
 // import { useNavigate } from 'react-router-dom';
 import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
 // import { useLocation, useNavigate } from 'react-router-dom';
 import { SERVER_URL } from '../../../services/httpClient';
 import Cookies from 'js-cookie';
-// import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -26,7 +27,7 @@ export const Login = () => {
   const setAccessToken = useStoreAuth((state) => state.setAccessToken);
   const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
   const setTokenType = useStoreAuth((state) => state.setTokenType);
-  // const location = useLocation();
+  const location = useLocation();
 
 
   // useEffect(() => {
@@ -96,26 +97,26 @@ export const Login = () => {
   // const navigate = useNavigate();
 
   useEffect(() => {
-  const allCookies = Cookies.get();
-  console.log('cookies:', allCookies);
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    const value = localStorage.getItem(key);
-    console.log(`${key}: ${value}`);
-  }
+  // const allCookies = Cookies.get();
+  // console.log('cookies:', allCookies);
+  // for (let i = 0; i < localStorage.length; i++) {
+  //   const key = localStorage.key(i);
+  //   const value = localStorage.getItem(key);
+  //   console.log(`${key}: ${value}`);
+  // }
 
-  const access_token = Cookies.get('access_token');
-  const refresh_token = Cookies.get('refresh_token');
+  // const access_token = Cookies.get('access_token');
+  // const refresh_token = Cookies.get('refresh_token');
 
-  // setAccessToken(access_token);
-  // setRefreshToken(refresh_token);
-  console.log('access_token_cook:', access_token);
-  console.log('refresh_token_coock:', refresh_token);
+  // // setAccessToken(access_token);
+  // // setRefreshToken(refresh_token);
+  // console.log('access_token_cook:', access_token);
+  // console.log('refresh_token_coock:', refresh_token);
 
-  localStorage.setItem('access_token', access_token);
-  localStorage.setItem('refresh_token', refresh_token);
-  console.log('access_token_local:', localStorage.getItem('access_token'));
-  console.log('refresh_token_local:', localStorage.getItem('refresh_token'));
+  // localStorage.setItem('access_token', access_token);
+  // localStorage.setItem('refresh_token', refresh_token);
+  // console.log('access_token_local:', localStorage.getItem('access_token'));
+  // console.log('refresh_token_local:', localStorage.getItem('refresh_token'));
 
 
 
@@ -128,7 +129,7 @@ export const Login = () => {
       // if (true) {
         try {
           // Відправляємо код на бекенд для обміну на токен
-          const response = await fetch(SERVER_URL + '/api/auth/token', {
+          const response = await fetch(SERVER_URL + "/api/auth/google_login", {
             method: 'GET',
             headers: {
               // 'Authorization': queryParams,
@@ -147,6 +148,10 @@ export const Login = () => {
           const refreshToken = response.headers.get('refresh-token');
           const tokenType = response.headers.get('token_type');
           const allHeaders = response.headers;
+
+          setAccessToken(accessToken);
+          setRefreshToken(refreshToken);
+          setTokenType(tokenType);
 
           console.log('access_token_header:', accessToken);
           console.log('refresh_token_header:', refreshToken);
@@ -173,7 +178,7 @@ export const Login = () => {
     };
 
     fetchTokens();
-  }, []);
+  }, [location]);
 
 
   // const setAccessToken = useStore((state) => state.setAccessToken);
@@ -285,32 +290,32 @@ export const Login = () => {
     // nsvigate('/test-page');
 
     window.location.href = SERVER_URL + '/api/auth/google_login';
-    googleAutorization().then((res) => {
-      console.log(res || 'no data');
+    // googleAutorization().then((res) => {
+    //   console.log(res || 'no data');
 
-      const accessToken = res.headers.get('access_token');
-      const refreshToken = res.headers.get('refresh-token');
-      const tokenType = res.headers.get('token_type');
-      const allHeaders = res.headers;
-      setAccessToken(accessToken);
-      setRefreshToken(refreshToken);
-      setTokenType(tokenType);
+    //   const accessToken = res.headers.get('access_token');
+    //   const refreshToken = res.headers.get('refresh-token');
+    //   const tokenType = res.headers.get('token_type');
+    //   const allHeaders = res.headers;
+    //   setAccessToken(accessToken);
+    //   setRefreshToken(refreshToken);
+    //   setTokenType(tokenType);
 
-      console.log('access_token_header:', accessToken);
-      console.log('refresh_token_header:', refreshToken);
-      console.log('token_type_header:', tokenType);
-      console.log('allHeaders:', allHeaders);
-      // const allCookies = Cookies.get();
-      // console.log('cookies:', allCookies);
-      // Отримуємо дані з відповіді
-      const data = res.json();
-      const { access_token, refresh_token } = data;
+    //   console.log('access_token_header:', accessToken);
+    //   console.log('refresh_token_header:', refreshToken);
+    //   console.log('token_type_header:', tokenType);
+    //   console.log('allHeaders:', allHeaders);
+    //   // const allCookies = Cookies.get();
+    //   // console.log('cookies:', allCookies);
+    //   // Отримуємо дані з відповіді
+    //   const data = res.json();
+    //   const { access_token, refresh_token } = data;
 
-      // Зберігаємо токен у локальному сховищі або cookies
-      localStorage.setItem('access_token', access_token);
-      localStorage.setItem('refresh_token', refresh_token);
-      console.log('access_token:', access_token);
-      console.log('refresh_token:', refresh_token);
+    //   // Зберігаємо токен у локальному сховищі або cookies
+    //   localStorage.setItem('access_token', access_token);
+    //   localStorage.setItem('refresh_token', refresh_token);
+    //   console.log('access_token:', access_token);
+    //   console.log('refresh_token:', refresh_token);
       //   console.table(res);
       //   const googleAuthUrl = res.url;
       //   console.log(googleAuthUrl);
@@ -339,9 +344,9 @@ export const Login = () => {
       //   setTokenType(res.token_type);
       // }
       // setFormLogin(true);
-    }).catch(error => {
-      console.error('Authentication failed:', error);
-    });
+    // }).catch(error => {
+    //   console.error('Authentication failed:', error);
+    // });
   }
   function showAlert() {
     const alertBox = document.getElementById('custom-alert');

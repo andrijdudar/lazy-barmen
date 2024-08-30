@@ -70,7 +70,7 @@ const App = () => {
           // if (true) {
           try {
             // Відправляємо код на бекенд для обміну на токен
-            const response = await fetch(SERVER_URL + '/api/auth/token', {
+            const response = await fetch(SERVER_URL + "/api/auth/google_login", {
               method: 'GET',
               headers: {
                 // 'Authorization': queryParams,
