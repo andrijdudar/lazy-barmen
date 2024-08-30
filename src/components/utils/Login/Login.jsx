@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
-import { getCurentUser, SignUp } from '../../../utils/fetch';
+import { getCurentUser, googleAutorization, SignUp } from '../../../utils/fetch';
 // import { useNavigate } from 'react-router-dom';
 import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
@@ -22,6 +22,9 @@ export const Login = () => {
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+  const setAccessToken = useStoreAuth((state) => state.setAccessToken);
+  const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
+  const setTokenType = useStoreAuth((state) => state.setTokenType);
 
 
   localStorage.clear();
@@ -213,15 +216,39 @@ export const Login = () => {
     });
   }
 
-  // const handleGoogleAutorization = () => {
+  const handleGoogleAutorization = () => {
   // window.location.href = 'http://google.com';
   // window.location.href = '/menu';
   // setFormLogin(true);
   // nsvigate('/test-page');
 
-  // window.location.href = SERVER_URL + '/api/auth/google_login';
-  // googleAutorization().then((res) => {
-  //   console.log(res || 'no data');
+  window.location.href = SERVER_URL + '/api/auth/google_login';
+  googleAutorization().then((res) => {
+    console.log(res || 'no data');
+
+    const accessToken = res.headers.get('access_token');
+    const refreshToken = res.headers.get('refresh-token');
+    const tokenType = res.headers.get('token_type');
+    const allHeaders = res.headers;
+    setAccessToken(accessToken);
+    setRefreshToken(refreshToken);
+    setTokenType(tokenType);
+
+    console.log('access_token_header:', accessToken);
+    console.log('refresh_token_header:', refreshToken);
+    console.log('token_type_header:', tokenType);
+    console.log('allHeaders:', allHeaders);
+    const allCookies = Cookies.get();
+    console.log('cookies:', allCookies);
+    // Отримуємо дані з відповіді
+    const data =  res.json();
+    const { access_token, refresh_token } = data;
+
+    // Зберігаємо токен у локальному сховищі або cookies
+    localStorage.setItem('access_token', access_token);
+    localStorage.setItem('refresh_token', refresh_token);
+    console.log('access_token:', access_token);
+    console.log('refresh_token:', refresh_token);
   //   console.table(res);
   //   const googleAuthUrl = res.url;
   //   console.log(googleAuthUrl);
@@ -249,8 +276,8 @@ export const Login = () => {
   //   localStorage.setItem('token_type', res.token_type);
   //   setTokenType(res.token_type);
   // }
-  // });
-  // }
+  });
+  }
   function showAlert() {
     const alertBox = document.getElementById('custom-alert');
     if (alertBox) {
@@ -333,9 +360,10 @@ export const Login = () => {
                           Увійти
                         </button>
                         <a
-                          href={SERVER_URL + "/api/auth/google_login"}
+                          href='#/'
+                          // href={SERVER_URL + "/api/auth/google_login"}
                           className="btn-login mt-4"
-                        // onClick={handleGoogleAutorization}
+                        onClick={handleGoogleAutorization}
                         >
                           Увійти через Google
                         </a>
