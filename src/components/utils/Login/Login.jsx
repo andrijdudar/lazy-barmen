@@ -183,7 +183,7 @@ export const Login = () => {
   }
 
   const handleGoogleAutorization = () => {
-    // window.location.href = SERVER_URL + '/api/auth/google_login';
+    window.location.href = SERVER_URL + '/api/auth/google_login';
 
     const fetchTokens = async () => {
       // const queryParams = location.search.substring(1);
@@ -207,7 +207,7 @@ export const Login = () => {
 
         // const allCookies = Cookies.get();
         // console.log('cookies_Login_Button:', allCookies);
-alert('Ви успішно увійшли через Google');
+        
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
