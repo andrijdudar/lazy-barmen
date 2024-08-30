@@ -207,10 +207,10 @@ export const Login = () => {
 
         // const allCookies = Cookies.get();
         // console.log('cookies_Login_Button:', allCookies);
-
-        // if (!response.ok) {
-        //   throw new Error('Network response was not ok');
-        // }
+alert('Ви успішно увійшли через Google');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
         const accessToken = response.headers.get('access_token');
         const refreshToken = response.headers.get('refresh-token');
         const tokenType = response.headers.get('token_type');
