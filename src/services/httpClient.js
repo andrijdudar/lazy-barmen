@@ -1,7 +1,7 @@
 
 // export const SERVER_URL = 'https://ago-ago-8570935a.koyeb.app';
 export const SERVER_URL = 'https://4522-194-44-160-206.ngrok-free.app';
-const accessToken = localStorage.getItem('access_token');
+// const accessToken = localStorage.getItem('access_token');
 // const refreshToken = localStorage.getItem('refresh_token');
 
 const handleResponse = async (response) => {
@@ -77,7 +77,7 @@ export const client = {
         // mode: 'no-cors',
         credentials: 'include',
         headers: new Headers({
-          'Authorization': `Bearer ${accessToken}`,
+          // 'Authorization': `Bearer ${accessToken}`,
           // "ngrok-skip-browser-warning": "69420",
         }),
       });
@@ -103,7 +103,7 @@ export const client = {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
+          // 'Authorization': `Bearer ${accessToken}`,
         },
         // body: formData,
         body: JSON.stringify(data),
@@ -122,7 +122,7 @@ export const client = {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
+          // 'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data),
       });
@@ -140,7 +140,7 @@ export const client = {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
+          // 'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data),
       });
@@ -157,7 +157,7 @@ export const client = {
         method: 'DELETE',
         credentials: 'include',
         headers: {
-        'Authorization': `Bearer ${accessToken}`,
+        // 'Authorization': `Bearer ${accessToken}`,
         },
       });
       return await handleResponse(response);
