@@ -28,73 +28,10 @@ export const Login = () => {
   const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
   const setTokenType = useStoreAuth((state) => state.setTokenType);
   const location = useLocation();
-
-
-  // useEffect(() => {
-  //   googleAutorization().then((res) => {
-  //     console.log(res || 'no data');
-
-  //     const accessToken = res.headers.get('access_token');
-  //     const refreshToken = res.headers.get('refresh-token');
-  //     const tokenType = res.headers.get('token_type');
-  //     const allHeaders = res.headers;
-  //     setAccessToken(accessToken);
-  //     setRefreshToken(refreshToken);
-  //     setTokenType(tokenType);
-
-  //     console.log('access_token_header:', accessToken);
-  //     console.log('refresh_token_header:', refreshToken);
-  //     console.log('token_type_header:', tokenType);
-  //     console.log('allHeaders:', allHeaders);
-  //     const allCookies = Cookies.get();
-  //     console.log('cookies:', allCookies);
-  //     // Отримуємо дані з відповіді
-  //     const data = res.json();
-  //     const { access_token, refresh_token } = data;
-
-  //     // Зберігаємо токен у локальному сховищі або cookies
-  //     localStorage.setItem('access_token', access_token);
-  //     localStorage.setItem('refresh_token', refresh_token);
-  //     console.log('access_token:', access_token);
-  //     console.log('refresh_token:', refresh_token);
-  //     //   console.table(res);
-  //     //   const googleAuthUrl = res.url;
-  //     //   console.log(googleAuthUrl);
-
-  //     // if (res.status === 200) {
-  //     //   alert('Ви успішно увійшли');
-  //     //   getCurentUser().then((res) => {
-  //     //     console.log(res);
-  //     //     if (res.status === 200) {
-  //     //       setUser(res.data);
-  //     //     }
-  //     //   });
-  //     //   // setFormLogin(true);
-  //     // }
-
-  //     // if (res.refresh_token) {
-  //     //   localStorage.setItem('refresh_token', res.refresh_token);
-  //     //   setRefreshToken(res.refresh_token);
-  //     // }
-  //     // if (res.access_token) {
-  //     //   localStorage.setItem('access_token', res.access_token);
-  //     //   setAccessToken(res.access_token);
-  //     // }
-  //     // if (res.token_type) {
-  //     //   localStorage.setItem('token_type', res.token_type);
-  //     //   setTokenType(res.token_type);
-  //     // }
-  //     // setFormLogin(true);
-  //   }).catch(error => {
-  //     console.error('Authentication failed:', error);
-  //   });
-  // }, [location]);
-
-  // localStorage.clear();
-
-
   // const location = useLocation();
   // const navigate = useNavigate();
+
+  // localStorage.clear();
 
   useEffect(() => {
   // const allCookies = Cookies.get();
@@ -153,12 +90,12 @@ export const Login = () => {
           setRefreshToken(refreshToken);
           setTokenType(tokenType);
 
-          console.log('access_token_header:', accessToken);
-          console.log('refresh_token_header:', refreshToken);
-          console.log('token_type_header:', tokenType);
-          console.log('allHeaders:', allHeaders);
+          console.log('access_token_header_Login_useEffect:', accessToken);
+          console.log('refresh_token_header_Login_useEffect:', refreshToken);
+          console.log('token_type_header_Login_useEffect:', tokenType);
+          console.log('allHeaders_Login_useEffect:', allHeaders);
           const allCookies = Cookies.get();
-          console.log('cookies:', allCookies);
+          console.log('cookies_Login_useEffect:', allCookies);
           // Отримуємо дані з відповіді
           const data = await response.json();
           const { access_token, refresh_token } = data;
@@ -166,13 +103,13 @@ export const Login = () => {
           // Зберігаємо токен у локальному сховищі або cookies
           localStorage.setItem('access_token', access_token);
           localStorage.setItem('refresh_token', refresh_token);
-          console.log('access_token:', access_token);
-          console.log('refresh_token:', refresh_token);
+          console.log('access_token_Login_useEffect:', access_token);
+          console.log('refresh_token_Login_useEffect:', refresh_token);
 
           // Перенаправляємо користувача на головну сторінку або dashboard
           // navigate('/dashboard');
         } catch (error) {
-          console.error('Authentication failed:', error);
+          console.error('Authentication failed_Login_useEffect:', error);
         }
       // }
     };
@@ -180,49 +117,6 @@ export const Login = () => {
     fetchTokens();
   }, [location]);
 
-
-  // const setAccessToken = useStore((state) => state.setAccessToken);
-  // const setRefreshToken = useStore((state) => state.setRefreshToken);
-  // const setTokenType = useStore((state) => state.setTokenType);
-
-  // const handleLogin = () => {
-  //   navigate('./test')
-  // if (inputEmail === '' || inputPassword === '') {
-  //   alert('Заповніть всі поля');
-  //   return;
-  // }
-
-  // const data = {
-  //   email: inputEmail,
-  //   password: inputPassword //str(min_length = 6)
-  // };
-
-  // SignIn(data).then((res) => {
-  //   console.log(res);
-  //   if (res.status === 200) {
-  //     alert('Ви успішно увійшли');
-  //     getCurentUser().then((res) => {
-  //       console.log(res);
-  //       if (res.status === 200) {
-  //         setUser(res.data);
-  //       }
-  //     });
-  //     // if (res.refresh_token) {
-  //     //   localStorage.setItem('refresh_token', res.refresh_token);
-  //     //   setRefreshToken(res.refresh_token);
-  //     // }
-  //     // if (res.access_token) {
-  //     //   localStorage.setItem('access_token', res.access_token);
-  //     //   setAccessToken(res.access_token);
-  //     // }
-  //     // if (res.token_type) {
-  //     //   localStorage.setItem('token_type', res.token_type);
-  //     //   setTokenType(res.token_type);
-  //     // }
-  //   }
-  // });
-  // setFormLogin(true);
-  // }
 
   const handleRegistration = () => {
     if (inputName === '' || inputLastName === '' || inputEmail === '' || inputPassword === '') {
@@ -284,69 +178,63 @@ export const Login = () => {
   }
 
   const handleGoogleAutorization = () => {
-    // window.location.href = 'http://google.com';
-    // window.location.href = '/menu';
-    // setFormLogin(true);
-    // nsvigate('/test-page');
-
     window.location.href = SERVER_URL + '/api/auth/google_login';
-    // googleAutorization().then((res) => {
-    //   console.log(res || 'no data');
 
-    //   const accessToken = res.headers.get('access_token');
-    //   const refreshToken = res.headers.get('refresh-token');
-    //   const tokenType = res.headers.get('token_type');
-    //   const allHeaders = res.headers;
-    //   setAccessToken(accessToken);
-    //   setRefreshToken(refreshToken);
-    //   setTokenType(tokenType);
+    const fetchTokens = async () => {
+      // const queryParams = location.search.substring(1);
+      // const code = queryParams.get('code');
+      // console.log('code:', code);
 
-    //   console.log('access_token_header:', accessToken);
-    //   console.log('refresh_token_header:', refreshToken);
-    //   console.log('token_type_header:', tokenType);
-    //   console.log('allHeaders:', allHeaders);
-    //   // const allCookies = Cookies.get();
-    //   // console.log('cookies:', allCookies);
-    //   // Отримуємо дані з відповіді
-    //   const data = res.json();
-    //   const { access_token, refresh_token } = data;
+      // if (true) {
+      try {
+        // Відправляємо код на бекенд для обміну на токен
+        const response = await fetch(SERVER_URL + "/api/auth/google_login", {
+          method: 'GET',
+          headers: {
+            // 'Authorization': queryParams,
+            'Content-Type': 'application/json',
+            // 'Accept': 'application/json',
+          },
+          // mode: 'no-cors',
+          credentials: 'include', // Якщо потрібно передавати куки
+          // params: queryParams,
+        });
 
-    //   // Зберігаємо токен у локальному сховищі або cookies
-    //   localStorage.setItem('access_token', access_token);
-    //   localStorage.setItem('refresh_token', refresh_token);
-    //   console.log('access_token:', access_token);
-    //   console.log('refresh_token:', refresh_token);
-      //   console.table(res);
-      //   const googleAuthUrl = res.url;
-      //   console.log(googleAuthUrl);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const accessToken = response.headers.get('access_token');
+        const refreshToken = response.headers.get('refresh-token');
+        const tokenType = response.headers.get('token_type');
+        const allHeaders = response.headers;
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
+        setTokenType(tokenType);
 
-      // if (res.status === 200) {
-      //   alert('Ви успішно увійшли');
-      //   getCurentUser().then((res) => {
-      //     console.log(res);
-      //     if (res.status === 200) {
-      //       setUser(res.data);
-      //     }
-      //   });
-      //   // setFormLogin(true);
-      // }
+        console.log('access_token_header_Login_Button:', accessToken);
+        console.log('refresh_token_header_Login_Button:', refreshToken);
+        console.log('token_type_header_Login_Button:', tokenType);
+        console.log('allHeaders_Login_Button:', allHeaders);
+        const allCookies = Cookies.get();
+        console.log('cookies_Login_Button:', allCookies);
+        // Отримуємо дані з відповіді
+        const data = await response.json();
+        const { access_token, refresh_token } = data;
 
-      // if (res.refresh_token) {
-      //   localStorage.setItem('refresh_token', res.refresh_token);
-      //   setRefreshToken(res.refresh_token);
-      // }
-      // if (res.access_token) {
-      //   localStorage.setItem('access_token', res.access_token);
-      //   setAccessToken(res.access_token);
-      // }
-      // if (res.token_type) {
-      //   localStorage.setItem('token_type', res.token_type);
-      //   setTokenType(res.token_type);
-      // }
-      // setFormLogin(true);
-    // }).catch(error => {
-    //   console.error('Authentication failed:', error);
-    // });
+        // Зберігаємо токен у локальному сховищі або cookies
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('refresh_token', refresh_token);
+        console.log('access_token_Login_Button:', access_token);
+        console.log('refresh_token_Login_Button:', refresh_token);
+
+        // Перенаправляємо користувача на головну сторінку або dashboard
+        // navigate('/dashboard');
+      } catch (error) {
+        console.error('Authentication failed_Login_Button:', error);
+      }
+    };
+
+    fetchTokens();
   }
   function showAlert() {
     const alertBox = document.getElementById('custom-alert');
