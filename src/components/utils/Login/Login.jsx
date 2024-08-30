@@ -63,7 +63,7 @@ export const Login = () => {
       // if (true) {
         try {
           // Відправляємо код на бекенд для обміну на токен
-          const response = await fetch('https://andrijdudar.github.io/lazy-barmen', {
+    const response = await fetch(SERVER_URL, {
             method: 'GET',
             headers: {
               // 'Authorization': queryParams,
