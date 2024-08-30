@@ -8,7 +8,7 @@ import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
 // import { useLocation, useNavigate } from 'react-router-dom';
 import { SERVER_URL } from '../../../services/httpClient';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 // import { useLocation } from 'react-router-dom';
 
 
@@ -24,9 +24,9 @@ export const Login = () => {
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
-  const setAccessToken = useStoreAuth((state) => state.setAccessToken);
-  const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
-  const setTokenType = useStoreAuth((state) => state.setTokenType);
+  // const setAccessToken = useStoreAuth((state) => state.setAccessToken);
+  // const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
+  // const setTokenType = useStoreAuth((state) => state.setTokenType);
   // const location = useLocation();
   // const location = useLocation();
   // const navigate = useNavigate();
