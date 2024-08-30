@@ -20,7 +20,7 @@ export const ProtectedRoutes = () => {
 
     const allCookies = Cookies.get();
     console.log('cookies:', allCookies);
-    
+
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       const value = localStorage.getItem(key);
@@ -61,7 +61,13 @@ export const ProtectedRoutes = () => {
     //         if (!response.ok) {
     //           throw new Error('Network response was not ok');
     //         }
+    // const accessToken = response.headers.get('access_token');
+    // const refreshToken = response.headers.get('refresh-token');
+    // const tokenType = response.headers.get('token_type');
 
+    // console.log('access_token_header:', accessToken);
+    // console.log('refresh_token_header:', refreshToken);
+    // console.log('token_type_header:', tokenType);
     //         // Отримуємо дані з відповіді
     //         const data = await response.json();
     //         const { access_token, refresh_token } = data;
