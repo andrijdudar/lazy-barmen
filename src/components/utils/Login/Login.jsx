@@ -11,6 +11,8 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Loading } from '../../../utils/Loading/Loading';
 import { useGoogleLogin } from  "@react-oauth/google";
 import axios from 'axios';
+import Cookies from 'js-cookie';
+
 
 
 
@@ -44,6 +46,8 @@ export const Login = () => {
       localStorage.setItem('access_token', codeResponse.access_token);
       sessionStorage.setItem('access_token', codeResponse.access_token);
       setAccessToken(codeResponse.access_token);
+      Cookies.set('access_token', codeResponse.access_token, { expires: 7 }); // Кука зберігатиметься 7 днів
+
     },
     onError: (error) => console.log("Login Failed:", error)
   });
@@ -62,9 +66,12 @@ export const Login = () => {
         )
         .then((res) => {
           console.log(res);
+          console.log('юзер',res.data);
           setProfile(res.data);
           localStorage.setItem('profile', JSON.stringify(res.data));
           sessionStorage.setItem('profile', JSON.stringify(res.data));
+          const allCookies = Cookies.get();
+          console.log('куки',allCookies);
           navigate('/list');
         })
         .catch((err) => console.log(err));
