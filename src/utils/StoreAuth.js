@@ -1,19 +1,25 @@
 import { create } from "zustand";
 
 const useStoreAuth = create((set) => ({
-
-  cookies: null,
-  setCookies: (cookies) => set({ cookies }),
-
-  formLogin: false,
-  setFormLogin: (formLogin) => set({ formLogin }),
+  authenticated: false,
+  setAuthenticated: (authenticated) => set({ authenticated }),
 
   user: null,
   setUser: (user) => set({ user }),
 
-  access_token: null,
-  // access_token: JSON.parse(localStorage.getItem('access_token')) | null,
+
+  access_token: false,
+  // access_token: JSON.parse(localStorage.getItem('access_token')),
   setAccessToken: (access_token) => set({ access_token }),
+
+  // access_token: (() => {
+  //   const token = localStorage.getItem('access_token');
+  //   return token ? token : null; // Не намагайтеся парсити його як JSON
+  // })(),
+  // setAccessToken: (access_token) => {
+  //   localStorage.setItem('access_token', access_token); // Зберігайте токен у localStorage
+  //   set({ access_token });
+  // },
 
   refresh_token: null,
   // refresh_token: JSON.parse(localStorage.getItem('refresh_token')) | null,
@@ -23,6 +29,8 @@ const useStoreAuth = create((set) => ({
   // token_type: JSON.parse(localStorage.getItem('token_type')) | null,
   setTokenType: (token_type) => set({ token_type }),
 
+  loading: true,
+  setLoading: (loading) => set({ loading }),
 }));
 
 export default useStoreAuth;

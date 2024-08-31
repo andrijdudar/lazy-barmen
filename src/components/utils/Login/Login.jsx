@@ -3,125 +3,91 @@ import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
 import { getCurentUser, SignUp } from '../../../utils/fetch';
-// import { useNavigate } from 'react-router-dom';
 import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
-// import { useLocation, useNavigate } from 'react-router-dom';
 import { SERVER_URL } from '../../../services/httpClient';
-import Cookies from 'js-cookie';
-// import { useLocation } from 'react-router-dom';
+import { GoogleLogin } from 'react-google-login';
+import { gapi } from 'gapi-script';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export const Login = () => {
-  // const navigate = useNavigate();
+  const clientId = '731360179208-0ddqgcdfserhm8s6g5ecinq7158gguk0.apps.googleusercontent.com';
+  const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   // const user = useStoreAuth((state) => state.user);
   const setUser = useStoreAuth((state) => state.setUser);
-  // const formLogin = useStoreAuth((state) => state.formLogin);
   const setFormLogin = useStoreAuth((state) => state.setFormLogin);
   const [inputName, setInputName] = useState('');
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
-  const cookies = useStoreAuth((state) => state.cookies);
-  // const setCookies = useStoreAuth((state) => state.setCookies);
+  const accessToken = useStoreAuth((state) => state.access_token);
   const setAccessToken = useStoreAuth((state) => state.setAccessToken);
-  const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
-  const setTokenType = useStoreAuth((state) => state.setTokenType);
-  // const location = useLocation();
-  // const location = useLocation();
-  // const navigate = useNavigate();
-
+  // const authenticated = useStoreAuth((state) => state.authenticated);
+  const setAuthenticated = useStoreAuth((state) => state.setAuthenticated);
   // localStorage.clear();
+  const onSuccess = (res) => {
+    setAuthenticated(true);
+    setAccessToken(res.accessToken);
+  };
 
-  useEffect(() => {
-    // const allCookies = Cookies.get();
-    // setCookies(allCookies);
-    // console.log('cookies:', allCookies);
-    // console.log(cookies);
-  // // for (let i = 0; i < localStorage.length; i++) {
-  // //   const key = localStorage.key(i);
-  // //   const value = localStorage.getItem(key);
-  // //   console.log(`${key}: ${value}`);
-  // // }
+  const onFailure = (res) => {
+  };
 
-  // // const access_token = Cookies.get('access_token');
-  // // const refresh_token = Cookies.get('refresh_token');
+  if (accessToken) {
+    setAuthenticated(true);
+    navigate('/list');
+  }
 
-  // // // setAccessToken(access_token);
-  // // // setRefreshToken(refresh_token);
-  // // console.log('access_token_cook:', access_token);
-  // // console.log('refresh_token_coock:', refresh_token);
+// useEffect(() => {
+    // if (authenticated) {
 
-  // // localStorage.setItem('access_token', access_token);
-  // // localStorage.setItem('refresh_token', refresh_token);
-  // // console.log('access_token_local:', localStorage.getItem('access_token'));
-  // // console.log('refresh_token_local:', localStorage.getItem('refresh_token'));
+    // navigate('/');
+    // } else {
+    // setLoading(false);  // Завантаження завершено, коли користувач не авторизований
+    // }
+    // if (accessToken) {
+    //   setAuthenticated(true);
+    //   navigate('/');
+    // }
+    // if (!accessToken) {
+    //   function start() {
+    //     gapi.client.init({
+    //       clientId: clientId,
+    //       scope: 'profile email',
+    //     }).then(() => {
+    //       const authInstance = gapi.auth2.getAuthInstance();
+    //       console.log('authInstance:', authInstance);
+    //       if (authInstance.isSignedIn.get()) {
+    //         const accessTokenGet = authInstance.currentUser.get().getAuthResponse().access_token;
+    //         setAccessToken(accessTokenGet);
+    //         // setAuthenticated(true);
+    //         console.log('accessToken:', accessTokenGet);
+    //         // alert('ProtectedRoutes');
+    //         // setAuthenticated(true);
+    //         // navigate('/');
+    //       }
+    //     });
+    //   }
 
+    //   gapi.load('client:auth2', start);
+    // }
+  // }, []);
+  // console.log('accessToken:', accessToken);
 
-
-
-  //   const fetchTokens = async () => {
-  //   // const queryParams = location.search.substring(1);
-  //   // const code = queryParams.get('code');
-  //   // console.log('code:', code);
-
-  //     // if (true) {
-  //       try {
-  //         // Відправляємо код на бекенд для обміну на токен
-  //         const response = await fetch(SERVER_URL + "/api/auth/google_login", {
-  //           method: 'GET',
-  //           headers: {
-  //             // 'Authorization': queryParams,
-  //             'Content-Type': 'application/json',
-  //             // 'Accept': 'application/json',
-  //           },
-  //           // mode: 'no-cors',
-  //           credentials: 'include', // Якщо потрібно передавати куки
-  //           // params: queryParams,
-  //         });
-
-  //         if (!response.ok) {
-  //           throw new Error('Network response was not ok');
-  //         }
-  //         const accessToken = response.headers.get('access_token');
-  //         const refreshToken = response.headers.get('refresh-token');
-  //         const tokenType = response.headers.get('token_type');
-  //         const allHeaders = response.headers;
-
-  //         setAccessToken(accessToken);
-  //         setRefreshToken(refreshToken);
-  //         setTokenType(tokenType);
-
-  //         console.log('access_token_header_Login_useEffect:', accessToken);
-  //         console.log('refresh_token_header_Login_useEffect:', refreshToken);
-  //         console.log('token_type_header_Login_useEffect:', tokenType);
-  //         console.log('allHeaders_Login_useEffect:', allHeaders);
-  //         const allCookies = Cookies.get();
-  //         console.log('cookies_Login_useEffect:', allCookies);
-  //         // Отримуємо дані з відповіді
-  //         const data = await response.json();
-  //         const { access_token, refresh_token } = data;
-
-  //         // Зберігаємо токен у локальному сховищі або cookies
-  //         localStorage.setItem('access_token', access_token);
-  //         localStorage.setItem('refresh_token', refresh_token);
-  //         console.log('access_token_Login_useEffect:', access_token);
-  //         console.log('refresh_token_Login_useEffect:', refresh_token);
-
-  //         // Перенаправляємо користувача на головну сторінку або dashboard
-  //         // navigate('/dashboard');
-  //       } catch (error) {
-  //         console.error('Authentication failed_Login_useEffect:', error);
-  //       }
-  //     // }
+  // useEffect(() => {
+  //   function start() {
+  //     gapi.client.init({
+  //       clientId: clientId,
+  //       scope: '',
+  //     })
   //   };
-
-  //   fetchTokens();
-  }, []);
-  console.log(cookies);
-
+  //   gapi.load('client:auth2', start);
+  // }, []);
+  // const accessToken = gapi.auth.getToken().access_token;
+  // setAccessToken(accessToken);
 
   const handleRegistration = () => {
     if (inputName === '' || inputLastName === '' || inputEmail === '' || inputPassword === '') {
@@ -182,74 +148,19 @@ export const Login = () => {
     });
   }
 
-  const handleGoogleAutorization = () => {
-    window.location.href = SERVER_URL + '/api/auth/google_login';
+  // const handleGoogleAutorization = () => {
+  //   window.location.href = SERVER_URL + '/api/auth/google_login';
+  // }
 
-    const fetchTokens = async () => {
-      // const queryParams = location.search.substring(1);
-      // const code = queryParams.get('code');
-      // console.log('code:', code);
 
-      // if (true) {
-      try {
-        // Відправляємо код на бекенд для обміну на токен
-        const response = await fetch(SERVER_URL + "/api/auth/google_login", {
-          method: 'GET',
-          headers: {
-            // 'Authorization': queryParams,
-            'Content-Type': 'application/json',
-            // 'Accept': 'application/json',
-          },
-          // mode: 'no-cors',
-          credentials: 'include', // Якщо потрібно передавати куки
-          // params: queryParams,
-        });
-
-        // const allCookies = Cookies.get();
-        // console.log('cookies_Login_Button:', allCookies);
-        
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const accessToken = response.headers.get('access_token');
-        const refreshToken = response.headers.get('refresh-token');
-        const tokenType = response.headers.get('token_type');
-        const allHeaders = response.headers;
-        setAccessToken(accessToken);
-        setRefreshToken(refreshToken);
-        setTokenType(tokenType);
-
-        console.log('access_token_header_Login_Button:', accessToken);
-        console.log('refresh_token_header_Login_Button:', refreshToken);
-        console.log('token_type_header_Login_Button:', tokenType);
-        console.log('allHeaders_Login_Button:', allHeaders);
-        const allCookies = Cookies.get();
-        console.log('cookies_Login_Button:', allCookies);
-        // Отримуємо дані з відповіді
-        const data = await response.json();
-        const { access_token, refresh_token } = data;
-
-        // Зберігаємо токен у локальному сховищі або cookies
-        localStorage.setItem('access_token', access_token);
-        localStorage.setItem('refresh_token', refresh_token);
-        console.log('access_token_Login_Button:', access_token);
-        console.log('refresh_token_Login_Button:', refresh_token);
-
-        // Перенаправляємо користувача на головну сторінку або dashboard
-        // navigate('/dashboard');
-      } catch (error) {
-        console.error('Authentication failed_Login_Button:', error);
-      }
-    };
-
-    fetchTokens();
-  }
   function showAlert() {
     const alertBox = document.getElementById('custom-alert');
     if (alertBox) {
       alertBox.classList.add('show');
     }
   }
+
+
   return (
     <div className="section">
       <div className="container-logo">
@@ -262,6 +173,7 @@ export const Login = () => {
           <div className="col-12 text-center align-self-center py-5">
             <div className="section pb-5 pt-5 pt-sm-2 text-center">
               <h6 className="mb-0 pb-3">
+                <div>{accessToken || 'нема'}</div>
                 <button
                   type='button'
                   className={cn('span', { 'active': !isChecked })}
@@ -326,13 +238,21 @@ export const Login = () => {
                           Увійти
                         </button>
                         <a
-                          href='#/'
-                          // href={SERVER_URL + "/api/auth/google_login"}
+                          // href='#/'
+                          href={SERVER_URL + "/api/auth/google_login"}
                           className="btn-login mt-4"
-                          onClick={handleGoogleAutorization}
+                        // onClick={handleGoogleAutorization}
                         >
                           Увійти через Google
                         </a>
+                        <GoogleLogin
+                          clientId={clientId}
+                          buttonText="Login Google"
+                          onSuccess={onSuccess}
+                          onFailure={onFailure}
+                          cookiePolicy={'single_host_origin'}
+                          isSignedIn={true}
+                        />
                         <a
                           href="#/"
                           className="btn-login mt-4"
