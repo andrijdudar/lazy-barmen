@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./SideBarAdmin.scss";
 import { Link } from "react-router-dom";
+import useStoreAuth from "../../../../utils/StoreAuth";
+import iconLogout from "../../../../img/logout-24px.svg";
+
+import { CLIENT_ID } from "../../../../Root";
 
 const ListSettings = [
   {
@@ -88,6 +92,19 @@ const ListSettings = [
 export function SideBarAdmin({ onLinkClick }) {
   const [openDetailId, setOpenDetailId] = useState(null);
   const detailsRef = useRef([]);
+  const setUser = useStoreAuth((state) => state.setUser);
+  const setProfile = useStoreAuth((state) => state.setProfile);
+  const setAccessToken = useStoreAuth((state) => state.setAccessToken);
+
+
+  const handleLogoutSuccess = () => {
+    setUser(null);
+    setAccessToken(null);
+    setProfile(null);
+    localStorage.removeItem('access_token');
+    sessionStorage.removeItem('access_token');
+  };
+
 
   useEffect(() => {
     detailsRef.current = detailsRef.current.slice(0, ListSettings.length);
@@ -143,11 +160,21 @@ export function SideBarAdmin({ onLinkClick }) {
                 >
                   {subLink.title}
                 </Link>
+
               ))}
             </div>
           </details>
         );
       })}
+      {/* <div> */}
+        {/* <GoogleLogout
+          clientId={CLIENT_ID}
+          buttonText="Logout"
+          onLogoutSuccess={handleLogoutSuccess}
+          onLogoutFailure={handleLogoutFailure}
+        />
+      </div> */}
+      <button onClick={handleLogoutSuccess} className="button logout" type="button"><img src={iconLogout} alt="logout" /></button>
     </div>
   );
 }

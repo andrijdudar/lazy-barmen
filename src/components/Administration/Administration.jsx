@@ -2,6 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import './Administration.scss';
 import { useEffect, useRef, useState } from 'react';
 import { SideBarAdmin } from './components/SideBarAdmin/SideBarAdmin';
+import iconLogout from './../../img/logout-24px.svg';
 
 
 export function Administration() {
@@ -15,7 +16,7 @@ export function Administration() {
         const time = setTimeout(() => {
           outletRef.current.scrollIntoView({ behavior: 'smooth' });
           clearTimeout(time);
-         }, 1000);
+        }, 1000);
       }
       setShouldScroll(false);
     }

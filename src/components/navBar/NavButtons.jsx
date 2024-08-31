@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import './NavButtons.css';
 import cn from 'classnames';
-import { GoogleLogout } from "react-google-login";
 
 const getLinkClass = ({ isActive }) =>
   cn('nav-button-link', { 'has-border': isActive });
@@ -9,10 +8,6 @@ const getLinkClass = ({ isActive }) =>
 //   cn('nav-button-link-settings', 'grid-start', { 'has-border': isActive });
 
 export const NavButtons = () => {
-  const clientID = '731360179208-0ddqgcdfserhm8s6g5ecinq7158gguk0.apps.googleusercontent.com';
-  const onSuccess = () => {
-    console.log('Logout success');
-  };
   return (
     <ul className='nav-buttons grid-center'>
       {/* <li> */}
@@ -29,13 +24,6 @@ export const NavButtons = () => {
         <NavLink className={getLinkClass} to="/menu">
           Меню
         </NavLink>
-      </li>
-      <li>
-        <GoogleLogout
-          clientId={clientID}
-          buttonText="Logout"
-          onLogoutSuccess={onSuccess}
-        />
       </li>
     </ul>
   );

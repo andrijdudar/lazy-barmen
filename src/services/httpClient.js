@@ -1,22 +1,22 @@
 
 export const SERVER_URL = 'https://ago-ago-8570935a.koyeb.app';
 // export const SERVER_URL = 'https://4522-194-44-160-206.ngrok-free.app';
-// const accessToken = localStorage.getItem('access_token');
-// const refreshToken = localStorage.getItem('refresh_token');
+const accessToken = localStorage.getItem('access_token');
+const refreshToken = localStorage.getItem('refresh_token');
 
 const handleResponse = async (response) => {
-  // if (response.status === 401) {
-  //   const refreshResponse = await fetch(SERVER_URL + '/api/auth/refresh_token', {
-  //     method: 'GET',
-  //     credentials: 'include',
-  //   });
+  if (response.status === 401) {
+    const refreshResponse = await fetch(SERVER_URL + '/api/auth/refresh_token', {
+      method: 'GET',
+      credentials: 'include',
+    });
 
-  //   if (!refreshResponse.ok) {
-  //     window.location.href = '/login';
-  //     throw new Error('Помилка авторизації. Не вдалося оновити токен.');
-  //   }
-  //   return await refreshResponse.json();
-  // }
+    if (!refreshResponse.ok) {
+      window.location.href = '/login';
+      throw new Error('Помилка авторизації. Не вдалося оновити токен.');
+    }
+    return await refreshResponse.json();
+  }
 
 
   if (!response.ok) {
@@ -25,47 +25,47 @@ const handleResponse = async (response) => {
     // throw new Error('Дані з сервера не отримано');
   }
 
-  // if (response.status === 401) {
-  //   console.log('Помилка авторизації');
+  if (response.status === 401) {
+    console.log('Помилка авторизації');
 
-  //   const refreshResponse = await fetch(SERVER_URL + '/api/auth/refresh_token', {
-  //     method: "GET",
-  //     headers: new Headers({
-  //       'Authorization': `Bearer ${refreshToken}`,
-  //       "ngrok-skip-browser-warning": "69420",
-  //     }),
-  //     credentials: 'include',
-  //   });
+    const refreshResponse = await fetch(SERVER_URL + '/api/auth/refresh_token', {
+      method: "GET",
+      headers: new Headers({
+        'Authorization': `Bearer ${refreshToken}`,
+        "ngrok-skip-browser-warning": "69420",
+      }),
+      credentials: 'include',
+    });
 
-  //   if (!refreshResponse.ok) {
-  //     console.log('Помилка оновлення токена. Потрібно залогінитись заново.');
+    if (!refreshResponse.ok) {
+      console.log('Помилка оновлення токена. Потрібно залогінитись заново.');
 
-  //     localStorage.removeItem('accessToken');
-  //     localStorage.removeItem('refreshToken');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
 
-  //     // Перенаправляємо користувача на сторінку логіну
-  //     window.location.href = 'https://andrijdudar.github.io/lazy-barmen/'; // Замініть на правильний шлях до сторінки логіну
-  //     return;
-  //   }
+      // Перенаправляємо користувача на сторінку логіну
+      window.location.href = 'https://andrijdudar.github.io/lazy-barmen'; // Замініть на правильний шлях до сторінки логіну
+      return;
+    }
 
-  //   const refreshData = await refreshResponse.json();
+    const refreshData = await refreshResponse.json();
 
-  //   localStorage.setItem('access_token', refreshData.access_token);
-  //   localStorage.setItem('refresh_token', refreshData.refresh_token);
-  //   localStorage.setItem('token_type', refreshData.token_type);
+    localStorage.setItem('access_token', refreshData.access_token);
+    localStorage.setItem('refresh_token', refreshData.refresh_token);
+    localStorage.setItem('token_type', refreshData.token_type);
 
-  //   const retryResponse = await fetch(response.url, {
-  //     method: response.config.method,
-  //     headers: {
-  //       ...response.config.headers,
-  //       'Authorization': `Bearer ${refreshData.access_token}`,
-  //     },
-  //     body: response.config.body,
-  //     credentials: 'include',
-  //   });
+    const retryResponse = await fetch(response.url, {
+      method: response.config.method,
+      headers: {
+        ...response.config.headers,
+        'Authorization': `Bearer ${refreshData.access_token}`,
+      },
+      body: response.config.body,
+      credentials: 'include',
+    });
 
-  //   return await handleResponse(retryResponse);
-  // }
+    return await handleResponse(retryResponse);
+  }
   return await response.json();
 }
 
@@ -77,7 +77,7 @@ export const client = {
         // mode: 'no-cors',
         credentials: 'include',
         headers: new Headers({
-          // 'Authorization': `Bearer ${accessToken}`,
+          'Authorization': `Bearer ${accessToken}`,
           // "ngrok-skip-browser-warning": "69420",
         }),
       });
@@ -103,7 +103,7 @@ export const client = {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${accessToken}`,
+          'Authorization': `Bearer ${accessToken}`,
         },
         // body: formData,
         body: JSON.stringify(data),
@@ -122,7 +122,7 @@ export const client = {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${accessToken}`,
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data),
       });
@@ -140,7 +140,7 @@ export const client = {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${accessToken}`,
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data),
       });

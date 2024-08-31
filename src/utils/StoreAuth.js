@@ -7,29 +7,27 @@ const useStoreAuth = create((set) => ({
   user: null,
   setUser: (user) => set({ user }),
 
+  profile: null,
+  setProfile: (profile) => set({ profile }),
 
-  access_token: false,
-  // access_token: JSON.parse(localStorage.getItem('access_token')),
+  role: null,
+  setRole: (role) => set({ role }),
+
+
+  // access_token: false,
+  access_token: localStorage.getItem('access_token'),
   setAccessToken: (access_token) => set({ access_token }),
 
-  // access_token: (() => {
-  //   const token = localStorage.getItem('access_token');
-  //   return token ? token : null; // Не намагайтеся парсити його як JSON
-  // })(),
-  // setAccessToken: (access_token) => {
-  //   localStorage.setItem('access_token', access_token); // Зберігайте токен у localStorage
-  //   set({ access_token });
-  // },
 
-  refresh_token: null,
-  // refresh_token: JSON.parse(localStorage.getItem('refresh_token')) | null,
+  // refresh_token: null,
+  refresh_token: localStorage.getItem('refresh_token'),
   setRefreshToken: (refresh_token) => set({ refresh_token }),
 
-  token_type: null,
-  // token_type: JSON.parse(localStorage.getItem('token_type')) | null,
+  // token_type: null,
+  token_type: localStorage.getItem('token_type'),
   setTokenType: (token_type) => set({ token_type }),
 
-  loading: true,
+  loading: false,
   setLoading: (loading) => set({ loading }),
 }));
 

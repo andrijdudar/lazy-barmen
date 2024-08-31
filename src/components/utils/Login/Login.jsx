@@ -5,75 +5,111 @@ import cn from 'classnames';
 import { getCurentUser, SignUp } from '../../../utils/fetch';
 import useStoreAuth from '../../../utils/StoreAuth';
 import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
-import { SERVER_URL } from '../../../services/httpClient';
-import { GoogleLogin } from 'react-google-login';
-import { gapi } from 'gapi-script';
-import { useNavigate } from 'react-router-dom';
+// import { SERVER_URL } from '../../../services/httpClient';
+// import { gapi } from 'gapi-script';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { Loading } from '../../../utils/Loading/Loading';
+import { useGoogleLogin } from  "@react-oauth/google";
+import axios from 'axios';
+
+
 
 
 
 export const Login = () => {
-  const clientId = '731360179208-0ddqgcdfserhm8s6g5ecinq7158gguk0.apps.googleusercontent.com';
+  // const clientId = '731360179208-0ddqgcdfserhm8s6g5ecinq7158gguk0.apps.googleusercontent.com';
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
-  // const user = useStoreAuth((state) => state.user);
+  const user = useStoreAuth((state) => state.user);
   const setUser = useStoreAuth((state) => state.setUser);
+  const setProfile = useStoreAuth((state) => state.setProfile);
   const setFormLogin = useStoreAuth((state) => state.setFormLogin);
   const [inputName, setInputName] = useState('');
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
   const accessToken = useStoreAuth((state) => state.access_token);
+
   const setAccessToken = useStoreAuth((state) => state.setAccessToken);
+  const loading = useStoreAuth((state) => state.loading);
+  // const setLoading = useStoreAuth((state) => state.setLoading);
   // const authenticated = useStoreAuth((state) => state.authenticated);
-  const setAuthenticated = useStoreAuth((state) => state.setAuthenticated);
+  // const setAuthenticated = useStoreAuth((state) => state.setAuthenticated);
   // localStorage.clear();
-  const onSuccess = (res) => {
-    setAuthenticated(true);
-    setAccessToken(res.accessToken);
-  };
 
-  const onFailure = (res) => {
-  };
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      setUser(codeResponse);
+      console.log(codeResponse);
+      localStorage.setItem('access_token', codeResponse.access_token);
+      sessionStorage.setItem('access_token', codeResponse.access_token);
+      setAccessToken(codeResponse.access_token);
+    },
+    onError: (error) => console.log("Login Failed:", error)
+  });
 
-  if (accessToken) {
-    setAuthenticated(true);
-    navigate('/list');
-  }
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          setProfile(res.data);
+          localStorage.setItem('profile', JSON.stringify(res.data));
+          sessionStorage.setItem('profile', JSON.stringify(res.data));
+          navigate('/list');
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
 
-// useEffect(() => {
-    // if (authenticated) {
+  // if (accessToken) {
+  // setAuthenticated(true);
 
-    // navigate('/');
-    // } else {
-    // setLoading(false);  // Завантаження завершено, коли користувач не авторизований
-    // }
-    // if (accessToken) {
-    //   setAuthenticated(true);
-    //   navigate('/');
-    // }
-    // if (!accessToken) {
-    //   function start() {
-    //     gapi.client.init({
-    //       clientId: clientId,
-    //       scope: 'profile email',
-    //     }).then(() => {
-    //       const authInstance = gapi.auth2.getAuthInstance();
-    //       console.log('authInstance:', authInstance);
-    //       if (authInstance.isSignedIn.get()) {
-    //         const accessTokenGet = authInstance.currentUser.get().getAuthResponse().access_token;
-    //         setAccessToken(accessTokenGet);
-    //         // setAuthenticated(true);
-    //         console.log('accessToken:', accessTokenGet);
-    //         // alert('ProtectedRoutes');
-    //         // setAuthenticated(true);
-    //         // navigate('/');
-    //       }
-    //     });
-    //   }
+  // navigate('/list');
+  // }
 
-    //   gapi.load('client:auth2', start);
-    // }
+  // useEffect(() => {
+  // if (authenticated) {
+
+  // navigate('/');
+  // } else {
+  // setLoading(false);  // Завантаження завершено, коли користувач не авторизований
+  // }
+  // if (accessToken) {
+  //   setAuthenticated(true);
+  //   navigate('/');
+  // }
+  // if (!accessToken) {
+  //   function start() {
+  //     gapi.client.init({
+  //       clientId: clientId,
+  //       scope: 'profile email',
+  //     }).then(() => {
+  //       const authInstance = gapi.auth2.getAuthInstance();
+  //       console.log('authInstance:', authInstance);
+  //       if (authInstance.isSignedIn.get()) {
+  //         const accessTokenGet = authInstance.currentUser.get().getAuthResponse().access_token;
+  //         setAccessToken(accessTokenGet);
+  //         // setAuthenticated(true);
+  //         console.log('accessToken:', accessTokenGet);
+  //         // alert('ProtectedRoutes');
+  //         // setAuthenticated(true);
+  //         // navigate('/');
+  //       }
+  //     });
+  //   }
+
+  //   gapi.load('client:auth2', start);
+  // }
   // }, []);
   // console.log('accessToken:', accessToken);
 
@@ -162,176 +198,192 @@ export const Login = () => {
 
 
   return (
-    <div className="section">
-      <div className="container-logo">
-        <CustomAlert
-          massage="Дякуємо за реєстрацію. На ваш email відправлено лист для підтвердження та посилання на наш телеграм бот"
-          link="https://www.google.com/search?q=%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BD%D0%BD%D0%B0+%D0%BF%D0%BE%D1%88%D1%82%D0%B0&sca_esv=3586d42fed26ceb9&sxsrf=ADLYWILaOwZnwhtt3Q-kYpCOmoF4PidVLQ%3A1724018679391&source=hp&ei=92_CZp2nFbH7wPAPuojF2Ak&iflsig=AL9hbdgAAAAAZsJ-B2NFmF8gXhbSLnptvMFnaWm-nmvH&oq=%D0%B5%D0%BB%D0%BA%D1%83%D1%82%D1%80%D0%BE%D0%BD%D0%B0&gs_lp=Egdnd3Mtd2l6IhLQtdC70LrRg9GC0YDQvtC90LAqAggBMgoQABiABBixAxgNMgoQABiABBixAxgNMgcQABiABBgNMgoQABiABBixAxgNMgoQABiABBixAxgNMgoQABiABBixAxgNMgcQABiABBgNMgcQABiABBgNMgcQABiABBgNMg0QABiABBixAxiDARgNSLdlUJADWKJYcAd4AJABAJgBYKAB0wqqAQIxNbgBAcgBAPgBAZgCFqACnQuoAgrCAgcQIxgnGOoCwgIKECMYgAQYJxiKBcICBBAjGCfCAg4QLhiABBixAxjRAxjHAcICFxAuGIAEGLEDGIMBGMcBGJgFGJkFGK8BwgIREC4YgAQYsQMY0QMYgwEYxwHCAgUQABiABMICCxAAGIAEGLEDGIMBwgIOEAAYgAQYsQMYgwEYigXCAggQLhiABBixA8ICCBAAGIAEGLEDwgILEC4YgAQYsQMYgwHCAgsQLhiABBjRAxjHAcICEBAAGIAEGLEDGIMBGIoFGArCAgsQLhiABBjHARivAcICBxAAGIAEGArCAg0QLhiABBjRAxjHARgKwgIFEC4YgATCAgwQIxiABBgTGCcYigXCAg4QLhiABBixAxiDARiKBcICDhAuGIAEGLEDGMcBGK8BwgIEEAAYA8ICChAAGIAEGLEDGAqYAwSSBwQyMC4yoAf0qQE&sclient=gws-wiz"
-          buttonText="Перевірити пошту"
-        />
-        <div className="row full-height justify-content-center">
-          <div className="col-12 text-center align-self-center py-5">
-            <div className="section pb-5 pt-5 pt-sm-2 text-center">
-              <h6 className="mb-0 pb-3">
-                <div>{accessToken || 'нема'}</div>
-                <button
-                  type='button'
-                  className={cn('span', { 'active': !isChecked })}
-                  onClick={() => setIsChecked(false)}
-                >
-                  Увійти
-                </button>
-                <button
-                  type='button'
-                  className={cn('span', { 'active': isChecked })}
-                  onClick={() => setIsChecked(true)}
-                >
-                  Реістрація
-                </button>
-              </h6>
-              <input
-                className="checkbox"
-                type="checkbox"
-                id="reg-log"
-                name="reg-log"
-                checked={isChecked}
-                onChange={() => setIsChecked(!isChecked)}
-              />
-              <label htmlFor="reg-log"></label>
-              <div className="card-3d-wrap mx-auto">
-                <div className="card-3d-wrapper">
-                  <div className="card-front">
-                    <div className="center-wrap">
-                      <form className="section text-center">
-                        <h4 className="mb-4 pb-3">Вхід</h4>
-                        <div className="form-group">
-                          <input
-                            type="email"
-                            name="logemail"
-                            value={inputEmail}
-                            className="form-style"
-                            placeholder="Ваш Емейл"
-                            id="logemail"
-                            autoComplete="off"
-                            onChange={(e) => setInputEmail(e.target.value)}
-                          />
-                          <i className="input-icon uil uil-at"></i>
+    <>
+      {accessToken ? <Outlet /> :
+        <div className="section" >
+          <div className="container-logo">
+            <CustomAlert
+              massage="Дякуємо за реєстрацію. На ваш email відправлено лист для підтвердження та посилання на наш телеграм бот"
+              link="https://www.google.com/search?q=%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BD%D0%BD%D0%B0+%D0%BF%D0%BE%D1%88%D1%82%D0%B0&sca_esv=3586d42fed26ceb9&sxsrf=ADLYWILaOwZnwhtt3Q-kYpCOmoF4PidVLQ%3A1724018679391&source=hp&ei=92_CZp2nFbH7wPAPuojF2Ak&iflsig=AL9hbdgAAAAAZsJ-B2NFmF8gXhbSLnptvMFnaWm-nmvH&oq=%D0%B5%D0%BB%D0%BA%D1%83%D1%82%D1%80%D0%BE%D0%BD%D0%B0&gs_lp=Egdnd3Mtd2l6IhLQtdC70LrRg9GC0YDQvtC90LAqAggBMgoQABiABBixAxgNMgoQABiABBixAxgNMgcQABiABBgNMgoQABiABBixAxgNMgoQABiABBixAxgNMgoQABiABBixAxgNMgcQABiABBgNMgcQABiABBgNMgcQABiABBgNMg0QABiABBixAxiDARgNSLdlUJADWKJYcAd4AJABAJgBYKAB0wqqAQIxNbgBAcgBAPgBAZgCFqACnQuoAgrCAgcQIxgnGOoCwgIKECMYgAQYJxiKBcICBBAjGCfCAg4QLhiABBixAxjRAxjHAcICFxAuGIAEGLEDGIMBGMcBGJgFGJkFGK8BwgIREC4YgAQYsQMY0QMYgwEYxwHCAgUQABiABMICCxAAGIAEGLEDGIMBwgIOEAAYgAQYsQMYgwEYigXCAggQLhiABBixA8ICCBAAGIAEGLEDwgILEC4YgAQYsQMYgwHCAgsQLhiABBjRAxjHAcICEBAAGIAEGLEDGIMBGIoFGArCAgsQLhiABBjHARivAcICBxAAGIAEGArCAg0QLhiABBjRAxjHARgKwgIFEC4YgATCAgwQIxiABBgTGCcYigXCAg4QLhiABBixAxiDARiKBcICDhAuGIAEGLEDGMcBGK8BwgIEEAAYA8ICChAAGIAEGLEDGAqYAwSSBwQyMC4yoAf0qQE&sclient=gws-wiz"
+              buttonText="Перевірити пошту"
+            />
+            <div className="row full-height justify-content-center">
+              {loading ? <Loading /> :
+                <div className="col-12 text-center align-self-center py-5">
+                  <div className="section pb-5 pt-5 pt-sm-2 text-center">
+                    <h6 className="mb-0 pb-3">
+                      <button
+                        type='button'
+                        className={cn('span', { 'active': !isChecked })}
+                        onClick={() => setIsChecked(false)}
+                      >
+                        Увійти
+                      </button>
+                      <button
+                        type='button'
+                        className={cn('span', { 'active': isChecked })}
+                        onClick={() => setIsChecked(true)}
+                      >
+                        Реістрація
+                      </button>
+                    </h6>
+                    <input
+                      className="checkbox"
+                      type="checkbox"
+                      id="reg-log"
+                      name="reg-log"
+                      checked={isChecked}
+                      onChange={() => setIsChecked(!isChecked)}
+                    />
+
+                    <label htmlFor="reg-log"></label>
+                    <div className="card-3d-wrap mx-auto">
+                      <div className="card-3d-wrapper">
+                        <div className="card-front">
+                          <div className="center-wrap">
+                            <form className="section text-center">
+                              <h4 className="mb-4 pb-3">Вхід</h4>
+                              <div className="form-group">
+                                <input
+                                  type="email"
+                                  name="logemail"
+                                  value={inputEmail}
+                                  className="form-style"
+                                  placeholder="Ваш Емейл"
+                                  id="logemail"
+                                  autoComplete="off"
+                                  onChange={(e) => setInputEmail(e.target.value)}
+                                />
+                                <i className="input-icon uil uil-at"></i>
+                              </div>
+                              <div className="form-group mt-2">
+                                <input
+                                  type="password"
+                                  name="logpass"
+                                  value={inputPassword}
+                                  className="form-style"
+                                  placeholder="Ваш Пароль"
+                                  id="logpass"
+                                  autoComplete="off"
+                                  onChange={(e) => setInputPassword(e.target.value)}
+                                />
+                                <i className="input-icon uil uil-lock-alt"></i>
+                              </div>
+                              <button
+                                type='button'
+                                className="btn-login mt-4"
+                                onClick={() => showAlert()}
+                              >
+                                Увійти
+                              </button>
+                              {/* <a
+                                // href='#/'
+                                href={SERVER_URL + "/api/auth/google_login"}
+                                className="btn-login mt-4"
+                              // onClick={handleGoogleAutorization}
+                              >
+                                Увійти через Google
+                              </a> */}
+                              {/* <GoogleLogin
+                                clientId={clientId}
+                                buttonText="Login with Google"
+                                onSuccess={onSuccess}
+                                onFailure={onFailure}
+                                cookiePolicy={'single_host_origin'}
+                                isSignedIn={true}
+                                className='btn-login mt-4 '
+                              /> */}
+                              {/* <GoogleLogin
+                                onSuccess={credentialResponse => {
+                                  console.log(credentialResponse);
+                                }}
+                                onError={() => {
+                                  console.log('Login Failed');
+                                }}
+                              /> */}
+                              <a
+                                href="#/"
+                                className="btn-login mt-4"
+                                onClick={() => setFormLogin(true)}
+                              >
+                                Пропустити
+                              </a>
+                              <button className='btn-login mt-4' onClick={login}>Login with Google</button>
+
+                              {/* <p className="mb-0 mt-4 text-center"><a href="#0" className="link">Forgot your password?</a></p> */}
+                            </form>
+                          </div>
                         </div>
-                        <div className="form-group mt-2">
-                          <input
-                            type="password"
-                            name="logpass"
-                            value={inputPassword}
-                            className="form-style"
-                            placeholder="Ваш Пароль"
-                            id="logpass"
-                            autoComplete="off"
-                            onChange={(e) => setInputPassword(e.target.value)}
-                          />
-                          <i className="input-icon uil uil-lock-alt"></i>
+                        <div className="card-back">
+                          <div className="center-wrap">
+                            <form className="section text-center">
+                              <h4 className="mb-4 pb-3">Реістрація</h4>
+                              <div className="form-group">
+                                <input
+                                  value={inputName}
+                                  type="text"
+                                  name="logname"
+                                  className="form-style"
+                                  placeholder="Ваше Імʼя"
+                                  id="logname"
+                                  autoComplete="off"
+                                  onChange={(e) => setInputName(e.target.value)}
+                                />
+                                <i className="input-icon uil uil-user"></i>
+                              </div>
+                              <div className="form-group mt-2">
+                                <input
+                                  value={inputLastName}
+                                  type="text"
+                                  name="logname"
+                                  className="form-style"
+                                  placeholder="Ваше Прізвище"
+                                  id="logLastName"
+                                  autoComplete="off"
+                                  onChange={(e) => setInputLastName(e.target.value)}
+                                />
+                                <i className="input-icon uil uil-user"></i>
+                              </div>
+                              <div className="form-group mt-2">
+                                <input
+                                  value={inputEmail}
+                                  type="email"
+                                  name="logemail"
+                                  className="form-style"
+                                  placeholder="Ваш Емейл"
+                                  id="logemail1"
+                                  autoComplete="off"
+                                  onChange={(e) => setInputEmail(e.target.value)}
+                                />
+                                <i className="input-icon uil uil-at"></i>
+                              </div>
+                              <div className="form-group mt-2">
+                                <input
+                                  value={inputPassword}
+                                  type="password"
+                                  name="logpass"
+                                  className="form-style"
+                                  placeholder="Ваш Пароль"
+                                  id="logpass1"
+                                  autoComplete="off"
+                                  onChange={(e) => setInputPassword(e.target.value)}
+                                />
+                                <i className="input-icon uil uil-lock-alt"></i>
+                              </div>
+                              <a href="#/" className="btn-login mt-4" onClick={handleRegistration}>
+                                Зареєструватися
+                              </a>
+                            </form>
+                          </div>
                         </div>
-                        <button
-                          type='button'
-                          className="btn-login mt-4"
-                          onClick={() => showAlert()}
-                        >
-                          Увійти
-                        </button>
-                        <a
-                          // href='#/'
-                          href={SERVER_URL + "/api/auth/google_login"}
-                          className="btn-login mt-4"
-                        // onClick={handleGoogleAutorization}
-                        >
-                          Увійти через Google
-                        </a>
-                        <GoogleLogin
-                          clientId={clientId}
-                          buttonText="Login Google"
-                          onSuccess={onSuccess}
-                          onFailure={onFailure}
-                          cookiePolicy={'single_host_origin'}
-                          isSignedIn={true}
-                        />
-                        <a
-                          href="#/"
-                          className="btn-login mt-4"
-                          onClick={() => setFormLogin(true)}
-                        >
-                          Пропустити
-                        </a>
-                        {/* <p className="mb-0 mt-4 text-center"><a href="#0" className="link">Forgot your password?</a></p> */}
-                      </form>
+                      </div>
                     </div>
                   </div>
-                  <div className="card-back">
-                    <div className="center-wrap">
-                      <form className="section text-center">
-                        <h4 className="mb-4 pb-3">Реістрація</h4>
-                        <div className="form-group">
-                          <input
-                            value={inputName}
-                            type="text"
-                            name="logname"
-                            className="form-style"
-                            placeholder="Ваше Імʼя"
-                            id="logname"
-                            autoComplete="off"
-                            onChange={(e) => setInputName(e.target.value)}
-                          />
-                          <i className="input-icon uil uil-user"></i>
-                        </div>
-                        <div className="form-group mt-2">
-                          <input
-                            value={inputLastName}
-                            type="text"
-                            name="logname"
-                            className="form-style"
-                            placeholder="Ваше Прізвище"
-                            id="logLastName"
-                            autoComplete="off"
-                            onChange={(e) => setInputLastName(e.target.value)}
-                          />
-                          <i className="input-icon uil uil-user"></i>
-                        </div>
-                        <div className="form-group mt-2">
-                          <input
-                            value={inputEmail}
-                            type="email"
-                            name="logemail"
-                            className="form-style"
-                            placeholder="Ваш Емейл"
-                            id="logemail1"
-                            autoComplete="off"
-                            onChange={(e) => setInputEmail(e.target.value)}
-                          />
-                          <i className="input-icon uil uil-at"></i>
-                        </div>
-                        <div className="form-group mt-2">
-                          <input
-                            value={inputPassword}
-                            type="password"
-                            name="logpass"
-                            className="form-style"
-                            placeholder="Ваш Пароль"
-                            id="logpass1"
-                            autoComplete="off"
-                            onChange={(e) => setInputPassword(e.target.value)}
-                          />
-                          <i className="input-icon uil uil-lock-alt"></i>
-                        </div>
-                        <a href="#/" className="btn-login mt-4" onClick={handleRegistration}>
-                          Зареєструватися
-                        </a>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                </div>}
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      }
+    </>
   );
 };
