@@ -23,6 +23,7 @@ const StopList = () => {
   const [loader] = useState(false)
 
   useEffect(() => {
+
     // const fetchDishesInStopList = async () => {
     //   try {
     //     const res = await getDishesInStopList();
@@ -73,7 +74,8 @@ const StopList = () => {
         <Loaderr />
       ) : (
         <div className="stopList">
-          <h1>Стоп-Лист</h1>
+            <h1>Стоп-Лист</h1>
+
           <div className='stoplistContainer'>
             <div className='stoplistKichen'>
               <h2>Кухня</h2>

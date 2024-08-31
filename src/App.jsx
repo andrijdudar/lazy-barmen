@@ -3,11 +3,11 @@ import { Outlet } from 'react-router-dom';
 import { NavBar } from './components/navBar/NavBar';
 import Footer from './components/footer/Footer';
 import './App.scss';
+import { CustomAlert } from './utils/CustomAlert/CustomAlert';
 
 
 
 const App = () => {
-
   // const user = useStoreAuth((state) => state.user);
   // const setUser = useStoreAuth((state) => state.setUser);
 
@@ -39,6 +39,10 @@ const App = () => {
     <div className="App">
       <NavBar />
       <div className="conten">
+        <CustomAlert
+          id="custom-alert"
+          buttonText="Перевірити пошту"
+        />
         <Outlet />
       </div>
       <Footer />

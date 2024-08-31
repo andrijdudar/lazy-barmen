@@ -29,6 +29,7 @@ const useStoreAuth = create((set) => ({
 
   loading: false,
   setLoading: (loading) => set({ loading }),
+
 }));
 
 export default useStoreAuth;
