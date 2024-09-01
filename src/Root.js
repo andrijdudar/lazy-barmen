@@ -18,15 +18,15 @@ import { AddCategory } from './components/Administration/components/Categories/A
 import { Users } from './components/Administration/components/Users/Users.jsx';
 import { CreateUser } from './components/Administration/components/Users/CreateUser/CreateUser.jsx';
 import { Login } from './components/utils/Login/Login.jsx';
-import { GoogleOAuthProvider } from "@react-oauth/google";
+// import { GoogleOAuthProvider } from "@react-oauth/google";
 
 // export const CLIENT_ID = '731360179208-m1pkerk2frqvk5ddtskejvq2q5fr784t.apps.googleusercontent.com';
-export const CLIENT_ID = '281094189618-bhuu95f4r37sp7crc1tr5lt6ae4g9ksh.apps.googleusercontent.com';
+// export const CLIENT_ID = '281094189618-bhuu95f4r37sp7crc1tr5lt6ae4g9ksh.apps.googleusercontent.com';//женя
 
 export const Root = () => {
   return (
     <Router>
-      <GoogleOAuthProvider clientId={CLIENT_ID}>
+      {/* <GoogleOAuthProvider clientId={CLIENT_ID}> */}
         <Routes>
           {/* <Route path="/test" element={<TestPage />} /> */}
           <Route element={<Login />}>
@@ -51,7 +51,7 @@ export const Root = () => {
             </Route>
           </Route>
         </Routes>
-      </GoogleOAuthProvider>
+      {/* </GoogleOAuthProvider> */}
     </Router>
   );
 }
