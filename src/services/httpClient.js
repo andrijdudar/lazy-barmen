@@ -3,6 +3,7 @@ export const SERVER_URL = 'https://ago-ago-8570935a.koyeb.app';
 // export const SERVER_URL = 'https://4522-194-44-160-206.ngrok-free.app';
 const accessToken = localStorage.getItem('access_token');
 const refreshToken = localStorage.getItem('refresh_token');
+const profile = localStorage.getItem('profile');
 
 const handleResponse = async (response) => {
   if (response.status === 401) {
@@ -78,6 +79,8 @@ export const client = {
         credentials: 'include',
         headers: new Headers({
           'Authorization': `Bearer ${accessToken}`,
+          // 'User-Data': JSON.stringify(profile),
+
           // "ngrok-skip-browser-warning": "69420",
         }),
       });
@@ -104,6 +107,8 @@ export const client = {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`,
+          // 'User-Data': JSON.stringify(profile),
+
         },
         // body: formData,
         body: JSON.stringify(data),
@@ -123,6 +128,8 @@ export const client = {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`,
+          // 'User-Data': JSON.stringify(profile),
+
         },
         body: JSON.stringify(data),
       });
@@ -141,6 +148,8 @@ export const client = {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`,
+          // 'User-Data': JSON.stringify(profile),
+
         },
         body: JSON.stringify(data),
       });
@@ -157,7 +166,9 @@ export const client = {
         method: 'DELETE',
         credentials: 'include',
         headers: {
-        // 'Authorization': `Bearer ${accessToken}`,
+          'Authorization': `Bearer ${accessToken}`,
+          // 'User-Data': JSON.stringify(profile),
+
         },
       });
       return await handleResponse(response);
