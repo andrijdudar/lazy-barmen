@@ -52,9 +52,9 @@ export const Login = () => {
   //   },
   //   onError: (error) => console.log("Login Failed:", error)
   // });
-  const login = () => {
-    window.location.href = 'https://ee4c-194-44-160-206.ngrok-free.app/api/auth/google_login';
-  }
+  // const login = () => {
+    // window.location.href = 'https://ee4c-194-44-160-206.ngrok-free.app/api/auth/google_login';
+  // }
 
   useEffect(() => {
     // Отримуємо URL з браузера
@@ -273,14 +273,14 @@ export const Login = () => {
                             >
                               Увійти
                             </button>
-                            {/* <a
+                            <a
                                 // href='#/'
-                                href={SERVER_URL + "/api/auth/google_login"}
+                              href="https://ee4c-194-44-160-206.ngrok-free.app/api/auth/google_login"
                                 className="btn-login mt-4"
                               // onClick={handleGoogleAutorization}
                               >
                                 Увійти через Google
-                              </a> */}
+                              </a>
                             <button className='btn-login mt-4' onClick={login}>Login with Google</button>
 
                             {/* <p className="mb-0 mt-4 text-center"><a href="#0" className="link">Forgot your password?</a></p> */}
