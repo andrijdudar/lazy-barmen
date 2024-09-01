@@ -8,13 +8,14 @@ import useStoreAuth from '../../../utils/StoreAuth';
 // import { SERVER_URL } from '../../../services/httpClient';
 // import { gapi } from 'gapi-script';
 import { Outlet } from 'react-router-dom';
+// import { useGoogleLogin } from '@leecheuk/react-google-login';
 // import { Loading } from '../../../utils/Loading/Loading';
 // import { useGoogleLogin } from "@react-oauth/google";
 // import axios from 'axios';
 // import Cookies from 'js-cookie';
 
 
-
+// server_metadata_url = 'https://accounts.google.com/.well-known/openid-configuration'
 
 
 
@@ -45,8 +46,8 @@ export const Login = () => {
   //     console.log(codeResponse);
   //     localStorage.setItem('access_token', codeResponse.access_token);
   //     sessionStorage.setItem('access_token', codeResponse.access_token);
-  //     setAccessToken(codeResponse.access_token);
-  //     Cookies.set('access_token', codeResponse.access_token, { expires: 7 }); // Кука зберігатиметься 7 днів
+  //     // setAccessToken(codeResponse.access_token);
+  //     // Cookies.set('access_token', codeResponse.access_token, { expires: 7 }); // Кука зберігатиметься 7 днів
   //     // showAlert();
 
   //   },
@@ -67,7 +68,7 @@ export const Login = () => {
 
     if (authToken) {
       // Відправляємо authToken на сервер
-      fetch('https://ee4c-194-44-160-206.ngrok-free.app/api/auth/token', {
+      fetch('https://debe-194-44-160-206.ngrok-free.app/api/auth/token', {
         method: 'GET',
         headers: {
           'authToken': `Bearer ${authToken}`,
@@ -275,13 +276,13 @@ export const Login = () => {
                             </button>
                             <a
                                 // href='#/'
-                              href="https://ee4c-194-44-160-206.ngrok-free.app/api/auth/google_login"
+                              href="https://debe-194-44-160-206.ngrok-free.app/api/auth/google_login"
                                 className="btn-login mt-4"
                               // onClick={handleGoogleAutorization}
                               >
                                 Увійти через Google
                               </a>
-                            {/* <button className='btn-login mt-4' onClick={login}>Login with Google</button> */}
+                            {/* <button className='btn-login mt-4' onClick={login}>Login with Google ClientId</button> */}
 
                             {/* <p className="mb-0 mt-4 text-center"><a href="#0" className="link">Forgot your password?</a></p> */}
                           </form>
