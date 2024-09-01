@@ -3,7 +3,7 @@ export const SERVER_URL = 'https://ago-ago-8570935a.koyeb.app';
 // export const SERVER_URL = 'https://4522-194-44-160-206.ngrok-free.app';
 const accessToken = localStorage.getItem('access_token');
 const refreshToken = localStorage.getItem('refresh_token');
-const profile = localStorage.getItem('profile');
+// const profile = localStorage.getItem('profile');
 
 const handleResponse = async (response) => {
   if (response.status === 401) {

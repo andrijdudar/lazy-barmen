@@ -7,11 +7,11 @@ import useStoreAuth from '../../../utils/StoreAuth';
 // import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
 // import { SERVER_URL } from '../../../services/httpClient';
 // import { gapi } from 'gapi-script';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 // import { Loading } from '../../../utils/Loading/Loading';
-import { useGoogleLogin } from "@react-oauth/google";
-import axios from 'axios';
-import Cookies from 'js-cookie';
+// import { useGoogleLogin } from "@react-oauth/google";
+// import axios from 'axios';
+// import Cookies from 'js-cookie';
 
 
 
@@ -19,11 +19,11 @@ import Cookies from 'js-cookie';
 
 
 export const Login = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
-  const user = useStoreAuth((state) => state.user);
+  // const user = useStoreAuth((state) => state.user);
   const setUser = useStoreAuth((state) => state.setUser);
-  const setProfile = useStoreAuth((state) => state.setProfile);
+  // const setProfile = useStoreAuth((state) => state.setProfile);
   const setFormLogin = useStoreAuth((state) => state.setFormLogin);
   const [inputName, setInputName] = useState('');
   const [inputLastName, setInputLastName] = useState('');
@@ -31,54 +31,99 @@ export const Login = () => {
   const [inputPassword, setInputPassword] = useState('');
   const accessToken = useStoreAuth((state) => state.access_token);
 
-  const setAccessToken = useStoreAuth((state) => state.setAccessToken);
+  // const setAccessToken = useStoreAuth((state) => state.setAccessToken);
   // const loading = useStoreAuth((state) => state.loading);
 
 
-  const login = useGoogleLogin({
-    onSuccess: (codeResponse) => {
 
-      setUser(codeResponse);
-      console.log(codeResponse);
-      localStorage.setItem('access_token', codeResponse.access_token);
-      sessionStorage.setItem('access_token', codeResponse.access_token);
-      setAccessToken(codeResponse.access_token);
-      Cookies.set('access_token', codeResponse.access_token, { expires: 7 }); // Кука зберігатиметься 7 днів
-      // showAlert();
 
-    },
-    onError: (error) => console.log("Login Failed:", error)
-  });
+
+  // const login = useGoogleLogin({
+  //   onSuccess: (codeResponse) => {
+
+  //     setUser(codeResponse);
+  //     console.log(codeResponse);
+  //     localStorage.setItem('access_token', codeResponse.access_token);
+  //     sessionStorage.setItem('access_token', codeResponse.access_token);
+  //     setAccessToken(codeResponse.access_token);
+  //     Cookies.set('access_token', codeResponse.access_token, { expires: 7 }); // Кука зберігатиметься 7 днів
+  //     // showAlert();
+
+  //   },
+  //   onError: (error) => console.log("Login Failed:", error)
+  // });
+  const login = () => {
+    window.location.href = 'https://ee4c-194-44-160-206.ngrok-free.app/api/auth/google_login';
+  }
 
   useEffect(() => {
+    // Отримуємо URL з браузера
+    const url = new URL(window.location.href);
+    console.log('URL:', url);
+
+    // Витягуємо authToken з URL параметрів
+    const authToken = url.searchParams.get('authToken');
+    console.log('authToken:', authToken);
+
+    if (authToken) {
+      // Відправляємо authToken на сервер
+      fetch('https://ee4c-194-44-160-206.ngrok-free.app/api/auth/token', {
+        method: 'GET',
+        headers: {
+          'authToken': `Bearer ${authToken}`,
+          'Content-Type': 'application/json',
+        }
+        // body: JSON.stringify({ token: authToken }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Response from server:', data);
+          // Перенаправляємо користувача на іншу сторінку після успішного запиту
+          // navigate('/dashboard');
+        })
+        .catch(error => {
+          console.error('Error sending authToken to server:', error);
+        });
+    } else {
+      console.error('No authToken found in URL');
+    }
+  }, []);
+
+  // useEffect(() => {
+
+
+
+
     // const apiKey = process.env.REACT_APP_API_KEY;
     // console.log('apiKey',apiKey);
-    if (user) {
-        showAlert();
+    // if (user) {
+    //     showAlert();
 
-      axios
-        .get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res);
-          console.log('юзер', res.data);
-          setProfile(res.data);
-          localStorage.setItem('profile', JSON.stringify(res.data));
-          sessionStorage.setItem('profile', JSON.stringify(res.data));
-          const allCookies = Cookies.get();
-          console.log('куки', allCookies);
-          navigate('/list');
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [user]);
+    //   axios
+    //     // .get(
+    //     //   `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+    //     .get(
+    //       `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer ${user.access_token}`,
+    //           Accept: "application/json",
+    //         },
+    //       }
+    //     )
+    //     .then((res) => {
+    //       console.log(res);
+    //       // console.log('юзер', res.data);
+    //       // setProfile(res.data);
+    //       // localStorage.setItem('profile', JSON.stringify(res.data));
+    //       // sessionStorage.setItem('profile', JSON.stringify(res.data));
+    //       // const allCookies = Cookies.get();
+    //       // console.log('куки', allCookies);
+    //       navigate('/list');
+    //     })
+    //     .catch((err) => console.log(err));
+    // }
+  // }, [user]);
 
 
 
