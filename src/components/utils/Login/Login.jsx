@@ -281,7 +281,7 @@ export const Login = () => {
                               >
                                 Увійти через Google
                               </a>
-                            <button className='btn-login mt-4' onClick={login}>Login with Google</button>
+                            {/* <button className='btn-login mt-4' onClick={login}>Login with Google</button> */}
 
                             {/* <p className="mb-0 mt-4 text-center"><a href="#0" className="link">Forgot your password?</a></p> */}
                           </form>
