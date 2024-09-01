@@ -69,7 +69,7 @@ export const Login = () => {
 
     if (authToken) {
       // Відправляємо authToken на сервер
-      fetch('https://debe-194-44-160-206.ngrok-free.app/api/auth/token', {
+      fetch('https://6c4f-194-44-160-206.ngrok-free.app/api/auth/token', {
         method: 'GET',
         headers: {
           'authToken': `Bearer ${authToken}`,
@@ -277,7 +277,7 @@ export const Login = () => {
                             </button>
                             <a
                                 // href='#/'
-                              href="https://debe-194-44-160-206.ngrok-free.app/api/auth/google_login"
+                              href="https://6c4f-194-44-160-206.ngrok-free.app/api/auth/google_login"
                                 className="btn-login mt-4"
                               // onClick={handleGoogleAutorization}
                               >
