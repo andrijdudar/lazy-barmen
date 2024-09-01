@@ -67,7 +67,7 @@ export const Login = () => {
     console.log('authToken:', authToken);
     // "https://andrijdudar.github.io/lazy-barmen/?state=MyO3py7RTzJhjM0BVlPeU6PhNtzCcX&code=4%2F0AQlEd8x2DSFWHNSjRmI0xcfS_8O4dCzp76mzotFLrMBbsNbI06jPJ2iw6z2-nLZ1a34hBg&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=2&prompt=consent"
 
-    // if (authToken) {
+    if (authToken) {
       // Відправляємо authToken на сервер
       fetch('https://debe-194-44-160-206.ngrok-free.app/api/auth/token', {
         method: 'GET',
