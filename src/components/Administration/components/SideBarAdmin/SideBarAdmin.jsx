@@ -3,6 +3,8 @@ import "./SideBarAdmin.scss";
 import { Link } from "react-router-dom";
 import useStoreAuth from "../../../../utils/StoreAuth";
 import iconLogout from "../../../../img/logout-24px.svg";
+import Cookies from 'js-cookie';
+
 
 
 const ListSettings = [
@@ -101,7 +103,11 @@ export function SideBarAdmin({ onLinkClick }) {
     setAccessToken(null);
     setProfile(null);
     localStorage.removeItem('access_token');
+    localStorage.removeItem('profile');
     sessionStorage.removeItem('access_token');
+    sessionStorage.removeItem('profile');
+    Cookies.remove('access_token');
+
   };
 
 

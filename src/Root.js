@@ -17,19 +17,22 @@ import { Categories } from './components/Administration/components/Categories/Ca
 import { AddCategory } from './components/Administration/components/Categories/AddCategory/AddCategory.jsx';
 import { Users } from './components/Administration/components/Users/Users.jsx';
 import { CreateUser } from './components/Administration/components/Users/CreateUser/CreateUser.jsx';
-import { Login } from './components/utils/Login/Login.jsx';
-// import { GoogleOAuthProvider } from "@react-oauth/google";
+import { LoginEvgen } from './components/utils/LoginEvgen/LoginEvgen.jsx';
+// import { Login } from './components/utils/Login/Login.jsx';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
-// export const CLIENT_ID = '731360179208-m1pkerk2frqvk5ddtskejvq2q5fr784t.apps.googleusercontent.com';
-// export const CLIENT_ID = '281094189618-bhuu95f4r37sp7crc1tr5lt6ae4g9ksh.apps.googleusercontent.com';//женя
+// export const CLIENT_ID = '731360179208-0ddqgcdfserhm8s6g5ecinq7158gguk0.apps.googleusercontent.com';//1
+// export const CLIENT_ID = '731360179208-m1pkerk2frqvk5ddtskejvq2q5fr784t.apps.googleusercontent.com';//2
+export const CLIENT_ID = '281094189618-bhuu95f4r37sp7crc1tr5lt6ae4g9ksh.apps.googleusercontent.com';//женя
 
 export const Root = () => {
   return (
     <Router>
-      {/* <GoogleOAuthProvider clientId={CLIENT_ID}> */}
+      <GoogleOAuthProvider clientId={CLIENT_ID}>
         <Routes>
           {/* <Route path="/test" element={<TestPage />} /> */}
-          <Route element={<Login />}>
+          {/* <Route element={<Login />}> */}
+          <Route element={<LoginEvgen />}>
             <Route path="/" element={<App />}>
               <Route index element={<StopList />} />
               <Route path="list" element={<Navigate to="/" replace={true} />} />
@@ -51,7 +54,7 @@ export const Root = () => {
             </Route>
           </Route>
         </Routes>
-      {/* </GoogleOAuthProvider> */}
+      </GoogleOAuthProvider>
     </Router>
   );
 }
