@@ -20,8 +20,7 @@ export const LoginEvgen = () => {
   console.log(userName);
 
   useEffect(() => {
-    // authenticate();
-
+    authenticate();
     console.log(userName);
   }, []);
 
