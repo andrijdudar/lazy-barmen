@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-
 import './LoginEvgen.scss';
 import { SERVER_URL } from '../../../services/httpClient';
 import { useNavigate } from 'react-router-dom';
@@ -19,19 +18,14 @@ export const LoginEvgen = () => {
   const [userName, setUserName] = useState(null);
   // console.log(userName);
 
-  function deleteAllCookies() {
-    // Отримуємо всі назви cookies
     const allCookies = Cookies.get();
-
-    // Проходимо по кожному cookie і видаляємо його
-    for (const cookieName in allCookies) {
-      Cookies.remove(cookieName);
-    }
-  }
+    console.log(allCookies);
 
   useEffect(() => {
+    const allCookies = Cookies.get();
+    console.log(allCookies);
     // authenticate();
-    deleteAllCookies();
+    // deleteAllCookies();
     // console.log(userName);
   }, []);
 
