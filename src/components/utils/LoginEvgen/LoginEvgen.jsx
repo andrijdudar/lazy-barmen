@@ -61,7 +61,7 @@ export const LoginEvgen = () => {
 
     // const authToken = getCookie('authToken');
     console.log(authCode);
-    // if (authToken) {
+    // if (authCode) {
     getAccessToken(authCode);
     // } else {
       // checkUserSessionStatus();
