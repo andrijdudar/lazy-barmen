@@ -56,20 +56,23 @@ export const LoginEvgen = () => {
   const authenticate = () => {
     // const authToken = (window.location.search.match(/authToken=([^&]+)/) || [])[1];
     // window.history.pushState('object', document.title, "/");
-    const authToken = getCookie('authToken');
-console.log(authToken);
+    const authCode = (window.location.search.match(/code=([^&]+)/) || [])[1];
+    window.history.pushState('object', document.title, "/");
+
+    // const authToken = getCookie('authToken');
+    console.log(authCode);
     // if (authToken) {
-      getAccessToken(authToken);
+    getAccessToken(authCode);
     // } else {
       // checkUserSessionStatus();
     // }
   };
 
-  const getAccessToken = (authToken) => {
+  const getAccessToken = (authCode) => {
     const request = {
       method: 'GET',
       headers: {
-        "Authorization": "Bearer " + authToken
+        "Authorization": "Bearer " + authCode
       },
       credentials: 'include'
     };
@@ -77,7 +80,7 @@ console.log(authToken);
     fetch(producerLoginEndpoint, request)
       .then(response => {
         console.log(response);
-        setCookie('authToken', authToken, 1); // Токен буде збережено на 1 день
+        setCookie('authToken', authCode, 1); // Токен буде збережено на 1 день
 
         // Check if user is logged in
         // checkUserSessionStatus();
