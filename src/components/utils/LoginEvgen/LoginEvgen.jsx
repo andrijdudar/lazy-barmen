@@ -56,23 +56,46 @@ export const LoginEvgen = () => {
   const authenticate = () => {
     // const authToken = (window.location.search.match(/authToken=([^&]+)/) || [])[1];
     // window.history.pushState('object', document.title, "/");
-    const authCode = (window.location.search.match(/code=([^&]+)/) || [])[1];
+    // const authCode = (window.location.search.match(/code=([^&]+)/) || [])[1];
+    // window.history.pushState('object', document.title, "/");
+
+    const params = new URLSearchParams(window.location.search);
+
+    const state = params.get('state');
+    const code = params.get('code');
+    const scope = params.get('scope');
+    const authuser = params.get('authuser');
+    const prompt = params.get('prompt');
+
+    // Тепер ці змінні містять відповідні значення параметрів
+
+    window.history.pushState('object', document.title, "/");
+
+
+
+
+    // Тепер ці змінні містять відповідні значення параметрів
+
     window.history.pushState('object', document.title, "/");
 
     // const authToken = getCookie('authToken');
-    console.log(authCode);
     // if (authCode) {
-    getAccessToken(authCode);
+    getAccessToken(state, code, scope, authuser, prompt);
     // } else {
       // checkUserSessionStatus();
     // }
   };
 
-  const getAccessToken = (authCode) => {
+  const getAccessToken = (state, code, scope, authuser, prompt) => {
+
     const request = {
       method: 'GET',
       headers: {
-        "code": authCode,
+        code,
+        state,
+        scope,
+        authuser,
+        prompt
       },
       credentials: 'include'
     };
