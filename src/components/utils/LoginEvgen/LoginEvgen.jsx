@@ -134,34 +134,7 @@ export const LoginEvgen = () => {
       });
   };
 
-  const test = () => {
-    const refreshToken = getCookie('refresh_token');
-    console.log(refreshToken);
-    fetch(SERVER_URL + '/api/auth/refresh_token', {
-      method: 'GET',
-      credentials: 'include',
-      headers: new Headers({
-        'Authorization': `Bearer ${refreshToken}`,
-      })
-    })
-      .then(response => {
-        if (!response.ok) {
-          // window.location.href = '/login';
-          throw new Error('Помилка авторизації. Не вдалося оновити токен.');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        setCookie('access_token', data['access_token'], 1); // Токен буде збережено на 1 день
 
-        // Check if user is logged in
-        checkUserSessionStatus();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
 
   const checkUserSessionStatus = () => {
     const request = {
@@ -197,7 +170,7 @@ export const LoginEvgen = () => {
       });
   };
 
-  const redirectToLazyBarmen = (test) => {
+  const redirectToLazyBarmen = () => {
     // window.location.href = '/list';
     navigate('/list');
   }
@@ -216,14 +189,48 @@ export const LoginEvgen = () => {
         </div> :
         <Login
           producerLoginRedirectEndpoint={producerLoginRedirectEndpoint}
-          test={test}
         />
       }
     </section>
   );
 }
 
-function Login({ producerLoginRedirectEndpoint, test }) {
+function Login({ producerLoginRedirectEndpoint }) {
+  const [refreshToken, setRefreshToken] = useState(null);
+
+  const setCookie = (cname, cvalue, exdays) => {
+    Cookies.set(cname, cvalue, { expires: exdays, path: '/' });
+  };
+
+  const test = () => {
+    // const refreshToken = getCookie('refresh_token');
+    // setRefreshToken(refreshToken);
+    console.log(refreshToken);
+    fetch(SERVER_URL + '/api/auth/refresh_token', {
+      method: 'GET',
+      credentials: 'include',
+      headers: new Headers({
+        'Authorization': `Bearer ${refreshToken}`,
+      })
+    })
+      .then(response => {
+        if (!response.ok) {
+          // window.location.href = '/login';
+          throw new Error('Помилка авторизації. Не вдалося оновити токен.');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        setCookie('access_token', data['access_token'], 1); // Токен буде збережено на 1 день
+
+        // Check if user is logged in
+        // checkUserSessionStatus();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
   const googleLogin = () => {
     // console.log(producerLoginRedirectEndpoint);
     // const auth_provider = "google-oidc";
@@ -231,6 +238,16 @@ function Login({ producerLoginRedirectEndpoint, test }) {
     const login_url = producerLoginRedirectEndpoint;
     window.location.href = login_url;
   };
+
+  const getCookie = (cname) => {
+    return Cookies.get(cname) || "";
+  };
+
+  const getRefresh = () => {
+    const refreshToken = getCookie('refresh_token');
+    console.log(refreshToken);
+    setRefreshToken(refreshToken);
+  }
 
   // const azureLogin = () => {
   //   const auth_provider = "azure-oidc";
@@ -244,6 +261,7 @@ function Login({ producerLoginRedirectEndpoint, test }) {
         <button className='button' onClick={googleLogin}>Login with Google</button>
       </div>
         <button className='button' onClick={test}>Test</button>
+        <button className='button' onClick={getRefresh}>getRefreshCookie</button>
     </section>
   );
 }
