@@ -57,12 +57,12 @@ export const LoginEvgen = () => {
     // const authToken = (window.location.search.match(/authToken=([^&]+)/) || [])[1];
     // window.history.pushState('object', document.title, "/");
     const authToken = getCookie('authToken');
-
-    if (authToken) {
+console.log(authToken);
+    // if (authToken) {
       getAccessToken(authToken);
-    } else {
+    // } else {
       checkUserSessionStatus();
-    }
+    // }
   };
 
   const getAccessToken = (authToken) => {
