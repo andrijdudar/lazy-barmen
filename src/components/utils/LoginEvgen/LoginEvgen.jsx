@@ -197,7 +197,7 @@ export const LoginEvgen = () => {
       });
   };
 
-  const redirectToLazyBarmen = () => {
+  const redirectToLazyBarmen = (test) => {
     // window.location.href = '/list';
     navigate('/list');
   }
@@ -214,13 +214,16 @@ export const LoginEvgen = () => {
             <button className='button' onClick={redirectToLazyBarmen}>Увійти в додаток</button>
           </div>
         </div> :
-        <Login producerLoginRedirectEndpoint={producerLoginRedirectEndpoint} />
+        <Login
+          producerLoginRedirectEndpoint={producerLoginRedirectEndpoint}
+          test={test}
+        />
       }
     </section>
   );
 }
 
-function Login({ producerLoginRedirectEndpoint }) {
+function Login({ producerLoginRedirectEndpoint, test }) {
   const googleLogin = () => {
     // console.log(producerLoginRedirectEndpoint);
     // const auth_provider = "google-oidc";
@@ -239,8 +242,8 @@ function Login({ producerLoginRedirectEndpoint }) {
     <section>
       <div>
         <button className='button' onClick={googleLogin}>Login with Google</button>
-        <button className='button' onClick={test}>Test</button>
       </div>
+        <button className='button' onClick={test}>Test</button>
     </section>
   );
 }
