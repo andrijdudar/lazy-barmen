@@ -103,7 +103,7 @@ export const LoginEvgen = () => {
     fetch(producerLoginEndpoint, request)
       .then(response => {
         console.log(response);
-        setCookie('authToken', authCode, 1); // Токен буде збережено на 1 день
+        // setCookie('authToken', authToken, 1); // Токен буде збережено на 1 день
 
         // Check if user is logged in
         // checkUserSessionStatus();
