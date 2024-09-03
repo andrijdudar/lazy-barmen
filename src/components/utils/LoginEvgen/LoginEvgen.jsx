@@ -20,7 +20,8 @@ export const LoginEvgen = () => {
   console.log(userName);
 
   useEffect(() => {
-    authenticate();
+    // authenticate();
+
     console.log(userName);
   }, []);
 
@@ -61,7 +62,7 @@ console.log(authToken);
     // if (authToken) {
       getAccessToken(authToken);
     // } else {
-      checkUserSessionStatus();
+      // checkUserSessionStatus();
     // }
   };
 
@@ -80,7 +81,7 @@ console.log(authToken);
         setCookie('authToken', authToken, 1); // Токен буде збережено на 1 день
 
         // Check if user is logged in
-        checkUserSessionStatus();
+        // checkUserSessionStatus();
       })
       .catch(err => {
         console.log(err);
