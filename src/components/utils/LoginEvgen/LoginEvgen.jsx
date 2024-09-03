@@ -23,13 +23,13 @@ export const LoginEvgen = () => {
   console.log(allCookies);
 
   useEffect(() => {
-    const allCookies = Cookies.get();
-    const allCookiesAccessToken = Cookies.get('access_token');
-    const allCookiesRefreshToken = Cookies.get('refresh_token');
-    setRefreshToken(allCookiesRefreshToken);
+    // const allCookies = Cookies.get();
+    // const allCookiesAccessToken = Cookies.get('access_token');
+    // const allCookiesRefreshToken = Cookies.get('refresh_token');
+    // setRefreshToken(allCookiesRefreshToken);
 
-    console.log(allCookies);
-    console.log(allCookiesAccessToken);
+    // console.log(allCookies);
+    // console.log(allCookiesAccessToken);
     // authenticate();
     // deleteAllCookies();
     // console.log(userName);
@@ -197,6 +197,18 @@ export const LoginEvgen = () => {
 
 function Login({ producerLoginRedirectEndpoint }) {
   const [refreshToken, setRefreshToken] = useState(null);
+  useEffect(() => {
+    const token = getCookie('refresh_token');
+    setRefreshToken(token);
+  }, []);
+
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    if (match) {
+      return match[2];
+    }
+    return null;
+  }
 
   const setCookie = (cname, cvalue, exdays) => {
     Cookies.set(cname, cvalue, { expires: exdays, path: '/' });
@@ -239,13 +251,18 @@ function Login({ producerLoginRedirectEndpoint }) {
     window.location.href = login_url;
   };
 
-  const getCookie = (cname) => {
-    return Cookies.get(cname) || "";
-  };
+  // const getCookie = (cname) => {
+  //   return Cookies.get(cname) || "";
+  // };
 
   const getRefresh = () => {
-    const refreshToken = getCookie('refresh_token');
-    console.log(refreshToken);
+
+    const token = getCookie('refresh_token');
+    setRefreshToken(token);
+
+
+    // const refreshToken = getCookie('refresh_token');
+    // console.log(refreshToken);
     setRefreshToken(refreshToken);
   }
 
