@@ -71,153 +71,153 @@ export const LoginEvgen = () => {
     // window.history.pushState('object', document.title, "/");
 
 
+    // };
+
+    const params = new URLSearchParams(window.location.search);
+
+    const state = params.get('state');
+    const code = params.get('code');
+    const scope = params.get('scope');
+    const authuser = params.get('authuser');
+    const prompt = params.get('prompt');
+    const csrftoken = getCookie('csrftoken');
+    const session = getCookie('session');
+
+    console.log(state, code, scope, authuser, prompt, csrftoken, session);
+
+    // Тепер ці змінні містять відповідні значення параметрів
+
+    window.history.pushState('object', document.title, "/");
+
+
+
+
+    // Тепер ці змінні містять відповідні значення параметрів
+
+    window.history.pushState('object', document.title, "/");
+
+    // const authToken = getCookie('authToken');
+    // if (authCode) {
+    getAccessToken(state, code, scope, authuser, prompt, csrftoken, session);
+    // } else {
+    // checkUserSessionStatus();
+    // }
   };
 
-  const params = new URLSearchParams(window.location.search);
+  const getAccessToken = (state, code, scope, authuser, prompt, csrftoken, session) => {
 
-  const state = params.get('state');
-  const code = params.get('code');
-  const scope = params.get('scope');
-  const authuser = params.get('authuser');
-  const prompt = params.get('prompt');
-  const csrftoken = getCookie('csrftoken');
-  const session = getCookie('session');
+    const request = {
+      method: 'GET',
+      headers: {
+        code,
+        state,
+        scope,
+        authuser,
+        prompt,
+        csrftoken,
+        session,
 
-  console.log(state, code, scope, authuser, prompt, csrftoken, session);
+      },
+      credentials: 'include'
+    };
 
-  // Тепер ці змінні містять відповідні значення параметрів
+    fetch(producerLoginEndpoint, request)
+      .then(response => {
+        console.log('response token', response);
+        // setCookie('authToken', authToken, 1); // Токен буде збережено на 1 день
 
-  window.history.pushState('object', document.title, "/");
-
-
-
-
-  // Тепер ці змінні містять відповідні значення параметрів
-
-  window.history.pushState('object', document.title, "/");
-
-  // const authToken = getCookie('authToken');
-  // if (authCode) {
-  getAccessToken(state, code, scope, authuser, prompt, csrftoken, session);
-  // } else {
-  // checkUserSessionStatus();
-  // }
-};
-
-const getAccessToken = (state, code, scope, authuser, prompt, csrftoken, session) => {
-
-  const request = {
-    method: 'GET',
-    headers: {
-      code,
-      state,
-      scope,
-      authuser,
-      prompt,
-      csrftoken,
-      session,
-
-    },
-    credentials: 'include'
+        // Check if user is logged in
+        // checkUserSessionStatus();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
-  fetch(producerLoginEndpoint, request)
-    .then(response => {
-      console.log('response token', response);
-      // setCookie('authToken', authToken, 1); // Токен буде збережено на 1 день
-
-      // Check if user is logged in
-      // checkUserSessionStatus();
+  const test = () => {
+    const refreshToken = getCookie('refresh_token');
+    console.log(refreshToken);
+    fetch(SERVER_URL + '/api/auth/refresh_token', {
+      method: 'GET',
+      credentials: 'include',
+      headers: new Headers({
+        'Authorization': `Bearer ${refreshToken}`,
+      })
     })
-    .catch(err => {
-      console.log(err);
-    });
-};
+      .then(response => {
+        if (!response.ok) {
+          // window.location.href = '/login';
+          throw new Error('Помилка авторизації. Не вдалося оновити токен.');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        setCookie('access_token', data['access_token'], 1); // Токен буде збережено на 1 день
 
-const test = () => {
-  const refreshToken = getCookie('refresh_token');
-  console.log(refreshToken);
-  fetch(SERVER_URL + '/api/auth/refresh_token', {
-    method: 'GET',
-    credentials: 'include',
-    headers: new Headers({
-      'Authorization': `Bearer ${refreshToken}`,
-    })
-  })
-    .then(response => {
-      if (!response.ok) {
-        // window.location.href = '/login';
-        throw new Error('Помилка авторизації. Не вдалося оновити токен.');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-      setCookie('access_token', data['access_token'], 1); // Токен буде збережено на 1 день
-
-      // Check if user is logged in
-      checkUserSessionStatus();
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
-
-const checkUserSessionStatus = () => {
-  const request = {
-    method: 'GET',
-    credentials: 'include'
+        // Check if user is logged in
+        checkUserSessionStatus();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
-  fetch(producerLoginCheckEndpoint, request)
-    .then(response => response.json())
-    .then(data => {
-      // console.log(data);
-      setUserLoggedIn(data['userLoggedIn']);
-      setUserName(data['userName']);
-    })
-    .catch(err => { });
-};
+  const checkUserSessionStatus = () => {
+    const request = {
+      method: 'GET',
+      credentials: 'include'
+    };
 
-const logout = () => {
-  const request = {
-    method: 'GET',
-    credentials: 'include'
+    fetch(producerLoginCheckEndpoint, request)
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data);
+        setUserLoggedIn(data['userLoggedIn']);
+        setUserName(data['userName']);
+      })
+      .catch(err => { });
   };
 
-  fetch(producerLogoutEndpoint, request)
-    .then(response => response.json())
-    .then(data => {
-      // console.log(data);
-      Cookies.remove('authToken');
-      window.location.reload();
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
+  const logout = () => {
+    const request = {
+      method: 'GET',
+      credentials: 'include'
+    };
 
-const redirectToLazyBarmen = () => {
-  // window.location.href = '/list';
-  navigate('/list');
-}
+    fetch(producerLogoutEndpoint, request)
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data);
+        Cookies.remove('authToken');
+        window.location.reload();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
-return (
-  <section id="page-container" className='login_evgen'>
-    {userLoggedIn ?
-      <div>
-        <h1>
-          You are now logged in!
-        </h1>
+  const redirectToLazyBarmen = () => {
+    // window.location.href = '/list';
+    navigate('/list');
+  }
+
+  return (
+    <section id="page-container" className='login_evgen'>
+      {userLoggedIn ?
         <div>
-          <button className='button' onClick={logout}>Logout</button>
-          <button className='button' onClick={redirectToLazyBarmen}>Увійти в додаток</button>
-        </div>
-      </div> :
-      <Login producerLoginRedirectEndpoint={producerLoginRedirectEndpoint} />
-    }
-  </section>
-);
+          <h1>
+            You are now logged in!
+          </h1>
+          <div>
+            <button className='button' onClick={logout}>Logout</button>
+            <button className='button' onClick={redirectToLazyBarmen}>Увійти в додаток</button>
+          </div>
+        </div> :
+        <Login producerLoginRedirectEndpoint={producerLoginRedirectEndpoint} />
+      }
+    </section>
+  );
 }
 
 function Login({ producerLoginRedirectEndpoint }) {
