@@ -19,8 +19,19 @@ export const LoginEvgen = () => {
   const [userName, setUserName] = useState(null);
   // console.log(userName);
 
+  function deleteAllCookies() {
+    // Отримуємо всі назви cookies
+    const allCookies = Cookies.get();
+
+    // Проходимо по кожному cookie і видаляємо його
+    for (const cookieName in allCookies) {
+      Cookies.remove(cookieName);
+    }
+  }
+
   useEffect(() => {
-    authenticate();
+    // authenticate();
+    deleteAllCookies();
     // console.log(userName);
   }, []);
 
