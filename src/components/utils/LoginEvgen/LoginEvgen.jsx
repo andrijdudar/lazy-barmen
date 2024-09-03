@@ -23,8 +23,10 @@ export const LoginEvgen = () => {
 
   useEffect(() => {
     const allCookies = Cookies.get();
+    const allCookiesAccessToken = Cookies.get('access_token');
     console.log(allCookies);
-    // authenticate();
+    console.log(allCookiesAccessToken);
+    authenticate();
     // deleteAllCookies();
     // console.log(userName);
   }, []);
