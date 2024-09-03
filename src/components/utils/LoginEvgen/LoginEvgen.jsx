@@ -17,11 +17,11 @@ export const LoginEvgen = () => {
   const [producerLoginCheckEndpoint] = useState(SERVER_URL + '/api/user/me');//перевірки, чи є користувач увійшовим у систему
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [userName, setUserName] = useState(null);
-  console.log(userName);
+  // console.log(userName);
 
   useEffect(() => {
     authenticate();
-    console.log(userName);
+    // console.log(userName);
   }, []);
 
   // const setCookie = (cname, cvalue, exdays) => {
@@ -66,6 +66,10 @@ export const LoginEvgen = () => {
     const scope = params.get('scope');
     const authuser = params.get('authuser');
     const prompt = params.get('prompt');
+    const csrftoken = getCookie('csrftoken');
+    const session = getCookie('session');
+
+    console.log(state, code, scope, authuser, prompt, csrftoken, session);
 
     // Тепер ці змінні містять відповідні значення параметрів
 
@@ -80,13 +84,13 @@ export const LoginEvgen = () => {
 
     // const authToken = getCookie('authToken');
     // if (authCode) {
-    getAccessToken(state, code, scope, authuser, prompt);
+    getAccessToken(state, code, scope, authuser, prompt, csrftoken, session);
     // } else {
       // checkUserSessionStatus();
     // }
   };
 
-  const getAccessToken = (state, code, scope, authuser, prompt) => {
+  const getAccessToken = (state, code, scope, authuser, prompt, csrftoken, session) => {
 
     const request = {
       method: 'GET',
@@ -95,14 +99,17 @@ export const LoginEvgen = () => {
         state,
         scope,
         authuser,
-        prompt
+        prompt,
+        csrftoken,
+        session,
+
       },
       credentials: 'include'
     };
 
     fetch(producerLoginEndpoint, request)
       .then(response => {
-        console.log(response);
+        console.log('response token', response);
         // setCookie('authToken', authToken, 1); // Токен буде збережено на 1 день
 
         // Check if user is logged in
@@ -122,7 +129,7 @@ export const LoginEvgen = () => {
     fetch(producerLoginCheckEndpoint, request)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         setUserLoggedIn(data['userLoggedIn']);
         setUserName(data['userName']);
       })
@@ -138,7 +145,7 @@ export const LoginEvgen = () => {
     fetch(producerLogoutEndpoint, request)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         Cookies.remove('authToken');
         window.location.reload();
       })
@@ -172,7 +179,7 @@ export const LoginEvgen = () => {
 
 function Login({ producerLoginRedirectEndpoint }) {
   const googleLogin = () => {
-    console.log(producerLoginRedirectEndpoint);
+    // console.log(producerLoginRedirectEndpoint);
     // const auth_provider = "google-oidc";
     // const login_url = props.producerLoginRedirectEndpoint + "?auth_provider=" + auth_provider;
     const login_url = producerLoginRedirectEndpoint;
