@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const LoginEvgen = () => {
   const navigate = useNavigate();
-  const [producerLoginRedirectEndpoint] = useState(SERVER_URL + '/api/auth/google_login');//google/login  не потрібно
+  const [producerLoginRedirectEndpoint] = useState(SERVER_URL + '/api/auth/google_login');//google/login
 
   // const [producerLoginEndpoint] = useState('http://localhost:8000/login/');//token
   const [producerLoginEndpoint] = useState(SERVER_URL + '/api/auth/token');//token
