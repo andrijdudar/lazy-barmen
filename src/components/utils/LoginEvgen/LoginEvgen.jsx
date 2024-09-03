@@ -72,7 +72,7 @@ export const LoginEvgen = () => {
     const request = {
       method: 'GET',
       headers: {
-        "Authorization": "Bearer " + authCode
+        "code": authCode,
       },
       credentials: 'include'
     };
