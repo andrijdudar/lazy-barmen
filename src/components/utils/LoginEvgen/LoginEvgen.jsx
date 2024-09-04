@@ -17,22 +17,16 @@ export const LoginEvgen = () => {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [userName, setUserName] = useState(null);
   const [refreshToken, setRefreshToken] = useState(null);
-  // console.log(userName);
-
-  const allCookies = Cookies.get();
-  console.log(allCookies);
 
   useEffect(() => {
-    // const allCookies = Cookies.get();
-    // const allCookiesAccessToken = Cookies.get('access_token');
-    // const allCookiesRefreshToken = Cookies.get('refresh_token');
-    // setRefreshToken(allCookiesRefreshToken);
-
-    // console.log(allCookies);
-    // console.log(allCookiesAccessToken);
-    // authenticate();
-    // deleteAllCookies();
-    // console.log(userName);
+    const refreshToken = Cookies.get('refresh_token');
+    console.log('refreshToken', refreshToken);
+    if (refreshToken) {
+      setRefreshToken(refreshToken);
+    } else {
+      console.log('Токен не знайдено');
+    }
+    authenticate();
   }, []);
 
   // const setCookie = (cname, cvalue, exdays) => {
@@ -45,24 +39,6 @@ export const LoginEvgen = () => {
     Cookies.set(cname, cvalue, { expires: exdays, path: '/' });
   };
 
-  // const getCookie = (cname) => {
-  //   const name = cname + "=";
-  //   const decodedCookie = decodeURIComponent(document.cookie);
-  //   const ca = decodedCookie.split(';');
-  //   for (const i = 0; i < ca.length; i++) {
-  //     const c = ca[i];
-  //     while (c.charAt(0) === ' ') {
-  //       c = c.substring(1);
-  //     }
-  //     if (c.indexOf(name) === 0) {
-  //       return c.substring(name.length, c.length);
-  //     }
-  //   }
-  //   return "";
-  // };
-  const getCookie = (cname) => {
-    return Cookies.get(cname) || "";
-  };
 
   const authenticate = () => {
     // const authToken = (window.location.search.match(/authToken=([^&]+)/) || [])[1];
@@ -73,26 +49,27 @@ export const LoginEvgen = () => {
 
     // };
 
-    const params = new URLSearchParams(window.location.search);
+    // const params = new URLSearchParams(window.location.search);
 
-    const state = params.get('state');
-    const code = params.get('code');
-    const scope = params.get('scope');
-    const authuser = params.get('authuser');
-    const prompt = params.get('prompt');
-    const csrftoken = getCookie('csrftoken');
-    const session = getCookie('session');
+    // const state = params.get('state');
+    // const code = params.get('code');
+    // const scope = params.get('scope');
+    // const authuser = params.get('authuser');
+    // const prompt = params.get('prompt');
+    // const csrftoken = getCookie('csrftoken');
+    // const session = getCookie('session');
 
     // console.log(state, code, scope, authuser, prompt, csrftoken, session);
 
-    window.history.pushState('object', document.title, "/");
+    // window.history.pushState('object', document.title, "/");
 
     // const authToken = getCookie('authToken');
     // if (authCode) {
-    getAccessToken(state, code, scope, authuser, prompt, csrftoken, session);
+    // getAccessToken(state, code, scope, authuser, prompt, csrftoken, session);
     // } else {
     // checkUserSessionStatus();
     // }
+    checkUserSessionStatus();
   };
 
   const getAccessToken = (state, code, scope, authuser, prompt, csrftoken, session) => {
