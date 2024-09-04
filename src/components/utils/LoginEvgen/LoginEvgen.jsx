@@ -6,6 +6,8 @@ import './LoginEvgen.scss';
 
 export const LoginEvgen = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [producerLoginRedirectEndpoint] = useState(SERVER_URL + '/api/auth/google_login');
   const [producerLoginEndpoint] = useState(SERVER_URL + '/api/auth/token');
   const [producerLogoutEndpoint] = useState(SERVER_URL + '/api/auth/logout');
@@ -13,7 +15,6 @@ export const LoginEvgen = () => {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [userName, setUserName] = useState(null);
   const [refreshToken, setRefreshToken] = useState(null);
-  const location = useLocation();
 
 
   useEffect(() => {
@@ -36,16 +37,18 @@ export const LoginEvgen = () => {
     // const code = params.get('code');
     // const state = params.get('state');
     // const reference = params.get('');
-    const params = new URLSearchParams(location.search);
-    const state = params.get('state');
-    const code = params.get('code');
-    const scope = params.get('scope');
-    const authuser = params.get('authuser');
-    const prompt = params.get('prompt');
+    // const params = new URLSearchParams(location.search);
+    // const state = params.get('state');
+    // const code = params.get('code');
+    // const scope = params.get('scope');
+    // const authuser = params.get('authuser');
+    // const prompt = params.get('prompt');
 
-    // if (code && state) {
-      // Викликаємо функцію для обробки аутентифікації
-      const fullUrl = `${window.location.origin}${window.location.pathname}?state=${state}&code=${code}&scope=${encodeURIComponent(scope)}&authuser=${authuser}&prompt=${prompt}`;
+    // // if (code && state) {
+    //   // Викликаємо функцію для обробки аутентифікації
+    //   const fullUrl = `${window.location.origin}${window.location.pathname}?state=${state}&code=${code}&scope=${encodeURIComponent(scope)}&authuser=${authuser}&prompt=${prompt}`;
+    const fullUrl = window.location.href;
+    console.log("Повний URL:", fullUrl);
       authenticate(fullUrl);
 
     // }
@@ -53,15 +56,15 @@ export const LoginEvgen = () => {
       // const originalUrl = window.location.href;
 
       // if (code && state) {
-    authenticate(state, params);
+    // authenticate(state, params);
       // }
-  }, []);
+  }, [location]);
 
   // const setCookie = (cname, cvalue, exdays) => {
   //   Cookies.set(cname, cvalue, { expires: exdays, path: '/' });
   // };
 
-  const authenticate = (state, reference) => {
+  const authenticate = (reference) => {
     console.log(reference);
     // Передаємо code і state на бекенд для обробки
     fetch(producerLoginEndpoint, {
@@ -69,7 +72,7 @@ export const LoginEvgen = () => {
       headers: {
         'Content-Type': 'application/json',
         'referer': reference,
-        'state': state,
+        // 'state': state,
       },
       credentials: 'include',
       // body: JSON.stringify({ code, state })
@@ -147,7 +150,7 @@ export const LoginEvgen = () => {
       })
       .then(data => {
         console.log(data);
-        setCookie('access_token', data['access_token'], 1);
+        // setCookie('access_token', data['access_token'], 1);
       })
       .catch(err => {
         console.log(err);
