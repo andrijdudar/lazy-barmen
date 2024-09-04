@@ -48,7 +48,7 @@ export const LoginEvgen = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'originalUrl': originalUrl,
+        'referer': originalUrl,
       },
       credentials: 'include',
       // body: JSON.stringify({ code, state })
