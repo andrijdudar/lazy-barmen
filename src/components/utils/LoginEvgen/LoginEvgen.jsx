@@ -68,14 +68,14 @@ export const LoginEvgen = () => {
     console.log(reference);
     // Передаємо code і state на бекенд для обробки
     fetch(producerLoginEndpoint, {
-      method: 'GET',
+      method: 'GET', // Вказуємо метод POST, щоб передати параметри в тілі запиту
       headers: {
         'Content-Type': 'application/json',
-        'referer': reference,
-        // 'state': state,
+        // Можна передати URL також через кастомний заголовок, наприклад:
+        'X-Referer': reference, // якщо бекенд очікує отримати заголовок
       },
       credentials: 'include',
-      // body: JSON.stringify({ code, state })
+      // body: JSON.stringify({ fullUrl: reference }) // Передаємо повний URL в тілі запиту
     })
       .then(response => {
         if (!response.ok) {
@@ -85,8 +85,6 @@ export const LoginEvgen = () => {
       })
       .then(data => {
         console.log('Отримані токени:', data);
-        // setCookie('access_token', data['access_token'], 1);
-        // setCookie('refresh_token', data['refresh_token'], 7);
         setUserLoggedIn(true);
         checkUserSessionStatus();
         navigate('/list'); // Перенаправляємо користувача на потрібну сторінку після успішної авторизації
