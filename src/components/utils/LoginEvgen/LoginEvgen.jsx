@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { SERVER_URL } from '../../../services/httpClient';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './LoginEvgen.scss';
 
 export const LoginEvgen = () => {
@@ -13,6 +13,8 @@ export const LoginEvgen = () => {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [userName, setUserName] = useState(null);
   const [refreshToken, setRefreshToken] = useState(null);
+  const location = useLocation();
+
 
   useEffect(() => {
 
@@ -25,16 +27,23 @@ export const LoginEvgen = () => {
       // }
 
       // Перевіряємо наявність параметрів від Google у URL
-      const params = new URLSearchParams(window.location.search);
-      const code = params.get('code');
-      const state = params.get('state');
+      // const params = new URLSearchParams(window.location.search);
+      // const code = params.get('code');
+    // const state = params.get('state');
+    const params = new URLSearchParams(location.search);
+    const code = params.get('code');
+    const state = params.get('state');
 
+    if (code && state) {
+      // Викликаємо функцію для обробки аутентифікації
+      authenticate(code, state, params);
+    }
 
-      const originalUrl = window.location.href;
+      // const originalUrl = window.location.href;
 
-      if (code && state) {
-        authenticate(code, state, originalUrl);
-      }
+      // if (code && state) {
+    authenticate(code, state, params);
+      // }
   }, []);
 
   const setCookie = (cname, cvalue, exdays) => {
