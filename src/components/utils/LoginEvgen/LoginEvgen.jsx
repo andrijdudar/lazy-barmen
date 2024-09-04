@@ -72,7 +72,7 @@ export const LoginEvgen = () => {
       headers: {
         'Content-Type': 'application/json',
         // Можна передати URL також через кастомний заголовок, наприклад:
-        'referer': reference, // якщо бекенд очікує отримати заголовок
+        'X-Referer': reference, // якщо бекенд очікує отримати заголовок
       },
       credentials: 'include',
       // body: JSON.stringify({ fullUrl: reference }) // Передаємо повний URL в тілі запиту
