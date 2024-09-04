@@ -140,7 +140,7 @@ export const LoginEvgen = () => {
 
   const redirectToLazyBarmen = () => {
     // window.location.href = '/list';
-    navigate('/list');
+    // navigate('/list');
   }
 
   return (
@@ -165,6 +165,7 @@ export const LoginEvgen = () => {
 
 function Login({ producerLoginRedirectEndpoint }) {
   const [refreshToken, setRefreshToken] = useState(null);
+  console.log('refreshToken', refreshToken);
   useEffect(() => {
     const token = Cookies.get('refresh_token');
     if (token) {
@@ -180,9 +181,6 @@ function Login({ producerLoginRedirectEndpoint }) {
   };
 
   const getAccsess = () => {
-    // const refreshToken = getCookie('refresh_token');
-    // setRefreshToken(refreshToken);
-    console.log(refreshToken);
     fetch(SERVER_URL + '/api/auth/refresh_token', {
       method: 'GET',
       credentials: 'include',
@@ -209,32 +207,14 @@ function Login({ producerLoginRedirectEndpoint }) {
       });
   };
   const googleLogin = () => {
-    // console.log(producerLoginRedirectEndpoint);
-    // const auth_provider = "google-oidc";
     // const login_url = props.producerLoginRedirectEndpoint + "?auth_provider=" + auth_provider;
     const login_url = producerLoginRedirectEndpoint;
     window.location.href = login_url;
   };
 
-  // const getCookie = (cname) => {
-  //   return Cookies.get(cname) || "";
-  // };
-
   const getRefresh = () => {
-    const accessToken = Cookies.get('access_token');
-
-    // Отримуємо refresh_token
-    const refreshToken = Cookies.get('refresh_token');
-    console.log('refreshToken', refreshToken);
-    console.log('accessToken', accessToken);
-
-    // const token = getCookie('refresh_token');
-    setRefreshToken(refreshToken);
-
-
-    // const refreshToken = getCookie('refresh_token');
-    // console.log(refreshToken);
-    setRefreshToken(refreshToken);
+    console.log('refreshToken', Cookies.get('refresh_token'));
+    console.log('accessToken', Cookies.get('access_token'));
   }
 
   // const azureLogin = () => {
