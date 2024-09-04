@@ -156,14 +156,14 @@ export const LoginEvgen = () => {
           </div>
         </div> :
         <Login
-          producerLoginRedirectEndpoint={producerLoginRedirectEndpoint}
+          producerLoginRedirectEndpoint={producerLoginRedirectEndpoint} producerLogoutEndpoint={producerLogoutEndpoint}
         />
       }
     </section>
   );
 }
 
-function Login({ producerLoginRedirectEndpoint }) {
+function Login({ producerLoginRedirectEndpoint, producerLogoutEndpoint }) {
   const [refreshToken, setRefreshToken] = useState(null);
   console.log('refreshToken', refreshToken);
   useEffect(() => {
@@ -223,13 +223,32 @@ function Login({ producerLoginRedirectEndpoint }) {
   //   window.location.href = login_url;
   // };
 
+  const logout = () => {
+    const request = {
+      method: 'GET',
+      credentials: 'include'
+    };
+
+    fetch(producerLogoutEndpoint, request)
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data);
+        Cookies.remove('authToken');
+        window.location.reload();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
   return (
     <section>
       <div>
         <button className='button' onClick={googleLogin}>Login with Google</button>
       </div>
       <div><button className='button' onClick={getRefresh}>getRefreshCookie</button></div>
-     <div> <button className='button' onClick={getAccsess}>SERVER_URL + '/api/auth/refresh_token'</button></div>
+      <div> <button className='button' onClick={getAccsess}>SERVER_URL + '/api/auth/refresh_token'</button></div>
+      <button className='button' onClick={logout}>Logout</button>
+      <div></div>
     </section>
   );
 }
