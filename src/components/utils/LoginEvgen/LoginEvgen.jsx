@@ -83,16 +83,7 @@ export const LoginEvgen = () => {
     const csrftoken = getCookie('csrftoken');
     const session = getCookie('session');
 
-    console.log(state, code, scope, authuser, prompt, csrftoken, session);
-
-    // Тепер ці змінні містять відповідні значення параметрів
-
-    window.history.pushState('object', document.title, "/");
-
-
-
-
-    // Тепер ці змінні містять відповідні значення параметрів
+    // console.log(state, code, scope, authuser, prompt, csrftoken, session);
 
     window.history.pushState('object', document.title, "/");
 
@@ -203,18 +194,23 @@ function Login({ producerLoginRedirectEndpoint }) {
   }, []);
 
   function getCookie(name) {
+    const cook = Cookies.get(name);
+    if (cook) {
+      return cook;
+    }
     const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
     if (match) {
       return match[2];
+    } else {
+      return null;
     }
-    return null;
   }
 
   const setCookie = (cname, cvalue, exdays) => {
     Cookies.set(cname, cvalue, { expires: exdays, path: '/' });
   };
 
-  const test = () => {
+  const getAccsess = () => {
     // const refreshToken = getCookie('refresh_token');
     // setRefreshToken(refreshToken);
     console.log(refreshToken);
@@ -277,8 +273,8 @@ function Login({ producerLoginRedirectEndpoint }) {
       <div>
         <button className='button' onClick={googleLogin}>Login with Google</button>
       </div>
-        <button className='button' onClick={test}>Test</button>
-        <button className='button' onClick={getRefresh}>getRefreshCookie</button>
+      <div><button className='button' onClick={getRefresh}>getRefreshCookie</button></div>
+     <div> <button className='button' onClick={getAccsess}>SERVER_URL + '/api/auth/refresh_token'</button></div>
     </section>
   );
 }
