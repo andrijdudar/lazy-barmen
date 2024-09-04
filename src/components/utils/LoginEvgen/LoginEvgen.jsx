@@ -30,15 +30,25 @@ export const LoginEvgen = () => {
       // const params = new URLSearchParams(window.location.search);
       // const code = params.get('code');
     // const state = params.get('state');
-    const params = new URLSearchParams(location.search);
-    const code = params.get('code');
-    const state = params.get('state');
-    const reference = params.get('');
 
-    if (code && state) {
+
+    // const params = new URLSearchParams(location.search);
+    // const code = params.get('code');
+    // const state = params.get('state');
+    // const reference = params.get('');
+    const params = new URLSearchParams(location.search);
+    const state = params.get('state');
+    const code = params.get('code');
+    const scope = params.get('scope');
+    const authuser = params.get('authuser');
+    const prompt = params.get('prompt');
+
+    // if (code && state) {
       // Викликаємо функцію для обробки аутентифікації
-      authenticate(code, state, params);
-    }
+      const fullUrl = `${window.location.origin}${window.location.pathname}?state=${state}&code=${code}&scope=${encodeURIComponent(scope)}&authuser=${authuser}&prompt=${prompt}`;
+      authenticate(code, state, fullUrl);
+
+    // }
 
       // const originalUrl = window.location.href;
 
