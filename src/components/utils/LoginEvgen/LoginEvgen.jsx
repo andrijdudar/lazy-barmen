@@ -252,11 +252,15 @@ function Login({ producerLoginRedirectEndpoint }) {
   // };
 
   const getRefresh = () => {
+    const accessToken = Cookies.get('access_token');
 
-    const token = getCookie('refresh_token');
-    setRefreshToken(token);
-    console.log(token);
-    console.log(refreshToken);
+    // Отримуємо refresh_token
+    const refreshToken = Cookies.get('refresh_token');
+    console.log('refreshToken', refreshToken);
+    console.log('accessToken', accessToken);
+
+    // const token = getCookie('refresh_token');
+    setRefreshToken(refreshToken);
 
 
     // const refreshToken = getCookie('refresh_token');
