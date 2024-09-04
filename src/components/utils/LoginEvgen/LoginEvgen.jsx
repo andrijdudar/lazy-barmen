@@ -189,22 +189,14 @@ export const LoginEvgen = () => {
 function Login({ producerLoginRedirectEndpoint }) {
   const [refreshToken, setRefreshToken] = useState(null);
   useEffect(() => {
-    const token = getCookie('refresh_token');
-    setRefreshToken(token);
-  }, []);
-
-  function getCookie(name) {
-    const cook = Cookies.get(name);
-    if (cook) {
-      return cook;
-    }
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    if (match) {
-      return match[2];
+    const token = Cookies.get('refresh_token');
+    if (token) {
+      console.log('refreshToken', token);
+      setRefreshToken(token);
     } else {
-      return null;
+      console.log('Токен не знайдено');
     }
-  }
+  }, []);
 
   const setCookie = (cname, cvalue, exdays) => {
     Cookies.set(cname, cvalue, { expires: exdays, path: '/' });
