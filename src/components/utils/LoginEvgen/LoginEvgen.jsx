@@ -46,29 +46,30 @@ export const LoginEvgen = () => {
     // if (code && state) {
       // Викликаємо функцію для обробки аутентифікації
       const fullUrl = `${window.location.origin}${window.location.pathname}?state=${state}&code=${code}&scope=${encodeURIComponent(scope)}&authuser=${authuser}&prompt=${prompt}`;
-      authenticate(code, state, fullUrl);
+      authenticate(fullUrl);
 
     // }
 
       // const originalUrl = window.location.href;
 
       // if (code && state) {
-    authenticate(code, state, params);
+    authenticate(state, params);
       // }
   }, []);
 
-  const setCookie = (cname, cvalue, exdays) => {
-    Cookies.set(cname, cvalue, { expires: exdays, path: '/' });
-  };
+  // const setCookie = (cname, cvalue, exdays) => {
+  //   Cookies.set(cname, cvalue, { expires: exdays, path: '/' });
+  // };
 
-  const authenticate = (code, state, reference) => {
-    console.log(code, state, reference);
+  const authenticate = (state, reference) => {
+    console.log(reference);
     // Передаємо code і state на бекенд для обробки
     fetch(producerLoginEndpoint, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'referer': reference,
+        'state': state,
       },
       credentials: 'include',
       // body: JSON.stringify({ code, state })
@@ -81,8 +82,8 @@ export const LoginEvgen = () => {
       })
       .then(data => {
         console.log('Отримані токени:', data);
-        setCookie('access_token', data['access_token'], 1);
-        setCookie('refresh_token', data['refresh_token'], 7);
+        // setCookie('access_token', data['access_token'], 1);
+        // setCookie('refresh_token', data['refresh_token'], 7);
         setUserLoggedIn(true);
         checkUserSessionStatus();
         navigate('/list'); // Перенаправляємо користувача на потрібну сторінку після успішної авторизації
