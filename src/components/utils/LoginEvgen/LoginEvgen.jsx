@@ -255,6 +255,8 @@ function Login({ producerLoginRedirectEndpoint }) {
 
     const token = getCookie('refresh_token');
     setRefreshToken(token);
+    console.log(token);
+    console.log(refreshToken);
 
 
     // const refreshToken = getCookie('refresh_token');
