@@ -33,6 +33,7 @@ export const LoginEvgen = () => {
     const params = new URLSearchParams(location.search);
     const code = params.get('code');
     const state = params.get('state');
+    const reference = params.get('');
 
     if (code && state) {
       // Викликаємо функцію для обробки аутентифікації
@@ -50,14 +51,14 @@ export const LoginEvgen = () => {
     Cookies.set(cname, cvalue, { expires: exdays, path: '/' });
   };
 
-  const authenticate = (code, state, originalUrl) => {
-    console.log(code, state, originalUrl);
+  const authenticate = (code, state, reference) => {
+    console.log(code, state, reference);
     // Передаємо code і state на бекенд для обробки
     fetch(producerLoginEndpoint, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'referer': originalUrl,
+        'referer': reference,
       },
       credentials: 'include',
       // body: JSON.stringify({ code, state })
