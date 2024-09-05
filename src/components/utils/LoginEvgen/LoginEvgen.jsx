@@ -177,139 +177,46 @@
 
 
 
-import React, { useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
-import { SERVER_URL } from '../../../services/httpClient';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import './LoginEvgen.scss';
 
 export const LoginEvgen = () => {
-  const navigate = useNavigate();
-  const [producerLoginRedirectEndpoint] = useState(SERVER_URL + '/api/auth/google_login');
-  // const [producerLoginEndpoint] = useState(SERVER_URL + '/api/auth/token');
-  const [producerLogoutEndpoint] = useState(SERVER_URL + '/api/auth/logout');
-  const [producerLoginCheckEndpoint] = useState(SERVER_URL + '/api/user/me');
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [cookies, setCookies] = useState(null);
 
-  useEffect(() => {
-    checkUserSessionStatus();
-  }, []);
+    const sendRequest = async () => {
+        try {
+            const queryParams = window.location.search.substr(1);
+          const response = await fetch(`https://0033-92-253-236-127.ngrok-free.app/api/auth/token?${queryParams}`, {
+                method: 'GET',
+                credentials: 'include',
+            });
 
-  const getCookies = () => {
-    const allCookies = Cookies.get();
-    console.log('Всі cookies:', allCookies);
-    setCookies(allCookies);
-    console.log('cookies state', cookies);
-  };
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
 
-  const checkUserSessionStatus = () => {
-    const accessToken = Cookies.get('access_token');
-    fetch(producerLoginCheckEndpoint, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`,
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('data', data);
+            const data = await response.json();
 
-      })
-      .catch(err => {
-        console.error('Помилка при перевірці статусу сесії скоріш за все нема аксес токена:', err);
-        const accessToken = Cookies.get('access_token');
-        const refreshToken = Cookies.get('refresh_token');
-        if (accessToken) {
-          console.log('accessToken', accessToken);
-          if (!refreshToken) {
-            console.log('То Піздєц рефреш токену немає');
-          }
-          // getAccessToken(refreshToken);
-
+            if (data.result === true) {
+                window.localStorage.setItem('jwt', data.access_token);
+                window.localStorage.setItem('refresh', data.refresh_token);
+              console.log("Token stored successfully");
+              console.log(localStorage.getItem('jwt'));
+              console.log(localStorage.getItem('refresh'));
+            } else {
+                console.error("Invalid response result:", data);
+            }
+        } catch (error) {
+            console.error("Error fetching JWT token:", error);
         }
-      });
-  };
+    };
 
-  const getAccsess = () => {
-    const refreshToken = Cookies.get('refresh_token');
-    console.log('refreshToken', refreshToken);
-    fetch(SERVER_URL + '/api/auth/refresh_token', {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Authorization': `Bearer ${refreshToken}`,
-      }
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Помилка авторизації. Не вдалося оновити токен.');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        console.log('access_token', data['access_token'], Cookies.get('access_token'));
-        // setCookie('access_token', data['access_token'], 1);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  const logout = () => {
-
-    fetch(producerLogoutEndpoint, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Authorization': `Bearer ${Cookies.get('access_token')}`
-      }
-    })
-      .then(response => response.json())
-      .then(() => {
-        Cookies.remove('access_token');
-        Cookies.remove('refresh_token');
-        window.location.reload();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  const googleLogin = () => {
-    window.location.href = producerLoginRedirectEndpoint;
-  };
-
-  const redirectToLazyBarmen = () => {
-    navigate('/list');
-  }
-
-  return (
-    <section id="page-container" className='login_evgen'>
-      {userLoggedIn ? (
+    return (
+      <div className='login_evgen'>
         <div>
-          <h1>You are now logged in!</h1>
-          <div>
-            <button className='button' onClick={logout}>Logout</button>
-            <button className='button' onClick={redirectToLazyBarmen}>Увійти в додаток</button>
-          </div>
+          <button className='button' onClick={sendRequest}>Get FastAPI JWT Token</button>
         </div>
-      ) : (
-        <section>
-          <div>
-            <button className='button' onClick={googleLogin}>Login with Google</button>
-          </div>
-          <div>
-            <button className='button' onClick={getCookies}>Отримати куки</button>
-          </div>
-          <div>
-            <button className='button' onClick={getAccsess}>Оновити Access Token</button>
-          </div>
-        </section>
-      )}
-    </section>
-  );
+      </div>
+    );
 };
+
+export default LoginEvgen;
