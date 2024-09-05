@@ -260,13 +260,13 @@ export const LoginEvgen = () => {
   };
 
   const getAccsess = () => {
-    // const refreshToken = Cookies.get('refresh_token');
+    const refreshToken = Cookies.get('refresh_token');
     fetch(SERVER_URL + '/api/auth/refresh_token', {
       method: 'GET',
       credentials: 'include',
-      headers: new Headers({
-        'Authorization': `Bearer ${Cookies.get('refresh_token')}`,
-      })
+      headers:{
+        'Authorization': `Bearer ${refreshToken}`,
+      }
     })
     .then(response => {
       if (!response.ok) {
