@@ -206,12 +206,12 @@ export const LoginEvgen = () => {
     // }
   }, []);
 
-  const getAccessToken = (refreshToken) => {
+  const getAccessToken = () => {
     fetch(producerLoginEndpoint, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${refreshToken}`,
+        'Authorization': `Bearer ${Cookies.get('refresh_token')}`,
 
       },
       credentials: 'include'
@@ -330,9 +330,9 @@ export const LoginEvgen = () => {
           {/* <div>
             <button className='button' onClick={getRefresh}>Отримати refreshToken</button>
           </div> */}
-          {/* <div>
-              <button className='button' onClick={checkUserSessionStatus}>Оновити Access Token</button>
-          </div> */}
+          <div>
+              <button className='button' onClick={getAccessToken}>Оновити Access Token</button>
+          </div>
         </section>
       )}
     </section>
