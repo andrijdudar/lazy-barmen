@@ -249,12 +249,13 @@ export const LoginEvgen = () => {
   // };
 
   const checkUserSessionStatus = () => {
+    const accessToken = Cookies.get('access_token');
     fetch(producerLoginCheckEndpoint, {
       method: 'GET',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${Cookies.get('access_token')}`,
+        'Authorization': `Bearer ${accessToken}`,
       }
     })
       .then(response => response.json())
