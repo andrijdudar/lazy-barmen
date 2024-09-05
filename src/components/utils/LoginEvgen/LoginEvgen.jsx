@@ -195,6 +195,7 @@ export const LoginEvgen = () => {
 
   useEffect(() => {
     const token = Cookies.get('accsess_token');
+    console.log('token', token);
     checkUserSessionStatus(token);
     // if (token) {
     // authenticate(token);
@@ -261,6 +262,7 @@ export const LoginEvgen = () => {
 
   const getAccsess = () => {
     const refreshToken = Cookies.get('refresh_token');
+    console.log('refreshToken', refreshToken);
     fetch(SERVER_URL + '/api/auth/refresh_token', {
       method: 'GET',
       credentials: 'include',
