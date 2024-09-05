@@ -177,10 +177,15 @@
 
 
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import './LoginEvgen.scss';
 
 export const LoginEvgen = () => {
+
+  useEffect(() => {
+    const queryParams = window.location.search.substr(1);
+    console.log(queryParams);
+  }, []);
 
     const sendRequest = async () => {
         try {
@@ -214,6 +219,7 @@ export const LoginEvgen = () => {
       <div className='login_evgen'>
         <div>
           <button className='button' onClick={sendRequest}>Get FastAPI JWT Token</button>
+          <a href='https://0033-92-253-236-127.ngrok-free.app/api/auth/google_login' className='button' >Google Login</a>
         </div>
       </div>
     );
