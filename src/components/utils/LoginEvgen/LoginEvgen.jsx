@@ -191,79 +191,101 @@ export const LoginEvgen = () => {
   const [producerLoginCheckEndpoint] = useState(SERVER_URL + '/api/user/me');
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [userName, setUserName] = useState(null);
-  const [refreshToken, setRefreshToken] = useState(null);
+  // const [refreshToken, setRefreshToken] = useState(null);
 
   useEffect(() => {
-    const token =  Cookies.get('refresh_token');
-    if (token) {
-      console.log('refreshToken', token);
-      setRefreshToken(token);
-    } else {
-      console.log('Токен не знайдено');
-    }
+    const token = Cookies.get('accsess_token');
+    checkUserSessionStatus(token);
+    // if (token) {
+    // authenticate(token);
+    //   console.log('refreshToken', token);
+    //   setRefreshToken(token);
+    // } else {
+    // console.log('Токен не знайдено');
+
+    // }
   }, []);
 
-  const setCookie = (cname, cvalue, exdays) => {
-    Cookies.set(cname, cvalue, { expires: exdays, path: '/' });
-  };
-
-  const getRefresh = () => {
-    console.log('Отриманий refreshToken:', refreshToken);
-  };
-
-  const authenticate = () => {
-    const params = new URLSearchParams(window.location.search);
-    const state = params.get('state');
-    const code = params.get('code');
-    const scope = params.get('scope');
-    const authuser = params.get('authuser');
-    const prompt = params.get('prompt');
-    const csrftoken = Cookies.get('csrftoken');
-    const session = Cookies.get('session');
-
-    window.history.pushState('object', document.title, "/");
-
-    getAccessToken(state, code, scope, authuser, prompt, csrftoken, session);
-  };
-
-  const getAccessToken = (state, code, scope, authuser, prompt, csrftoken, session) => {
-    const request = {
+  const getAccessToken = (refreshToken) => {
+    fetch(producerLoginEndpoint, {
       method: 'GET',
       headers: {
-        code,
-        state,
-        scope,
-        authuser,
-        prompt,
-        csrftoken,
-        session,
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${refreshToken}`,
+
       },
       credentials: 'include'
-    };
-
-    fetch(producerLoginEndpoint, request)
+    })
       .then(response => {
         console.log('response token', response);
       })
       .catch(err => {
-        console.log(err);
-      });
+        console.error('Помилка при отриманні аксес токену:', err);
+      }
+      )
   };
 
   const checkUserSessionStatus = () => {
-    const request = {
-      method: 'GET',
-      credentials: 'include'
-    };
+    const accessToken = Cookies.get('access_token');
 
-    fetch(producerLoginCheckEndpoint, request)
+    fetch(producerLoginCheckEndpoint, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`,
+      }
+    })
       .then(response => response.json())
       .then(data => {
+        console.log('accessToken знайдено', accessToken);
+        console.log('data', data);
         setUserLoggedIn(data['userLoggedIn']);
         setUserName(data['userName']);
+        setUserLoggedIn(true);
+
       })
-      .catch(err => { });
+      .catch(err => {
+        console.error('Помилка при перевірці статусу сесії скоріш за все нема аксес токенп:', err);
+        const accessToken = Cookies.get('access_token');
+        const refreshToken = Cookies.get('refresh_token');
+        if (accessToken) {
+          if (!refreshToken) {
+            console.log('То Піздєц рефреш токену немає');
+          }
+          getAccessToken(refreshToken);
+
+        }
+      });
   };
+
+  // const getAccsess = () => {
+  //   const refreshToken = Cookies.get('refresh_token');
+  //   fetch(SERVER_URL + '/api/auth/refresh_token', {
+  //     method: 'GET',
+  //     credentials: 'include',
+  //     headers: new Headers({
+  //       'Authorization': `Bearer ${refreshToken}`,
+  //     })
+  //   })
+  //   .then(response => {
+  //     if (!response.ok) {
+  //       throw new Error('Помилка авторизації. Не вдалося оновити токен.');
+  //     }
+  //     return response.json();
+  //   })
+  //   .then(data => {
+  //     console.log(data);
+  //     // setCookie('access_token', data['access_token'], 1);
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   });
+  // };
+
+  // const setCookie = (cname, cvalue, exdays) => {
+  //   Cookies.set(cname, cvalue, { expires: exdays, path: '/' });
+  // };
 
   const logout = () => {
     const request = {
@@ -282,37 +304,13 @@ export const LoginEvgen = () => {
       });
   };
 
-  const redirectToLazyBarmen = () => {
-    navigate('/list');
-  }
-
   const googleLogin = () => {
     window.location.href = producerLoginRedirectEndpoint;
   };
 
-  const getAccsess = () => {
-    console.log(refreshToken);
-    fetch(SERVER_URL + '/api/auth/refresh_token', {
-      method: 'GET',
-      credentials: 'include',
-      headers: new Headers({
-        'Authorization': `Bearer ${refreshToken}`,
-      })
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Помилка авторизації. Не вдалося оновити токен.');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        setCookie('access_token', data['access_token'], 1);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  const redirectToLazyBarmen = () => {
+    navigate('/list');
+  }
 
   return (
     <section id="page-container" className='login_evgen'>
@@ -329,12 +327,12 @@ export const LoginEvgen = () => {
           <div>
             <button className='button' onClick={googleLogin}>Login with Google</button>
           </div>
-          <div>
+          {/* <div>
             <button className='button' onClick={getRefresh}>Отримати refreshToken</button>
-          </div>
-          <div>
-            <button className='button' onClick={getAccsess}>Оновити Access Token</button>
-          </div>
+          </div> */}
+          {/* <div>
+              <button className='button' onClick={checkUserSessionStatus}>Оновити Access Token</button>
+          </div> */}
         </section>
       )}
     </section>
