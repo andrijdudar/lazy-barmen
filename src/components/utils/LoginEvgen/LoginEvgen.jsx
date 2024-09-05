@@ -195,7 +195,7 @@ export const LoginEvgen = () => {
 
   useEffect(() => {
     const token = Cookies.get('accsess_token');
-    // checkUserSessionStatus(token);
+    checkUserSessionStatus(token);
     // if (token) {
     // authenticate(token);
     //   console.log('refreshToken', token);
@@ -226,19 +226,19 @@ export const LoginEvgen = () => {
   // };
 
   const checkUserSessionStatus = () => {
-    const accessToken = Cookies.get('access_token');
+    // const accessToken = Cookies.get('access_token');
 
     fetch(producerLoginCheckEndpoint, {
       method: 'GET',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`,
+        'Authorization': `Bearer ${Cookies.get('access_token')}`,
       }
     })
       .then(response => response.json())
       .then(data => {
-        console.log('accessToken знайдено', accessToken);
+        // console.log('accessToken знайдено', accessToken);
         console.log('data', data);
         // setUserLoggedIn(data['userLoggedIn']);
         // setUserName(data['userName']);
@@ -260,12 +260,12 @@ export const LoginEvgen = () => {
   };
 
   const getAccsess = () => {
-    const refreshToken = Cookies.get('refresh_token');
+    // const refreshToken = Cookies.get('refresh_token');
     fetch(SERVER_URL + '/api/auth/refresh_token', {
       method: 'GET',
       credentials: 'include',
       headers: new Headers({
-        'Authorization': `Bearer ${refreshToken}`,
+        'Authorization': `Bearer ${Cookies.get('refresh_token')}`,
       })
     })
     .then(response => {
