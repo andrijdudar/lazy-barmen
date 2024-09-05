@@ -194,6 +194,7 @@ export const LoginEvgen = () => {
   const [accessToken, setAccessToken] = useState(null);
   const [refreshToken, setRefreshToken] = useState(null);
   const [cookieValue, setCookieValue] = useState(null);
+  const [cookies, setCookies] = useState(null);
 
   useEffect(() => {
     // Отримуємо всі cookies як один рядок
@@ -201,7 +202,7 @@ export const LoginEvgen = () => {
     console.log('Всі cookies:', allCookies);
 
     // Знаходимо cookie з назвою 'myCookie'
-    const cookie = getCookieValue('myCookie', allCookies);
+    const cookie = getCookieValue('access_token', allCookies);
 
     if (cookie) {
       setCookieValue(cookie);
@@ -210,7 +211,7 @@ export const LoginEvgen = () => {
       console.log('Cookie не знайдено');
     }
 
-    // checkUserSessionStatus(token);
+    checkUserSessionStatus(cookie);
 
 
 
@@ -223,6 +224,13 @@ export const LoginEvgen = () => {
 
     // }
   }, []);
+
+  const getCookies = () => {
+    const allCookies = document.cookie;
+    console.log('Всі cookies:', allCookies);
+    setCookies(allCookies);
+    console.log('cookies state', cookies);
+  };
 
   const getCookieValue = (name, allCookies) => {
     const cookieArr = allCookies.split('; ');
@@ -358,9 +366,9 @@ export const LoginEvgen = () => {
           <div>
             <button className='button' onClick={googleLogin}>Login with Google</button>
           </div>
-          {/* <div>
-            <button className='button' onClick={getRefresh}>Отримати refreshToken</button>
-          </div> */}
+          <div>
+              <button className='button' onClick={getCookies}>Отримати куки</button>
+          </div>
           <div>
               <button className='button' onClick={getAccsess}>Оновити Access Token</button>
           </div>
