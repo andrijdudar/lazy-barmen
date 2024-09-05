@@ -191,12 +191,29 @@ export const LoginEvgen = () => {
   const [producerLoginCheckEndpoint] = useState(SERVER_URL + '/api/user/me');
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [userName, setUserName] = useState(null);
-  // const [refreshToken, setRefreshToken] = useState(null);
+  const [accessToken, setAccessToken] = useState(null);
+  const [refreshToken, setRefreshToken] = useState(null);
+  const [cookieValue, setCookieValue] = useState(null);
 
   useEffect(() => {
-    const token = Cookies.get('accsess_token');
-    console.log('token', token);
-    checkUserSessionStatus(token);
+    // Отримуємо всі cookies як один рядок
+    const allCookies = document.cookie;
+    console.log('Всі cookies:', allCookies);
+
+    // Знаходимо cookie з назвою 'myCookie'
+    const cookie = getCookieValue('myCookie', allCookies);
+
+    if (cookie) {
+      setCookieValue(cookie);
+      console.log('Cookie значення:', cookie);
+    } else {
+      console.log('Cookie не знайдено');
+    }
+
+    // checkUserSessionStatus(token);
+
+
+
     // if (token) {
     // authenticate(token);
     //   console.log('refreshToken', token);
@@ -206,6 +223,17 @@ export const LoginEvgen = () => {
 
     // }
   }, []);
+
+  const getCookieValue = (name, allCookies) => {
+    const cookieArr = allCookies.split('; ');
+    for (let cookie of cookieArr) {
+      const [cookieName, cookieValue] = cookie.split('=');
+      if (cookieName === name) {
+        return cookieValue;
+      }
+    }
+    return null;
+  };
 
   // const getAccessToken = () => {
   //   fetch(producerLoginEndpoint, {
