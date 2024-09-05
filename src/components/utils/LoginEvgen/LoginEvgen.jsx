@@ -190,25 +190,10 @@ export const LoginEvgen = () => {
   const [producerLogoutEndpoint] = useState(SERVER_URL + '/api/auth/logout');
   const [producerLoginCheckEndpoint] = useState(SERVER_URL + '/api/user/me');
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-  // const [userName, setUserName] = useState(null);
-  // const [accessToken, setAccessToken] = useState(null);
-  // const [refreshToken, setRefreshToken] = useState(null);
-  // const [cookieValue, setCookieValue] = useState(null);
   const [cookies, setCookies] = useState(null);
 
   useEffect(() => {
     checkUserSessionStatus();
-
-
-
-    // if (token) {
-    // authenticate(token);
-    //   console.log('refreshToken', token);
-    //   setRefreshToken(token);
-    // } else {
-    // console.log('Токен не знайдено');
-
-    // }
   }, []);
 
   const getCookies = () => {
@@ -217,36 +202,6 @@ export const LoginEvgen = () => {
     setCookies(allCookies);
     console.log('cookies state', cookies);
   };
-
-  // const getCookieValue = (name, allCookies) => {
-  //   const cookieArr = allCookies.split('; ');
-  //   for (let cookie of cookieArr) {
-  //     const [cookieName, cookieValue] = cookie.split('=');
-  //     if (cookieName === name) {
-  //       return cookieValue;
-  //     }
-  //   }
-  //   return null;
-  // };
-
-  // const getAccessToken = () => {
-  //   fetch(producerLoginEndpoint, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${Cookies.get('refresh_token')}`,
-
-  //     },
-  //     credentials: 'include'
-  //   })
-  //     .then(response => {
-  //       console.log('response token', response);
-  //     })
-  //     .catch(err => {
-  //       console.error('Помилка при отриманні аксес токену:', err);
-  //     }
-  //     )
-  // };
 
   const checkUserSessionStatus = () => {
     const accessToken = Cookies.get('access_token');
@@ -260,11 +215,7 @@ export const LoginEvgen = () => {
     })
       .then(response => response.json())
       .then(data => {
-        // console.log('accessToken знайдено', accessToken);
         console.log('data', data);
-        // setUserLoggedIn(data['userLoggedIn']);
-        // setUserName(data['userName']);
-        // setUserLoggedIn(true);
 
       })
       .catch(err => {
@@ -307,10 +258,6 @@ export const LoginEvgen = () => {
         console.log(err);
       });
   };
-
-  // const setCookie = (cname, cvalue, exdays) => {
-  //   Cookies.set(cname, cvalue, { expires: exdays, path: '/' });
-  // };
 
   const logout = () => {
 
