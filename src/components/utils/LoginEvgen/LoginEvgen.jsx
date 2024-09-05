@@ -197,6 +197,7 @@ export const LoginEvgen = () => {
   const [cookies, setCookies] = useState(null);
 
   useEffect(() => {
+    Cookies.set('access_token', '1234567890', { expires: 1 });
     // Отримуємо всі cookies як один рядок
     const allCookies = document.cookie;
     console.log('Всі cookies:', allCookies);
