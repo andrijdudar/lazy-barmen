@@ -240,9 +240,9 @@ export const LoginEvgen = () => {
       .then(data => {
         console.log('accessToken знайдено', accessToken);
         console.log('data', data);
-        setUserLoggedIn(data['userLoggedIn']);
-        setUserName(data['userName']);
-        setUserLoggedIn(true);
+        // setUserLoggedIn(data['userLoggedIn']);
+        // setUserName(data['userName']);
+        // setUserLoggedIn(true);
 
       })
       .catch(err => {
