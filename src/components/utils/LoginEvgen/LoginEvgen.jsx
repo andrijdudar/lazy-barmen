@@ -195,7 +195,7 @@ export const LoginEvgen = () => {
 
   useEffect(() => {
     const token = Cookies.get('accsess_token');
-    checkUserSessionStatus(token);
+    // checkUserSessionStatus(token);
     // if (token) {
     // authenticate(token);
     //   console.log('refreshToken', token);
