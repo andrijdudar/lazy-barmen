@@ -186,7 +186,7 @@ import './LoginEvgen.scss';
 export const LoginEvgen = () => {
   const navigate = useNavigate();
   const [producerLoginRedirectEndpoint] = useState(SERVER_URL + '/api/auth/google_login');
-  const [producerLoginEndpoint] = useState(SERVER_URL + '/api/auth/token');
+  // const [producerLoginEndpoint] = useState(SERVER_URL + '/api/auth/token');
   const [producerLogoutEndpoint] = useState(SERVER_URL + '/api/auth/logout');
   const [producerLoginCheckEndpoint] = useState(SERVER_URL + '/api/user/me');
   const [userLoggedIn, setUserLoggedIn] = useState(false);
@@ -206,24 +206,24 @@ export const LoginEvgen = () => {
     // }
   }, []);
 
-  const getAccessToken = () => {
-    fetch(producerLoginEndpoint, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${Cookies.get('refresh_token')}`,
+  // const getAccessToken = () => {
+  //   fetch(producerLoginEndpoint, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${Cookies.get('refresh_token')}`,
 
-      },
-      credentials: 'include'
-    })
-      .then(response => {
-        console.log('response token', response);
-      })
-      .catch(err => {
-        console.error('Помилка при отриманні аксес токену:', err);
-      }
-      )
-  };
+  //     },
+  //     credentials: 'include'
+  //   })
+  //     .then(response => {
+  //       console.log('response token', response);
+  //     })
+  //     .catch(err => {
+  //       console.error('Помилка при отриманні аксес токену:', err);
+  //     }
+  //     )
+  // };
 
   const checkUserSessionStatus = () => {
     const accessToken = Cookies.get('access_token');
@@ -253,35 +253,36 @@ export const LoginEvgen = () => {
           if (!refreshToken) {
             console.log('То Піздєц рефреш токену немає');
           }
-          getAccessToken(refreshToken);
+          // getAccessToken(refreshToken);
 
         }
       });
   };
 
-  // const getAccsess = () => {
-  //   const refreshToken = Cookies.get('refresh_token');
-  //   fetch(SERVER_URL + '/api/auth/refresh_token', {
-  //     method: 'GET',
-  //     credentials: 'include',
-  //     headers: new Headers({
-  //       'Authorization': `Bearer ${refreshToken}`,
-  //     })
-  //   })
-  //   .then(response => {
-  //     if (!response.ok) {
-  //       throw new Error('Помилка авторизації. Не вдалося оновити токен.');
-  //     }
-  //     return response.json();
-  //   })
-  //   .then(data => {
-  //     console.log(data);
-  //     // setCookie('access_token', data['access_token'], 1);
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   });
-  // };
+  const getAccsess = () => {
+    const refreshToken = Cookies.get('refresh_token');
+    fetch(SERVER_URL + '/api/auth/refresh_token', {
+      method: 'GET',
+      credentials: 'include',
+      headers: new Headers({
+        'Authorization': `Bearer ${refreshToken}`,
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Помилка авторизації. Не вдалося оновити токен.');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      console.log('access_token', data['access_token'], Cookies.get('access_token'));
+      // setCookie('access_token', data['access_token'], 1);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  };
 
   // const setCookie = (cname, cvalue, exdays) => {
   //   Cookies.set(cname, cvalue, { expires: exdays, path: '/' });
@@ -331,7 +332,7 @@ export const LoginEvgen = () => {
             <button className='button' onClick={getRefresh}>Отримати refreshToken</button>
           </div> */}
           <div>
-              <button className='button' onClick={getAccessToken}>Оновити Access Token</button>
+              <button className='button' onClick={getAccsess}>Оновити Access Token</button>
           </div>
         </section>
       )}
