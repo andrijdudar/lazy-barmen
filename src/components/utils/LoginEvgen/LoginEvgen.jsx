@@ -179,18 +179,21 @@
 
 import React, { useEffect } from 'react';
 import './LoginEvgen.scss';
+import { SERVER_URL } from '../../../services/httpClient';
+import { useLocation } from 'react-router-dom';
 
 export const LoginEvgen = () => {
+  const location = useLocation();
 
   useEffect(() => {
     const queryParams = window.location.search.substr(1);
     console.log(queryParams);
-  }, []);
+  }, [location]);
 
     const sendRequest = async () => {
         try {
             const queryParams = window.location.search.substr(1);
-          const response = await fetch(`https://0033-92-253-236-127.ngrok-free.app/api/auth/token?${queryParams}`, {
+          const response = await fetch(`${SERVER_URL}/api/auth/token?${queryParams}`, {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -219,7 +222,7 @@ export const LoginEvgen = () => {
       <div className='login_evgen'>
         <div>
           <button className='button' onClick={sendRequest}>Get FastAPI JWT Token</button>
-          <a href='https://0033-92-253-236-127.ngrok-free.app/api/auth/google_login' className='button' >Google Login</a>
+          <a href={`${SERVER_URL}/api/auth/google_login`} className='button' >Google Login</a>
         </div>
       </div>
     );
