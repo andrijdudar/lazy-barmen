@@ -286,59 +286,41 @@
 
 // Set-Cookie: <cookie-name>=<cookie-value>; Domain="https://andrijdudar.github.io"; Path="/lazy-barmen/"; Expires=2026-12-31T23:59:59.000Z; Max-Age=315360000; SameSite=Strict;
 
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CLIENT_ID } from '../../../Root';
+import './LoginEvgen.scss';
 
 export const LoginEvgen = () => {
-    useEffect(() => {
-      // Функція для завантаження бібліотеки gapi
-      function loadGapi() {
-        const script = document.createElement('script');
-        script.src = 'https://apis.google.com/js/api.js';
-        script.async = true;
-        script.defer = true;
-        script.onload = () => {
-          // Ініціалізація gapi після завантаження скрипту
-          window.gapi.load('client:auth2', initGapiClient);
-        };
-        document.body.appendChild(script);
-      }
+  const [token, setToken] = useState(null);
+  useEffect(() => {
+    // Ініціалізація Google Identity Services
+    window.google.accounts.id.initialize({
+      client_id: CLIENT_ID,
+      callback: handleCredentialResponse,
+    });
 
-      // Ініціалізація клієнта Google API
-      function initGapiClient() {
-        window.gapi.client.init({
-          clientId: CLIENT_ID,
-          scope: 'profile email',
-        }).then(() => {
-          console.log('GAPI Client initialized');
-          const authInstance = window.gapi.auth2.getAuthInstance();
-          console.log('GoogleAuth instance:', authInstance);
-        }).catch(error => {
-          console.error('Error initializing GAPI client:', error);
-        });
-      }
-
-      loadGapi();
-    }, []);
-
-    const handleSignIn = () => {
-      const authInstance = window.gapi.auth2.getAuthInstance();
-      authInstance.signIn().then(user => {
-        const profile = user.getBasicProfile();
-        console.log('User signed in:', profile.getName());
-        console.log('User:', profile);
-        // Тут можна зберегти токен або обробити інформацію про користувача
-      }).catch(error => {
-        console.error('Error signing in:', error);
-      });
-    };
-
-    return (
-      <div>
-        <button onClick={handleSignIn}>Sign in with Google</button>
-      </div>
+    // Рендеринг кнопки входу
+    window.google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"),
+      { theme: "outline", size: "large" } // Налаштування кнопки
     );
-  }
+  }, []);
+
+  // Обробка токенів після входу
+  const handleCredentialResponse = (response) => {
+    console.log("Encoded JWT ID token: " + response.credential);
+    console.log("Encoded: " + JSON.stringify(response, null, 2));
+    setToken(response.credential);
+    // Збереження токена або обробка інформації про користувача
+    // Наприклад, відправка токена на бекенд для верифікації
+  };
+
+  return (
+    <div className='login_evgen'>
+      <div id="buttonDiv"></div>
+      <p>Encoded JWT ID token: {token|| <span>'Не знайден токен'</span>}</p>
+    </div>
+  );
+}
 
 export default LoginEvgen;

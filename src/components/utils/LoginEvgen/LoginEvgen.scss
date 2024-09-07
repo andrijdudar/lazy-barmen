@@ -1,8 +1,23 @@
 
 .login_evgen {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  gap: 20px;
+  color: var(--colorTextOrangeHover);
+  font-size: 24px;
+  max-width: 600px;
   height: 100vh;
+  padding: 100px 0;
+
+  span {
+    color: red;
+  }
+
+  p {
+max-width: 250px;
+  }
+
+
 }
