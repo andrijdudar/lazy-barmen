@@ -318,7 +318,7 @@ export const LoginEvgen = () => {
   return (
     <div className='login_evgen'>
       <div id="buttonDiv"></div>
-      <p>Encoded JWT ID token: {token|| <span>'Не знайден токен'</span>}</p>
+      <p>Encoded JWT ID token: {token|| <span>'Не знайдено токен'</span>}</p>
     </div>
   );
 }
