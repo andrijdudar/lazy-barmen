@@ -327,7 +327,7 @@ export const LoginEvgen = () => {
       authInstance.signIn().then(user => {
         const profile = user.getBasicProfile();
         console.log('User signed in:', profile.getName());
-        console.log('User signed in:', profile);
+        console.log('User:', profile);
         // Тут можна зберегти токен або обробити інформацію про користувача
       }).catch(error => {
         console.error('Error signing in:', error);
