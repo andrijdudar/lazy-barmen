@@ -12,7 +12,18 @@
   <meta name="theme-color"
         content="#000000" />
 <meta http-equiv="Content-Security-Policy"
-      content="script-src 'self' blob: https://accounts.google.com https://apis.google.com https://gstatic.com;">
+      content="
+  default-src 'self';
+  script-src 'self' https://apis.google.com https://accounts.google.com;
+  connect-src 'self' https://apis.google.com https://accounts.google.com;
+  img-src 'self' data: https://apis.google.com;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src 'self' https://fonts.gstatic.com;
+  frame-src https://accounts.google.com;
+  worker-src 'self';
+  ">
+
+
 
   <link rel="manifest"
         href="%PUBLIC_URL%/manifest.json" />
@@ -22,7 +33,7 @@
           defer></script>
 
   <script defer
-          src="./static/js/bundle.js"></script>
+          src="%PUBLIC_URL%/static/js/bundle.js"></script>
 </head>
 </head>
 

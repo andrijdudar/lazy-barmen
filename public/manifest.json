@@ -2,7 +2,8 @@
   "name": "Lazy Bartender",
   "short_name": "LazyBar",
   "description": "A cozy and relaxed bar experience with a lazy bartender.",
-  "start_url": "https://andrijdudar.github.io/lazy-barmen/",
+  "start_url": "/",
+
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#a67c52",
