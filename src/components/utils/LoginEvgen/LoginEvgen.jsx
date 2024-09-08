@@ -289,6 +289,7 @@
 import React, { useEffect, useState } from 'react';
 import { CLIENT_ID } from '../../../Root';
 import './LoginEvgen.scss';
+import { SERVER_URL } from '../../../services/httpClient';
 
 export const LoginEvgen = () => {
   const [token, setToken] = useState(null);
@@ -308,9 +309,22 @@ export const LoginEvgen = () => {
 
   // Обробка токенів після входу
   const handleCredentialResponse = (response) => {
+    const auth_code = response.credential;
     console.log("Encoded JWT ID token: " + response.credential);
     console.log("Encoded: " + JSON.stringify(response, null, 2));
     setToken(response.credential);
+
+    fetch(`${SERVER_URL}/api/auth/google_auth`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // body: JSON.stringify({ auth_code }),
+      body: JSON.stringify({
+        auth_code: auth_code,
+      }),
+    });
     // Збереження токена або обробка інформації про користувача
     // Наприклад, відправка токена на бекенд для верифікації
   };
