@@ -322,10 +322,11 @@ export const LoginEvgen = () => {
         'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
       },
-      // body: JSON.stringify({ auth_code }),
+
       body: JSON.stringify({
         auth_code: auth_code,
       }),
+
     });
     // Збереження токена або обробка інформації про користувача
     // Наприклад, відправка токена на бекенд для верифікації
