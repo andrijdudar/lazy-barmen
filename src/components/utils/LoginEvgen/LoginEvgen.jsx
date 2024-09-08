@@ -326,10 +326,22 @@ export const LoginEvgen = () => {
       body: JSON.stringify({
         auth_code: auth_code,
       }),
-
-    });
-    // Збереження токена або обробка інформації про користувача
-    // Наприклад, відправка токена на бекенд для верифікації
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Не вдалося отримати токени');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Отримані токени:', data);
+        // setUserLoggedIn(true);
+        // checkUserSessionStatus();
+        // navigate('/list'); // Перенаправляємо користувача на потрібну сторінку після успішної авторизації
+      })
+      .catch(err => {
+        console.error('Помилка при обробці авторизації:', err);
+      });
   };
 
   return (
