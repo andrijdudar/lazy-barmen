@@ -305,6 +305,7 @@ export const LoginEvgen = () => {
       document.getElementById("buttonDiv"),
       { theme: "outline", size: "large" } // Налаштування кнопки
     );
+
   }, []);
 
   // Обробка токенів після входу
@@ -319,6 +320,7 @@ export const LoginEvgen = () => {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
       },
       // body: JSON.stringify({ auth_code }),
       body: JSON.stringify({
