@@ -19,5 +19,19 @@
 max-width: 250px;
   }
 
+  .btt {
+    padding: 3px 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    margin: 0;
+    transform: scale(1.4);
+    &:hover {
+      transform: scale(1.5);
+    }
+  }
+
+
 
 }
