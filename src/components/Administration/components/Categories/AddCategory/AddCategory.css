@@ -1,0 +1,38 @@
+.addCategory {
+  width: 350px;
+  margin-bottom: 100vh;
+}
+.addCategory .titleAddCategory {
+  margin-bottom: 30px;
+}
+.addCategory .form-add-category {
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  background-color: transparent;
+  box-shadow: 2px 2px 5px rgb(0, 0, 0), -2px -2px 5px rgba(255, 255, 255, 0.14);
+}
+.addCategory .searchSelectEdit {
+  margin-top: 20px;
+}
+.addCategory .searchSelectEdit .searchSelect {
+  margin-top: 20px;
+}
+.addCategory .selectedCategory {
+  /* width:100%; */
+  text-align: center;
+  font-size: 16px;
+  margin: 0 auto;
+  color: var(--colorTextOrange);
+}
+.addCategory .button-add-category {
+  background-color: transparent;
+  color: var(--colorTextOrange);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgb(0, 0, 0), -2px -2px 5px rgba(255, 255, 255, 0.14);
+}
+.addCategory .button-add-category:hover {
+  box-shadow: 3px 3px 5px rgb(0, 0, 0), -3px -3px 5px rgba(255, 255, 255, 0.14);
+  color: var(--colorTextOrangeHover);
+}/*# sourceMappingURL=AddCategory.css.map */

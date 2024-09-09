@@ -1,0 +1,58 @@
+.AddDish {
+  width: 100%;
+  margin: 0 auto;
+}
+.AddDish .formAddDish {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 350px;
+}
+.AddDish .formAddDish .inputContainer {
+  margin-top: 10px;
+}
+.AddDish .formAddDish .inputContainer .ingredient-li-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.AddDish .formAddDish .inputContainer .ingredient-li-container .ingredient-li {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  gap: 10px;
+}
+.AddDish .formAddDish .inputContainer .ingredient-li-container .ingredient-li .ingredient-li-input {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 50px;
+  height: 30px;
+  margin: 0;
+}
+.AddDish .formAddDish .inputContainer .ingredient-li-container .ingredient-li .button-del-ingredeint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.AddDish .input[type=number]::-webkit-outer-spin-button,
+.AddDish .input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.AddDish .input[type=number] {
+  -moz-appearance: textfield;
+}
+.AddDish .input::-moz-placeholder, .AddDish .textarea::-moz-placeholder {
+  color: rgba(132, 128, 128, 0.5960784314);
+}
+.AddDish .input::placeholder,
+.AddDish .textarea::placeholder {
+  color: rgba(132, 128, 128, 0.5960784314);
+}/*# sourceMappingURL=AddDish.css.map */

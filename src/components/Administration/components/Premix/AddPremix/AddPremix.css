@@ -1,0 +1,98 @@
+.AddPremix {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 300px;
+  width: 100%;
+  min-width: 350px;
+  margin-bottom: 100vh;
+  box-shadow: 2px 2px 5px rgb(0, 0, 0), -2px -2px 5px rgba(255, 255, 255, 0.14);
+}
+@media (orientation: portrait) {
+  .AddPremix {
+    width: 350px;
+    max-width: 100vw;
+  }
+}
+.AddPremix h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #e67e22;
+}
+.AddPremix .field {
+  width: 100%;
+  margin-bottom: 15px;
+  min-width: 250px;
+}
+.AddPremix .field .label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.AddPremix .field .control {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.AddPremix .field .control .input,
+.AddPremix .field .control .textarea {
+  width: 100%;
+  padding: 10px;
+  color: #ecf0f1;
+}
+.AddPremix .field .control .input-name {
+  border-radius: 1.5em;
+  box-shadow: 2px 1px 5px rgb(0, 0, 0), -2px -2px 5px rgba(255, 255, 255, 0.14);
+  background-color: transparent;
+  height: 40px;
+  color: var(--colorTextOrange);
+}
+.AddPremix .field .control .input-name:focus {
+  background-color: transparent;
+  border: 1px solid transparent;
+  box-shadow: 1px 1px 10px rgb(0, 0, 0), -1px -1px 3px rgba(255, 255, 255, 0.3), inset 1px 1px 8px rgb(0, 0, 0), inset -3px -3px 5px rgba(255, 255, 255, 0.2);
+}
+.AddPremix .field .control .textarea {
+  resize: vertical;
+  min-height: 100px;
+  border-radius: 1.5em;
+  box-shadow: 2px 1px 5px rgb(0, 0, 0), -2px -2px 5px rgba(255, 255, 255, 0.14);
+  background-color: transparent;
+  height: 40px;
+  color: var(--colorTextOrange);
+}
+.AddPremix .field .control .textarea:focus {
+  background-color: transparent;
+  border: 1px solid transparent;
+  box-shadow: 1px 1px 10px rgb(0, 0, 0), -1px -1px 3px rgba(255, 255, 255, 0.3), inset 1px 1px 8px rgb(0, 0, 0), inset -3px -3px 5px rgba(255, 255, 255, 0.2);
+}
+.AddPremix .field .control .label-ingredient {
+  margin-bottom: 5px;
+  display: block;
+}
+.AddPremix .field .control .input-edit-premix {
+  display: inline-block;
+  width: 60px;
+}
+.AddPremix .field .control .control-end {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.AddPremix .field .control .ingredient-measure {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 10px;
+  line-height: 100%;
+}
+.AddPremix .field .control .icon-delete-ingredient {
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
+  cursor: pointer;
+}/*# sourceMappingURL=AddPremix.css.map */

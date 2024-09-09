@@ -1,0 +1,59 @@
+.categoryList {
+  width: 350px;
+  margin: 0 auto;
+  margin-bottom: 100vh;
+}
+.categoryList .loaderContainer {
+  display: flex;
+  width: 100%;
+}
+.categoryList .searchContainer {
+  margin: 30px auto;
+}
+.categoryList .ul {
+  list-style-type: none;
+  padding: 0;
+}
+.categoryList .ul .categoryItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid var(--colorTextOrange);
+  width: 100%;
+  margin-bottom: 20px;
+}
+.categoryList .ul .categoryItem .viewCategory {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  font-size: 16px;
+}
+.categoryList .ul .categoryItem .editCategory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.categoryList .ul .categoryItem .editCategory .inputEdit {
+  width: 100%;
+  padding-left: 20px;
+  font-size: 16px;
+}
+.categoryList .ul .categoryItem .editCategory .searchSelectEdit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  width: 100%;
+}
+.categoryList .ul .categoryItem .editCategory .searchSelectEdit .label {
+  width: 100%;
+  margin-right: 10px;
+}
+.categoryList .ul .categoryItem .editCategory input {
+  flex-grow: 1;
+  padding: 5px;
+  margin-right: 10px;
+}/*# sourceMappingURL=Categories.css.map */

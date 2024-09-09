@@ -1,0 +1,150 @@
+@charset "UTF-8";
+.premixList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  border-radius: 10px;
+  max-width: 100%;
+  margin-bottom: 100vh;
+}
+@media (orientation: portrait) {
+  .premixList {
+    max-width: 100%;
+  }
+}
+.premixList h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--colorTextOrangeHover);
+}
+.premixList .premixSearch {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin: 20px auto;
+}
+.premixList .ul {
+  width: 500px;
+  padding: 0;
+}
+@media (orientation: portrait) {
+  .premixList .ul {
+    width: auto;
+  }
+}
+.premixList .ul details {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgb(0, 0, 0), -2px -2px 5px rgba(255, 255, 255, 0.14);
+  color: var(--colorTextOrangeHover);
+  font-size: 14px;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+@media (orientation: portrait) {
+  .premixList .ul details {
+    width: 350px;
+  }
+}
+.premixList .ul details:hover {
+  scale: 1.01;
+  box-shadow: 3px 3px 5px rgb(0, 0, 0), -3px -3px 5px rgba(255, 255, 255, 0.14);
+}
+.premixList .ul details strong {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+}
+.premixList .ul details summary {
+  padding-inline: 2rem;
+  position: relative;
+}
+.premixList .ul details summary::before {
+  position: absolute;
+  inset-inline-start: 0.5rem;
+  transition: rotate 0.3s;
+}
+.premixList .ul .detailsPremix[open] summary::before {
+  rotate: 90deg;
+}
+.premixList .ul .detailsPremix::details-content {
+  display: block;
+  margin-inline: 2rem;
+  block-size: 0;
+  overflow: hidden;
+  transition-property: block-size, content-visibility;
+  transition-duration: 0.5s;
+  transition-behavior: allow-discrete;
+}
+.premixList .ul .detailsPremix[open]::details-content {
+  block-size: auto;
+  block-size: calc-size(auto);
+}
+.premixList .ul .btnContainer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.premixList .searchPremixIngredient {
+  width: 90%;
+  margin: 4px;
+}
+.premixList .input-edit-premix {
+  display: inline-block;
+  margin-right: 10px;
+  width: 60px;
+  background-color: rgb(42, 40, 40);
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+}
+.premixList .label-ingredient {
+  margin-bottom: 5px;
+  display: block;
+}
+.premixList .control {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.premixList .control .input,
+.premixList .control .textarea {
+  width: 100%;
+  padding: 10px;
+}
+.premixList .control .textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.premixList .ingredients-search-select {
+  margin: 0 auto;
+  width: 90%;
+}
+.premixList .control-end {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.premixList .ingredient-measure {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 10px;
+  line-height: 100%;
+}
+.premixList .icon-delete-ingredient {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Вирівнювання по вертикалі */
+  justify-content: center; /* Вирівнювання по горизонталі */
+  cursor: pointer; /* Змінює курсор */
+}
+.premixList .button-submit-prmix {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}/*# sourceMappingURL=Premix.css.map */

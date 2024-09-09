@@ -1,5 +1,4 @@
 import React from 'react';
-// import { GoogleOAuthProvider } from '@react-oauth/google';
 // import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import App from './App';
@@ -17,24 +16,16 @@ import { Categories } from './components/Administration/components/Categories/Ca
 import { AddCategory } from './components/Administration/components/Categories/AddCategory/AddCategory.jsx';
 import { Users } from './components/Administration/components/Users/Users.jsx';
 import { CreateUser } from './components/Administration/components/Users/CreateUser/CreateUser.jsx';
-import { LoginEvgen } from './components/utils/LoginEvgen/LoginEvgen.jsx';
-// import { Login } from './components/utils/Login/Login.jsx';
-// import { GoogleOAuthProvider } from "@react-oauth/google";
-
-export const CLIENT_ID = '175403963155-qg3ma8d95h6lck440svfkrf4mtm60nb3.apps.googleusercontent.com';//1
-// export const CLIENT_ID = '731360179208-m1pkerk2frqvk5ddtskejvq2q5fr784t.apps.googleusercontent.com';//2
-// export const CLIENT_ID = '281094189618-bhuu95f4r37sp7crc1tr5lt6ae4g9ksh.apps.googleusercontent.com';//женя
+import { Login } from './components/utils/Login/Login.jsx';
+import PrivateRoute from './components/utils/PrivateRoute/PrivateRoute.jsx';
 
 export const Root = () => {
   return (
     <Router>
-      {/* <GoogleOAuthProvider clientId={CLIENT_ID}> */}
         <Routes>
-          {/* <Route path="/test" element={<TestPage />} /> */}
-          {/* <Route element={<Login />}> */}
-          <Route element={<LoginEvgen />}>
-            <Route path="/" element={<App />}>
-              <Route index element={<StopList />} />
+          <Route element={<Login />}>
+          <Route path="/" element={<PrivateRoute element={App} />}>
+            <Route index element={<PrivateRoute element={StopList} />} />
               <Route path="list" element={<Navigate to="/" replace={true} />} />
               <Route path="menu" element={<Menu />} />
               <Route path="detailsDish/:id" element={<DishDetails />} />
@@ -54,7 +45,6 @@ export const Root = () => {
             </Route>
           </Route>
         </Routes>
-      {/* </GoogleOAuthProvider> */}
     </Router>
   );
 }

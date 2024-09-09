@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./SideBarAdmin.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useStoreAuth from "../../../../utils/StoreAuth";
 import iconLogout from "../../../../img/logout-24px.svg";
-import Cookies from 'js-cookie';
 
 
 
@@ -91,6 +90,7 @@ const ListSettings = [
 ];
 
 export function SideBarAdmin({ onLinkClick }) {
+  const navigate = useNavigate();
   const [openDetailId, setOpenDetailId] = useState(null);
   const detailsRef = useRef([]);
   const setUser = useStoreAuth((state) => state.setUser);
@@ -102,12 +102,16 @@ export function SideBarAdmin({ onLinkClick }) {
     setUser(null);
     setAccessToken(null);
     setProfile(null);
+    localStorage.removeItem('auth_code');
     localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('token_type');
     localStorage.removeItem('profile');
+    localStorage.removeItem('user');
     sessionStorage.removeItem('access_token');
     sessionStorage.removeItem('profile');
-    Cookies.remove('access_token');
-
+    // Cookies.remove('access_token');
+    navigate('/login');
   };
 
 

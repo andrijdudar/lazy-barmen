@@ -1,6 +1,8 @@
 
 // export const SERVER_URL = 'https://ago-ago-8570935a.koyeb.app';
-export const SERVER_URL = 'https://c031-194-44-160-206.ngrok-free.app';
+export const SERVER_URL = 'https://9a4f-194-44-160-206.ngrok-free.app';
+export const GOOGLE_AUTH_URL = SERVER_URL + '/api/auth/google_auth';
+export const CLIENT_ID = '175403963155-qg3ma8d95h6lck440svfkrf4mtm60nb3.apps.googleusercontent.com';
 const accessToken = localStorage.getItem('access_token');
 const refreshToken = localStorage.getItem('refresh_token');
 // const profile = localStorage.getItem('profile');
