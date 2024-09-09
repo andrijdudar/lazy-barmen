@@ -7,19 +7,6 @@
         content="width=device-width, initial-scale=1" />
   <meta name="theme-color"
         content="#000000" />
-  <meta http-equiv="Content-Security-Policy"
-        content="
-    default-src 'self';
-    script-src 'self' https://apis.google.com https://accounts.google.com;
-    connect-src 'self' https://apis.google.com https://accounts.google.com https://c031-194-44-160-206.ngrok-free.app;
-    img-src 'self' data: https://apis.google.com;
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com;
-    font-src 'self' https://fonts.gstatic.com;
-    frame-src https://accounts.google.com;
-    worker-src 'self' blob:;
-  ">
-
-
   <link rel="icon"
         href="%PUBLIC_URL%/Favicon.png" />
   <link rel="apple-touch-icon"
@@ -27,15 +14,16 @@
   <link rel="manifest"
         href="%PUBLIC_URL%/manifest.json" />
   <title>Lazy_Barman</title>
-
-  <!-- Новий скрипт Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client"
           async
           defer></script>
+  <!-- <script defer
+          src="../build/static/js/main.93f86143.js"></script> -->
 </head>
 
 <body>
   <div id="root"></div>
+  <div></div>
 </body>
 
 </html>
