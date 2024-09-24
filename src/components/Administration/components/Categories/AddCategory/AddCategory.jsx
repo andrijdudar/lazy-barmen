@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { convertToOptionsSelect } from "../../../../utils/SearchSelect/SearchUtils";
+import { convertToOptionsSelect } from "../../../../utilsAdministration/SearchSelect/SearchUtils";
 import { addCategory, getAllCategories } from "../../../../../utils/fetch";
 import cn from "classnames";
-import SearchSelect from "../../../../utils/SearchSelect/SearchSelect";
+import SearchSelect from "../../../../utilsAdministration/SearchSelect/SearchSelect";
 import "./AddCategory.scss";
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +18,10 @@ export const AddCategory = () => {
     getAllCategories().then((data) => {
       console.log(data);
       setCategories(prev => [...prev, ...data]);
+      setLoading(false);
+    }).catch((error) => {
+      console.log(error);
+      setCategories([]);
       setLoading(false);
     });
   }, []);

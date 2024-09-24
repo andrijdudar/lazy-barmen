@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Users.scss';
-import { deleteUser, getAllUsers, patchUser } from '../../../../utils/fetch';
+import { deleteUser, getAllUsers, patchUser } from '../../../../utils/axiosFunc';
 import { useNavigate } from 'react-router-dom';
 
 export function Users() {

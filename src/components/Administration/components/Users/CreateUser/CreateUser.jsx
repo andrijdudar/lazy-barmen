@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './CreateUser.scss';
-import { createUser } from '../../../../../utils/fetch';
+import { createUser } from '../../../../../utils/axiosFunc';
 import { useNavigate } from 'react-router-dom';
 
 export const CreateUser = () => {

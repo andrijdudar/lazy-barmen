@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { getAllIngredients, patchIngredient } from '../../../../utils/fetch';
+import { getAllIngredients, patchIngredient } from '../../../../utils/axiosFunc';
 import './Ingredients.scss';
-import SearchSelect from '../../../utils/SearchSelect/SearchSelect';
-import { Loaderr } from '../../../utils/Loader/Loaderr';
-import { convertToOptionsSelect, filteredItems } from '../../../utils/SearchSelect/SearchUtils';
+import SearchSelect from '../../../utilsAdministration/SearchSelect/SearchSelect';
+import { Loading } from '../../../../utils/Loading/Loading';
+import { convertToOptionsSelect, filteredItems } from '../../../utilsAdministration/SearchSelect/SearchUtils';
 import useStore from '../../../../utils/Store';
 
 export function Ingredients() {
@@ -91,7 +91,7 @@ export function Ingredients() {
         />
       </div>
       {loading ? (
-        <Loaderr />
+        <Loading />
       ) : (
         <div className='ul'>
           {searchIngredients.map((ingredient) => (

@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import cn from 'classnames';
-import { createPremix, deletePremix, getAllIngredients, getAllPremixes } from '../../../../utils/fetch';
-import { Loaderr } from '../../../utils/Loader/Loaderr';
-import SearchSelect from '../../../utils/SearchSelect/SearchSelect';
-import { convertToOptionsSelect, filteredItems } from '../../../utils/SearchSelect/SearchUtils';
+import { createPremix, deletePremix, getAllIngredients, getAllPremixes } from '../../../../utils/axiosFunc';
+import { Loading } from '../../../../utils/Loading/Loading';
+import SearchSelect from '../../../utilsAdministration/SearchSelect/SearchSelect';
+import { convertToOptionsSelect, filteredItems } from '../../../utilsAdministration/SearchSelect/SearchUtils';
 import './Premix.scss';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useStore from '../../../../utils/Store';
@@ -169,7 +169,7 @@ export function Premix() {
         />
       </div>
       {loading ? (
-        <Loaderr />
+        <Loading />
       ) : (
         <ul className="ul">
           {searchPremixes.map((premix) => (

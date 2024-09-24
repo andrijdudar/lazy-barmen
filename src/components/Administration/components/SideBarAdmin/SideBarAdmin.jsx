@@ -3,6 +3,8 @@ import "./SideBarAdmin.scss";
 import { Link, useNavigate } from "react-router-dom";
 import useStoreAuth from "../../../../utils/StoreAuth";
 import iconLogout from "../../../../img/logout-24px.svg";
+import axios from "axios";
+// import { logout } from "../../../../utils/axiosFunc";
 
 
 
@@ -99,7 +101,23 @@ export function SideBarAdmin({ onLinkClick }) {
   const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
 
 
-  const handleLogoutSuccess = () => {
+  const handleLogoutSuccess = async () => {
+    await axios({
+      method: 'POST',
+      url: 'https://marked-addia-ago-0dd6d371.koyeb.app/api/auth/logout',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('refresh_token')}`,
+      },
+    });
+    // fetch('https://marked-addia-ago-0dd6d371.koyeb.app/api/auth/logout', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': `Bearer ${localStorage.getItem('refresh_token')}`,
+    //   },
+    // })
+
     setUser(null);
     setAccessToken(null);
     setRefreshToken(null);

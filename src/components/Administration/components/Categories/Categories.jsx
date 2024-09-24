@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './Categories.scss';
-import { deleteCategory, getAllCategories } from '../../../../utils/fetch';
-import SearchSelect from '../../../utils/SearchSelect/SearchSelect';
-import { convertToOptionsSelect, filteredItems } from '../../../utils/SearchSelect/SearchUtils';
-import { Loaderr } from '../../../utils/Loader/Loaderr';
+import { deleteCategory, getAllCategories } from '../../../../utils/axiosFunc';
+import SearchSelect from '../../../utilsAdministration/SearchSelect/SearchSelect';
+import { convertToOptionsSelect, filteredItems } from '../../../utilsAdministration/SearchSelect/SearchUtils';
+import { Loading } from '../../../../utils/Loading/Loading';
 
 
 export const Categories = () => {
@@ -19,6 +19,10 @@ export const Categories = () => {
       console.log(data);
       setCategories(data);
       setSearchCategories(data);
+    }).catch((error) => {
+      console.log('error in getAllCategories in Categories.jsx', error);
+      setCategories([]);
+    }).finally(() => {
       setLoading(false);
     });
   }, []);
@@ -66,7 +70,7 @@ export const Categories = () => {
     <div className="categoryList">
       <h1>Категорії</h1>
       {loading && <div className='loaderContainer'>
-        <Loaderr />
+        <Loading />
       </div>}
       {!loading && <div className='searchContainer'>
         <SearchSelect
@@ -84,12 +88,12 @@ export const Categories = () => {
               <div className="editCategory">
                 <label className='label'>
                   Назва категорії:
-                    <input
-                      className='inputEdit input-search input is-rounded'
-                      type="text"
-                      value={editedName}
-                      onChange={(e) => setEditedName(e.target.value)}
-                    />
+                  <input
+                    className='inputEdit input-search input is-rounded'
+                    type="text"
+                    value={editedName}
+                    onChange={(e) => setEditedName(e.target.value)}
+                  />
                 </label>
                 <div className='searchSelectEdit'>
                   <label className='label'>

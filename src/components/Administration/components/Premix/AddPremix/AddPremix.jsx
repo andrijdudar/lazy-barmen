@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { createPremix, getAllIngredients } from '../../../../../utils/fetch';
-import SearchSelect from '../../../../utils/SearchSelect/SearchSelect';
-import { convertToOptionsSelect, filteredItems } from '../../../../utils/SearchSelect/SearchUtils';
+import { createPremix, getAllIngredients } from '../../../../../utils/axiosFunc';
+import SearchSelect from '../../../../utilsAdministration/SearchSelect/SearchSelect';
+import { convertToOptionsSelect, filteredItems } from '../../../../utilsAdministration/SearchSelect/SearchUtils';
 import './AddPremix.scss';
-import { Loaderr } from '../../../../utils/Loader/Loaderr';
+import { Loading } from '../../../../../utils/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 import IconDelete from '../../../../../img/delete-forever-24px.svg'
@@ -115,7 +115,7 @@ export function AddPremix() {
     <div className="AddPremix">
       <h2>Створити новий премікс</h2>
       {loading ? (
-        <Loaderr />
+        <Loading />
       ) : (
         <form
           onSubmit={handleSubmit}

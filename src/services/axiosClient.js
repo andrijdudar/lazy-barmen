@@ -1,11 +1,10 @@
 import axios from "axios";
 
 export const SERVER_URL = 'https://marked-addia-ago-0dd6d371.koyeb.app';
-export const SERVER_URL_AUTH = 'https://marked-addia-ago-0dd6d371.koyeb.app';
-export const GOOGLE_AUTH_URL = SERVER_URL_AUTH + '/api/auth/google_auth';
+export const GOOGLE_AUTH_URL = SERVER_URL + '/api/auth/google_auth';
 export const CLIENT_ID = '175403963155-qg3ma8d95h6lck440svfkrf4mtm60nb3.apps.googleusercontent.com';
 
-axios.defaults.baseURL = SERVER_URL_AUTH;
+axios.defaults.baseURL = SERVER_URL;
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use(
@@ -71,15 +70,17 @@ export const client = {
       throw error;
     }
   },
+
   async post(url, data) {
     try {
-      const response = await axios.post(url, data);
+      const response = await axios.post(url, JSON.stringify(data));
       return response.data;
     } catch (error) {
       console.error('Помилка при виконанні POST запиту:', error);
       throw error;
     }
   },
+
   async put(url, data) {
     try {
       const response = await axios.put(url, data);
@@ -89,6 +90,7 @@ export const client = {
       throw error;
     }
   },
+
   async patch(url, data) {
     try {
       const response = await axios.patch(url, data);
@@ -98,6 +100,7 @@ export const client = {
       throw error;
     }
   },
+
   async delete(url) {
     try {
       const response = await axios.delete(url);
@@ -107,17 +110,23 @@ export const client = {
       throw error;
     }
   },
-//   async getRefresh(url, {
-//     headers: {
-//       'Authorization': `Bearer ${localStorage.getItem('refresh_token')
-// }`},
-//   }) {
-//     try {
-//       const response = await axios.get(url);
-//       return response.data;
-//     } catch (error) {
-//       console.error('Помилка при виконанні GET запиту:', error);
-//       throw error;
-//     }
-//   }
+  async getRefresh(url) {
+    try {
+      const response = await axios.get(SERVER_URL + url, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('refresh_token')}`,
+          'X-Requested-With': 'XMLHttpRequest',
+          'ngrok-skip-browser-warning': '69420',
+        }
+      });
+
+      return response.data; // Очікується, що `handleResponse` обробляє JSON, тому тут повертаємо data
+    }
+    catch (error) {
+      console.error('Помилка при виконанні GET запиту:', error);
+      throw error;
+    }
+  }
+
 }

@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import './MenuCards.scss';
-import { getAllDishes, patchDish } from '../../utils/fetch';
+import { getAllDishes, patchDish } from '../../utils/axiosFunc';
 import { Link } from 'react-router-dom';
 import listIcon from '../../img/ListIconsolid.svg';
 import tableIcon from '../../img/ListIconlarge.svg';
 import cn from 'classnames';
-import { Loaderr } from '../utils/Loader/Loaderr';
+import { Loading } from '../../utils/Loading/Loading';
 import useStore from '../../utils/Store';
 // import cn from 'classnames';
 
@@ -39,16 +39,11 @@ export const MenuCards = () => {
         setDishes(data);
         setSearchDishes(data);
         setDishesCategory(data);
-
-        // setDishesCategory(data);
-        // setLocalDishesCategory(data);
-        // localStorage.setItem('dishes', JSON.stringify(data));
       })
       .catch(() => {
-        // const dishesLS = JSON.parse(localStorage.getItem('dishes'));
-        // setDishes(dishesLS);
-        // setDishesCategory(dishesLS);
-        // setLocalDishesCategory(dishesLS);
+        setDishes([]);
+        setSearchDishes([]);
+        setDishesCategory([]);
       })
       .finally(() => setLoader(false));
   }, []);
@@ -66,7 +61,7 @@ export const MenuCards = () => {
   return (
     <div className="menuCards">
       {loader ? (
-        <Loaderr />
+        <Loading />
       ) : (
         <div>
           <div className='cardsHeader'>

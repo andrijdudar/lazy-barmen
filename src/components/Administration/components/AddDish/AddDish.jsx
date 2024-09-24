@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './AddDish.scss';
-import { createNewDish, getAllCategories, getAllIngredients, getAllPremixes, getAllTags } from '../../../../utils/fetch';
-import SearchSelect from '../../../utils/SearchSelect/SearchSelect';
-import { convertToOptionsSelect, filteredItems } from '../../../utils/SearchSelect/SearchUtils';
+import { createNewDish, getAllCategories, getAllIngredients, getAllPremixes, getAllTags } from '../../../../utils/axiosFunc';
+import SearchSelect from '../../../utilsAdministration/SearchSelect/SearchSelect';
+import { convertToOptionsSelect, filteredItems } from '../../../utilsAdministration/SearchSelect/SearchUtils';
 // import IconDelete from '../../../../img/delete-forever-24px.svg';
 import IconDelete from '../../../../utils/IconDelete';
 

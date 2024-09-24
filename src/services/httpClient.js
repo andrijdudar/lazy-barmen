@@ -1,7 +1,8 @@
 
 export const SERVER_URL = 'https://marked-addia-ago-0dd6d371.koyeb.app';
-export const SERVER_URL_AUTH = 'https://marked-addia-ago-0dd6d371.koyeb.app';
-export const GOOGLE_AUTH_URL = SERVER_URL_AUTH + '/api/auth/google_auth';
+// export const SERVER_URL = 'https://0cfd-194-44-160-206.ngrok-free.app';
+// export const SERVER_URL_AUTH = 'https://marked-addia-ago-0dd6d371.koyeb.app';
+export const GOOGLE_AUTH_URL = SERVER_URL + '/api/auth/google_auth';
 export const CLIENT_ID = '175403963155-qg3ma8d95h6lck440svfkrf4mtm60nb3.apps.googleusercontent.com';
 const handleResponse = async (response) => {
 

@@ -5,7 +5,7 @@ import Icon from '@mdi/react';
 import { mdiGlassCocktail } from '@mdi/js';
 import cn from 'classnames';
 import { SERVER_URL } from '../../services/httpClient';
-import SearchSelect from '../utils/SearchSelect/SearchSelect';
+import SearchSelect from '../utilsAdministration/SearchSelect/SearchSelect';
 
 
 export function CocktailForm({ cocktailList, setCocktailList }) {

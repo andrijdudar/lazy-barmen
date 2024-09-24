@@ -60,12 +60,12 @@
         content: none;
       }
 
-      summary::marker {
+      // summary::marker {
         // content: "▶";
         // @media (orientation: portrait) {
         //   content: none;
         // }
-      }
+      // }
       summary::before {
         // content: "▶";
         position: absolute;
@@ -90,7 +90,7 @@
 
     .detailsIngredients[open]::details-content {
       block-size: auto;
-      // block-size: calc-size(auto);
+      block-size: calc-size(auto);
     }
   }
 }

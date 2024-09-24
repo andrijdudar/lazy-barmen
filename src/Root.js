@@ -16,8 +16,8 @@ import { Categories } from './components/Administration/components/Categories/Ca
 import { AddCategory } from './components/Administration/components/Categories/AddCategory/AddCategory.jsx';
 import { Users } from './components/Administration/components/Users/Users.jsx';
 import { CreateUser } from './components/Administration/components/Users/CreateUser/CreateUser.jsx';
-import { Login } from './components/utils/Login/Login.jsx';
-import PrivateRoute from './components/utils/PrivateRoute/PrivateRoute.jsx';
+import { Login } from './components/utilsAdministration/Login/Login.jsx';
+import PrivateRoute from './components/utilsAdministration/PrivateRoute/PrivateRoute.jsx';
 
 export const Root = () => {
   return (

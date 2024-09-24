@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import './SideBar.css';
-import SearchSelect from '../utils/SearchSelect/SearchSelect';
+import SearchSelect from '../utilsAdministration/SearchSelect/SearchSelect';
 import cn from 'classnames';
-import { getAllCategories } from '../../utils/fetch';
-import { Loaderr } from '../utils/Loader/Loaderr';
+import { getAllCategories } from '../../utils/axiosFunc';
+import { Loading } from '../../utils/Loading/Loading';
 import { useLocation } from 'react-router-dom';
-import { convertToOptionsSelect, filteredItems } from '../utils/SearchSelect/SearchUtils';
+import { convertToOptionsSelect, filteredItems } from '../utilsAdministration/SearchSelect/SearchUtils';
 import useStore from '../../utils/Store';
 
 
@@ -38,10 +38,8 @@ function SideBar() {
         setCategories(data);
         localStorage.setItem('categories', JSON.stringify(data));
       }).catch(() => {
-        const categoriesLS = JSON.parse(localStorage.getItem('categories'));
-        setCategories(categoriesLS);
+        setCategories([]);
         console.log('error in getAllCategories in SideBar.jsx');
-        alert('error in getAllCategories in SideBar.jsx');
       })
       .finally(() => { setLoading(false); });
   }, []);
@@ -105,7 +103,7 @@ function SideBar() {
         />
       </div>
       {loading ? (
-        <Loaderr />
+        <Loading />
       ) : (
         <div id="sidebar-wrapper">
           <ul className={cn('sidebar-nav')}>

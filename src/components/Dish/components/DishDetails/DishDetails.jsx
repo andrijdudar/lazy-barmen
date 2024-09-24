@@ -1,6 +1,6 @@
 import { ALLDISHES } from '../../../../Obgects';
 import { deleteDish } from '../../../../utils/fetch';
-import  './DishDetails.scss';
+import './DishDetails.scss';
 import { Link, useParams } from 'react-router-dom';
 
 export function DishDetails() {

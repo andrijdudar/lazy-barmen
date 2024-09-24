@@ -1,80 +1,55 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-// import { useLocalStorage } from '../../utils/useLocalStorege';
 import './StopList.css';
-// import { getDishesInStopList } from '../../utils/fetch';
-import { Loaderr } from '../utils/Loader/Loaderr';
 import useStore from '../../utils/Store';
+import { getCurrentUser, getStopList } from '../../utils/axiosFunc';
+import { Loading } from '../../utils/Loading/Loading';
+
 
 
 const StopList = () => {
-  // const [stopListLS, setStopListLS] = useLocalStorage('stopList', []);
-  // const [fewDishesLS, setFewDishesLS] = useLocalStorage('fewDishes', []);
-  // const [dishesToBeSoldLS, setDishesToBeSoldLS] = useLocalStorage('dishesToBeSold', []);
   const fewDishes = useStore((state) => state.fewDishes);
-  // const setFewDishes = useStore((state) => state.setFewDishes);
+  const setFewDishes = useStore((state) => state.setFewDishes);
 
   const stopList = useStore((state) => state.stopList);
-  // const setStopList = useStore((state) => state.setStopList);
+  const setStopList = useStore((state) => state.setStopList);
 
   const dishesToBeSold = useStore((state) => state.dish_to_sold);
-  // const setDishToSold = useStore((state) => state.setDishToSold);
+  const setDishToSold = useStore((state) => state.setDishToSold);
 
-  const [loader] = useState(false)
+  const [loader, setLoader] = useState(true)
 
   useEffect(() => {
+    getCurrentUser().then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    }
+    );
+    getStopList().then((res) => {
+      console.log(res);
+      setStopList(res.ended);
+      setFewDishes(res.runing_out);
+      setDishToSold(res.need_to_sold);
 
-    // const fetchDishesInStopList = async () => {
-    //   try {
-    //     const res = await getDishesInStopList();
-    //     // console.log(res);
-    //     // setStopListLS(res);
-    //     setStopList(res.stop_list);
-    //     setDishToSold(res.runing_out);
-    //     setFewDishes(res.need_to_sold);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
+    }).catch((error) => {
+      console.log(error);
+      setStopList([]);
+      setFewDishes([]);
+      setDishToSold([]);
+    }).finally(() => {
+      setLoader(false);
+    });
 
-    // fetchDishesInStopList();
-    // setLoader(true)
-    // getDishesInStopList()
-    //   .then((res) => {
-    //     // console.log(res);
-    //     // setStopListLS(res);
-    //     setStopList(res.stop_list);
-    //     setFewDishes(res.runing_out);
-    //     setDishToSold(res.need_to_sold);
-
-    //   })
-    //   .catch((err) => console.log(err))
-    //   .finally(() => setLoader(false));
-
-    // getDishesToBeSold()
-    //   .then((res) => {
-    //     console.log(res);
-    //     setDishesToBeSoldLS(res);
-    //     setDishesToBeSold(res);
-    //   })
-    //   .catch((err) => console.log(err));
-
-    // getFewDishes()
-    //   .then((res) => {
-    //     console.log(res);
-    //     setFewDishesLS(res);
-    //     setFewDishes(res);
-    //   })
-    //   .catch((err) => console.log(err));
   }, []);
 
   return (
     <div className='containerStoplist'>
       {loader ? (
-        <Loaderr />
+        <Loading />
       ) : (
         <div className="stopList">
-            <h1>Стоп-Лист</h1>
+          <h1>Стоп-Лист</h1>
 
           <div className='stoplistContainer'>
             <div className='stoplistKichen'>
