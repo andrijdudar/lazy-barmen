@@ -2,23 +2,22 @@
 import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
-import { getAllDishes, getCurentUser, SignUp } from '../../../utils/fetch';
+import { getAllDishes, getCurrentUser, getRefreshToken, SignUp } from '../../../utils/fetch';
 import useStoreAuth from '../../../utils/StoreAuth';
 // import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
-import { CLIENT_ID, SERVER_URL } from '../../../services/httpClient';
+import { CLIENT_ID, GOOGLE_AUTH_URL } from '../../../services/httpClient';
 import { useNavigate } from 'react-router-dom';
 // import { Loading } from '../../../utils/Loading/Loading';
-
 
 
 export const Login = () => {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
-  const user = useStoreAuth((state) => state.user);
+  // const user = useStoreAuth((state) => state.user);
   const setUser = useStoreAuth((state) => state.setUser);
   // const profile = useStoreAuth((state) => state.profile);
   // const setProfile = useStoreAuth((state) => state.setProfile);
-  // const setFormLogin = useStoreAuth((state) => state.setFormLogin);
+
   const [inputName, setInputName] = useState('');
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
@@ -28,11 +27,10 @@ export const Login = () => {
     try {
       const authCode = credentialResponse.credential;
       console.log('authCode:', authCode)
-      localStorage.setItem('auth_code', authCode);
-
 
       // Відправка auth_code на бекенд
-      const response = await fetch(`${SERVER_URL}/api/auth/google_auth`, {
+      const response = await fetch(GOOGLE_AUTH_URL, {
+        // mode: 'no-cors',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,23 +46,15 @@ export const Login = () => {
         localStorage.setItem('token_type', data.token_type);
 
         console.log('Авторизація успішна:', data);
-
-        // getCurentUser()
-        //   .then((res) => {
-        //     setUser(res);
-        //     console.log('Інформація про користувача:', res);
-        //     // navigate('/');
-        //   })
-        //   .catch((error) => {
-        //     console.error('Помилка при отриманні інформації про користувача:', error);
-        //   });
-        // getAllDishes().then((res) => {
-        //   console.log(res);
-        // });
-        getAllDishes().then((res) => {
+        getRefreshToken().then((res) => {
           console.log(res);
+          localStorage.setItem('refresh_token', res.refresh_token);
+          localStorage.setItem('access_token', res.access_token);
+          localStorage.setItem('token_type', res.token_type);
+          if (res.access_token) {
+            navigate('/');
+          }
         });
-
       } else {
         console.error('Спроба авторизації зазнала невдачі');
       }
@@ -73,8 +63,7 @@ export const Login = () => {
     }
   };
 
-  useEffect(() => {
-
+  const initializeGoogleSignIn = () => {
     // Завантаження Google Identity Services та ініціалізація
     window.google.accounts.id.initialize({
       client_id: CLIENT_ID,
@@ -83,17 +72,38 @@ export const Login = () => {
 
     window.google.accounts.id.renderButton(
       document.getElementById('signInDiv'),
-      { theme: 'outline', size: 'large' }
+      {
+        theme: 'outline',
+        size: 'large',
+        text: 'continue_with',
+        width: '240',
+        locale: 'uk'
+      }
     );
-  }, []);
+  };
 
   useEffect(() => {
-    if (user) {
-      navigate('/');  // Перенаправлення на головну сторінку, якщо вже авторизований
+    // axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+    // axios.get('/posts').then((res) => console.log(res.data));
+    if (localStorage.getItem('refresh_token')) {
+      getRefreshToken().then((res) => {
+        console.log('res:', res)
+        console.log(res);
+        localStorage.setItem('refresh_token', res.refresh_token);
+        localStorage.setItem('access_token', res.access_token);
+        getCurrentUser().then((res) => {
+          localStorage.setItem('user', JSON.stringify(res));
+        });
+        if (res.access_token) {
+          navigate('/list');
+        }
+      }).catch((error) => {
+        navigate('/login');
+        console.error('Помилка при виконанні GET запиту:', error);
+      });
     }
-  }, [user, navigate]);
-
-
+    initializeGoogleSignIn();
+  }, []);
 
   const handleRegistration = () => {
     if (inputName === '' || inputLastName === '' || inputEmail === '' || inputPassword === '') {
@@ -112,7 +122,7 @@ export const Login = () => {
     };
     console.log(data);
     SignUp(data).then((res) => {
-      getCurentUser().then((res) => {
+      getCurrentUser().then((res) => {
         if (res.status === 200) {
           console.log(res);
           setUser(res.data);
@@ -154,12 +164,7 @@ export const Login = () => {
 
 
 
-  // function showAlert() {
-  //   const alertBox = document.getElementById('custom-alert');
-  //   if (alertBox) {
-  //     alertBox.classList.add('show');
-  //   }
-  // }
+
 
 
   return (
@@ -233,7 +238,19 @@ export const Login = () => {
                           onClick={() => {
                             getAllDishes().then((res) => {
                               console.log(res);
+
                             });
+                            // getRefreshToken().then((res) => {
+                            //   // console.log(res);
+
+                            //   localStorage.setItem('refresh_token', res.refresh_token);
+                            //   localStorage.setItem('access_token', res.access_token);
+                            //   localStorage.setItem('token_type', res.token_type);
+                            //   // getAllDishes().then((res) => {
+                            //   //   console.log(res);
+
+                            //   // });
+                            // });
                           }}
                         >
                           Увійти

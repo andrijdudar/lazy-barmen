@@ -96,11 +96,13 @@ export function SideBarAdmin({ onLinkClick }) {
   const setUser = useStoreAuth((state) => state.setUser);
   const setProfile = useStoreAuth((state) => state.setProfile);
   const setAccessToken = useStoreAuth((state) => state.setAccessToken);
+  const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
 
 
   const handleLogoutSuccess = () => {
     setUser(null);
     setAccessToken(null);
+    setRefreshToken(null);
     setProfile(null);
     localStorage.removeItem('auth_code');
     localStorage.removeItem('access_token');
@@ -108,8 +110,6 @@ export function SideBarAdmin({ onLinkClick }) {
     localStorage.removeItem('token_type');
     localStorage.removeItem('profile');
     localStorage.removeItem('user');
-    sessionStorage.removeItem('access_token');
-    sessionStorage.removeItem('profile');
     // Cookies.remove('access_token');
     navigate('/login');
   };

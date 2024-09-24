@@ -22,29 +22,29 @@ import PrivateRoute from './components/utils/PrivateRoute/PrivateRoute.jsx';
 export const Root = () => {
   return (
     <Router>
-        <Routes>
-          <Route element={<Login />}>
-          <Route path="/" element={<PrivateRoute element={App} />}>
-            <Route index element={<PrivateRoute element={StopList} />} />
-              <Route path="list" element={<Navigate to="/" replace={true} />} />
-              <Route path="menu" element={<Menu />} />
-              <Route path="detailsDish/:id" element={<DishDetails />} />
-              <Route path="newdish" element={<CocktailForm />} />
-              <Route path="admin" element={<Administration />} >
-                <Route path="addDish" element={<AddDish />} />
-                <Route path="ingredients" element={<Ingredients />} />
-                <Route path="premix" element={<Premix />} />
-                <Route path="addPremix" element={<AddPremix />} />
-                <Route path="categories" element={<Categories />} />
-                <Route path="addCategory" element={<AddCategory />} />
-                <Route path="users" element={<Users />} />
-                <Route path="createUser" element={<CreateUser />} />
-                <Route path="addProvider" element={<h1>Додати Постачальника</h1>} />
-              </Route>
-              <Route path="*" element={<NotFound />} />
-            </Route>
+      <Routes>
+        <Route path='/login' element={<Login />} />
+        <Route path="/" element={<PrivateRoute component={App} />}>
+          <Route index element={<StopList />} />
+          <Route path="list" element={<Navigate to="/" replace={true} />} />
+          <Route path="menu" element={<Menu />} />
+          <Route path="detailsDish/:id" element={<DishDetails />} />
+          <Route path="newdish" element={<CocktailForm />} />
+          <Route path="admin" element={<Administration />} >
+            <Route path="addDish" element={<AddDish />} />
+            <Route path="ingredients" element={<Ingredients />} />
+            <Route path="premix" element={<Premix />} />
+            <Route path="addPremix" element={<AddPremix />} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="addCategory" element={<AddCategory />} />
+            <Route path="users" element={<Users />} />
+            <Route path="createUser" element={<CreateUser />} />
+            <Route path="addProvider" element={<h1>Додати Постачальника</h1>} />
           </Route>
-        </Routes>
+        </Route>
+        <Route path="*" element={<NotFound />} />
+        {/* </Route> */}
+      </Routes>
     </Router>
   );
 }

@@ -1,15 +1,14 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import useStoreAuth from '../../../utils/StoreAuth'; // Ваш хук або функція для перевірки авторизації
 
-const PrivateRoute = ({ element: Component, ...rest }) => {
-  const user = useStoreAuth((state) => state.user);
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const accessToken = localStorage.getItem('access_token');
   const location = useLocation();
 
-  return user ? (
+  return accessToken ? (
     <Component {...rest} />
   ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
+      <Navigate to="/login" state={{ from: location }} replace />
   );
 };
 

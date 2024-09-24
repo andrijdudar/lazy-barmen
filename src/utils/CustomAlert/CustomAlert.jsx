@@ -1,8 +1,15 @@
 import React, { useEffect } from 'react';
 import './CustomAlert.scss';
 
-export function CustomAlert({ buttonText }) {
-  // const profileEmail = JSON.parse(localStorage.getItem('profile')).email;
+export const showAlert = () =>  {
+  const alertBox = document.getElementById('custom-alert');
+  if (alertBox) {
+    alertBox.classList.add('show');
+  }
+}
+
+export function CustomAlert() {
+
   const hideAlert = () => {
     const alertBox = document.getElementById('custom-alert');
     if (alertBox) {
@@ -39,7 +46,7 @@ export function CustomAlert({ buttonText }) {
         <h1>Дякуємо за реєстрацію. </h1>
         <h2 className='content_alert'>На ваш email відправлено лист для підтвердження та посилання на наш телеграм бот.</h2>
        <div className='container-alert-buttons'>
-          {/* <a href={`http://${profileEmail}` || '#'} id="close-alert" className="email-button">
+          {/* <a href={`http://${JSON.parse(localStorage.getItem('user')).email} || 'gmail.com`} id="close-alert" className="email-button">
             {buttonText || ''}
           </a> */}
           <a href='#/' id="continue-alert" className="email-button">

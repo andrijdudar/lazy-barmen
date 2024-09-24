@@ -11,12 +11,12 @@ export const sendToken = (data) => {
 };
 
 // отримати інформацію про поточного користувача
-export const getCurentUser = () => {
+export const getCurrentUser = () => {
   return client.get('/api/users/me');
 };
 // отримати інформацію про поточного користувача
 export const getRefreshToken = () => {
-  return client.getRefresh('api/auth/refresh_token');
+  return client.getRefresh('/api/auth/refresh_token');
 };
 
 
