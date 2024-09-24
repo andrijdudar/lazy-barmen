@@ -1,0 +1,30 @@
+{
+  "configurations": [
+    {
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}"
+      ],
+      "name": "Launch Extension",
+      "outFiles": [
+        "${workspaceFolder}/out/**/*.js"
+      ],
+      "preLaunchTask": "npm",
+      "request": "launch",
+      "type": "extensionHost"
+    },
+  {
+    "name": "ARC",
+    "request": "launch",
+    "type": "chrome",
+    "url": "http://localhost:3080",
+    "webRoot": "${workspaceFolder}"
+  },
+    {
+      "name": "Launch React App",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src"
+    }
+  ]
+}

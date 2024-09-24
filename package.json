@@ -1,7 +1,7 @@
 {
   "name": "lazy-barmen",
   "version": "0.1.0",
-  "homepage": "https://andrijdudar.github.io/lazy-barmen",
+  "homepage": "https://andrijdudar.github.io/lazy-barmen/",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.2",
@@ -55,11 +55,19 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.25.6",
+    "@babel/core": "^7.25.2",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/preset-react": "^7.24.7",
     "css-loader": "^7.1.2",
     "postcss-loader": "^8.1.1",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.77.6",
     "sass-loader": "^14.2.1"
-  }
+  },
+  "description": "[DEMO LINK](https://andrijdudar.github.io/lazy-barmen/)",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
