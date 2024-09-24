@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/lazy-barmen/static/css/main.c8a21829.css",
-    "main.js": "/lazy-barmen/static/js/main.fc409e8d.js",
+    "main.js": "/lazy-barmen/static/js/main.dda6ce09.js",
     "static/media/fa-solid-900.ttf": "/lazy-barmen/static/media/fa-solid-900.bacd5de623fb563b961a.ttf",
     "static/media/fa-brands-400.ttf": "/lazy-barmen/static/media/fa-brands-400.60127e352b7a11f7f1bc.ttf",
     "static/media/fa-solid-900.woff2": "/lazy-barmen/static/media/fa-solid-900.4d986b00ff9ca3828fbd.woff2",
@@ -17,10 +17,10 @@
     "static/media/ListIconlarge.svg": "/lazy-barmen/static/media/ListIconlarge.b530f0329178ba1897abdfe84b37d2ba.svg",
     "static/media/logout-24px.svg": "/lazy-barmen/static/media/logout-24px.3ef7070bd4656d6c4f5ea0ae0f455a00.svg",
     "main.c8a21829.css.map": "/lazy-barmen/static/css/main.c8a21829.css.map",
-    "main.fc409e8d.js.map": "/lazy-barmen/static/js/main.fc409e8d.js.map"
+    "main.dda6ce09.js.map": "/lazy-barmen/static/js/main.dda6ce09.js.map"
   },
   "entrypoints": [
     "static/css/main.c8a21829.css",
-    "static/js/main.fc409e8d.js"
+    "static/js/main.dda6ce09.js"
   ]
 }
