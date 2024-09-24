@@ -30,7 +30,7 @@ export const Login = () => {
 
       // Відправка auth_code на бекенд
       const response = await fetch(GOOGLE_AUTH_URL, {
-        // mode: 'no-cors',
+        mode: 'no-cors',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
