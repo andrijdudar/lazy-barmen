@@ -1,7 +1,7 @@
 {
   "name": "lazy-barmen",
   "version": "0.1.0",
-  "homepage": "https://andrijdudar.github.io/lazy-barmen/",
+  "homepage": "https://andrijdudar.github.io/lazy-barmen",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.2",
