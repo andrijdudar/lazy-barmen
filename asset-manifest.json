@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/lazy-barmen/static/css/main.8e548831.css",
-    "main.js": "/lazy-barmen/static/js/main.fc409e8d.js",
-    "static/media/fa-solid-900.ttf": "/lazy-barmen/static/media/fa-solid-900.bacd5de623fb563b961a.ttf",
-    "static/media/fa-brands-400.ttf": "/lazy-barmen/static/media/fa-brands-400.60127e352b7a11f7f1bc.ttf",
-    "static/media/fa-solid-900.woff2": "/lazy-barmen/static/media/fa-solid-900.4d986b00ff9ca3828fbd.woff2",
-    "static/media/fa-brands-400.woff2": "/lazy-barmen/static/media/fa-brands-400.455ea818179b4def0c43.woff2",
-    "static/media/fa-regular-400.ttf": "/lazy-barmen/static/media/fa-regular-400.eb91f7b948a42799f678.ttf",
-    "static/media/fa-regular-400.woff2": "/lazy-barmen/static/media/fa-regular-400.21cb8f55d8e0c5b89751.woff2",
+    "main.css": "/lazy-barmen/static/css/main.66159e29.css",
+    "main.js": "/lazy-barmen/static/js/main.597f2c59.js",
+    "static/media/fa-solid-900.ttf": "/lazy-barmen/static/media/fa-solid-900.07ed6d5fa32c1d54af0f.ttf",
+    "static/media/fa-brands-400.ttf": "/lazy-barmen/static/media/fa-brands-400.0ff70dcbf135d859ebf3.ttf",
+    "static/media/fa-solid-900.woff2": "/lazy-barmen/static/media/fa-solid-900.93f719f4d62bfa3e748c.woff2",
+    "static/media/fa-brands-400.woff2": "/lazy-barmen/static/media/fa-brands-400.bb8d5a145e22822103fb.woff2",
+    "static/media/fa-regular-400.ttf": "/lazy-barmen/static/media/fa-regular-400.17a6e1aebccdbaa39e78.ttf",
+    "static/media/fa-regular-400.woff2": "/lazy-barmen/static/media/fa-regular-400.bc3722686635b5f86132.woff2",
     "static/media/istockphoto1055079680.jpg": "/lazy-barmen/static/media/istockphoto1055079680.0fe2471dd02c241fa6a1.jpg",
-    "static/media/fa-v4compatibility.ttf": "/lazy-barmen/static/media/fa-v4compatibility.c8e090db312b0bea2aa2.ttf",
-    "static/media/fa-v4compatibility.woff2": "/lazy-barmen/static/media/fa-v4compatibility.cf7f5903d06b79ad60f1.woff2",
+    "static/media/fa-v4compatibility.ttf": "/lazy-barmen/static/media/fa-v4compatibility.0f6cb412603527bda691.ttf",
+    "static/media/fa-v4compatibility.woff2": "/lazy-barmen/static/media/fa-v4compatibility.6cfec8414be20e2c3426.woff2",
     "index.html": "/lazy-barmen/index.html",
     "static/media/ListIconsolid.svg": "/lazy-barmen/static/media/ListIconsolid.df9761e080c4e874550440d9f30b233a.svg",
     "static/media/delete-forever-24px.svg": "/lazy-barmen/static/media/delete-forever-24px.ffbfbd3e977da16935042abeca8675df.svg",
     "static/media/ListIconlarge.svg": "/lazy-barmen/static/media/ListIconlarge.b530f0329178ba1897abdfe84b37d2ba.svg",
     "static/media/logout-24px.svg": "/lazy-barmen/static/media/logout-24px.3ef7070bd4656d6c4f5ea0ae0f455a00.svg",
-    "main.8e548831.css.map": "/lazy-barmen/static/css/main.8e548831.css.map",
-    "main.fc409e8d.js.map": "/lazy-barmen/static/js/main.fc409e8d.js.map"
+    "main.66159e29.css.map": "/lazy-barmen/static/css/main.66159e29.css.map",
+    "main.597f2c59.js.map": "/lazy-barmen/static/js/main.597f2c59.js.map"
   },
   "entrypoints": [
-    "static/css/main.8e548831.css",
-    "static/js/main.fc409e8d.js"
+    "static/css/main.66159e29.css",
+    "static/js/main.597f2c59.js"
   ]
 }
