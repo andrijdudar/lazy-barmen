@@ -50,8 +50,7 @@ export function CustomAlert({email}) {
             {buttonText || ''}
           </a> */}
            <a href={`http://${email}`} id="close-alert" className="email-button">
-            {/* Перейти на пошту */}
-            {`${email}` || 'Перейти на пошту'}
+            Перейти на поштy
           </a>
           <a href='#/' id="continue-alert" className="email-button">
             Продовжити

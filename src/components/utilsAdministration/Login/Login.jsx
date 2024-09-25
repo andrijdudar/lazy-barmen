@@ -205,6 +205,7 @@ export const Login = () => {
       'username': inputEmail,
       'password': inputPassword
     };
+    setLoading(true);
     try {
       // Створюємо новий екземпляр URLSearchParams для форматування даних
       const params = new URLSearchParams();
@@ -228,6 +229,8 @@ export const Login = () => {
       }
     } catch (error) {
       console.error('Помилка авторизації:', error);
+    } finally {
+      setLoading(false);
     }
   // };
     // SignIn(data).then((res) => {
