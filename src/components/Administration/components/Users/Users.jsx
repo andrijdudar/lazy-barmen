@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 export function Users() {
   const navigate = useNavigate();
-  const refreshPage = () => {
-    window.location.reload();
-  };
+  // const refreshPage = () => {
+  //   window.location.reload();
+  // };
   const [users, setUsers] = useState([]);
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedUser, setEditedUser] = useState({
@@ -92,6 +92,15 @@ export function Users() {
         }, 3000);
 
       });
+  };
+
+  const delUser = async () => {
+    await deleteUser(editedUser.id);
+    getAllUsers()
+      .then((data) => {
+        setUsers(data);
+      })
+      .catch((error) => console.error('Error fetching users:', error));
   };
 
   return (
@@ -181,12 +190,7 @@ export function Users() {
                   <button className="button" onClick={() => navigate('/admin/users')} type="submit">
                     Зберегти
                   </button>
-                  <button className="button" type="button" onClick={() => {
-                    deleteUser(editedUser.id);
-                    navigate('/admin/users');
-                    refreshPage();
-                  }
-                  }>
+                  <button className="button" type="button" onClick={delUser}>
                     Видалити
                   </button>
                   <button className="button" type="button" onClick={stopEditing}>

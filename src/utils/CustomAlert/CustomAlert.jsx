@@ -8,7 +8,7 @@ export const showAlert = () =>  {
   }
 }
 
-export function CustomAlert() {
+export function CustomAlert({email}) {
 
   const hideAlert = () => {
     const alertBox = document.getElementById('custom-alert');
@@ -49,6 +49,10 @@ export function CustomAlert() {
           {/* <a href={`http://${JSON.parse(localStorage.getItem('user')).email} || 'gmail.com`} id="close-alert" className="email-button">
             {buttonText || ''}
           </a> */}
+           <a href={`http://${email}`} id="close-alert" className="email-button">
+            {/* Перейти на пошту */}
+            {`${email}` || 'Перейти на пошту'}
+          </a>
           <a href='#/' id="continue-alert" className="email-button">
             Продовжити
           </a>

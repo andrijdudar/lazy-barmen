@@ -96,8 +96,17 @@ export const getStopList = () => {
 // #region  POST
 
 // POST-запит для авторизації користувача
+//
 export const SignIn = (data) => {
-  return client.post('/api/auth/login', data);
+  const params = new URLSearchParams();
+  params.append('username', data.username);
+  params.append('password', data.password);
+
+  return client.post('/api/auth/login', params, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });
 };
 
 // POST-запит для регістрації користувача

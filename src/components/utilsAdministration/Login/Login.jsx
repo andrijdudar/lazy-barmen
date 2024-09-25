@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
-import { getCurrentUser, SignIn } from '../../../utils/axiosFunc';
+import { getCurrentUser } from '../../../utils/axiosFunc';
 import { getRefreshToken } from '../../../utils/axiosFunc';
 import useStoreAuth from '../../../utils/StoreAuth';
 // import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
@@ -10,6 +10,7 @@ import { CLIENT_ID, GOOGLE_AUTH_URL } from '../../../services/httpClient';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '../../../utils/Loading/Loading';
 import axios from 'axios';
+import { CustomAlert, showAlert } from '../../../utils/CustomAlert';
 
 
 export const Login = () => {
@@ -22,10 +23,42 @@ export const Login = () => {
   // const profile = useStoreAuth((state) => state.profile);
   // const setProfile = useStoreAuth((state) => state.setProfile);
 
+
   const [inputName, setInputName] = useState('');
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+  const [massege, setMassege] = useState(false);
+
+  // const showMassege = async () => {
+  //   await setMassege(true);
+  //   await showAlert();
+  // };
+
+  useEffect(() => {
+    // axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+    // axios.get('/posts').then((res) => console.log(res.data));
+    if (localStorage.getItem('refresh_token')) {
+
+      getRefreshToken().then((res) => {
+        console.log('res:', res)
+        console.log(res);
+        localStorage.setItem('refresh_token', res.refresh_token);
+        localStorage.setItem('access_token', res.access_token);
+        getCurrentUser().then((res) => {
+          localStorage.setItem('user', JSON.stringify(res));
+        });
+        if (res.access_token) {
+          // navigate('/list');
+        }
+      }).catch((error) => {
+        navigate('/login');
+        console.error('Помилка при виконанні GET запиту:', error);
+      });
+    }
+    initializeGoogleSignIn();
+
+  }, []);
 
   const handleLogin = async (credentialResponse) => {
     setLoading(true);
@@ -58,7 +91,7 @@ export const Login = () => {
         //   localStorage.setItem('token_type', res.token_type);
         //   if (res.access_token) {
         navigate('/');
-        //     setLoading(false);
+        setLoading(false);
         //   }
         // });
       } else {
@@ -88,30 +121,8 @@ export const Login = () => {
     );
   };
 
-  useEffect(() => {
-    // axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
-    // axios.get('/posts').then((res) => console.log(res.data));
-    if (localStorage.getItem('refresh_token')) {
-      getRefreshToken().then((res) => {
-        console.log('res:', res)
-        console.log(res);
-        localStorage.setItem('refresh_token', res.refresh_token);
-        localStorage.setItem('access_token', res.access_token);
-        getCurrentUser().then((res) => {
-          localStorage.setItem('user', JSON.stringify(res));
-        });
-        if (res.access_token) {
-          // navigate('/list');
-        }
-      }).catch((error) => {
-        navigate('/login');
-        console.error('Помилка при виконанні GET запиту:', error);
-      });
-    }
-    initializeGoogleSignIn();
-  }, []);
-
-  const handleRegistration = () => {
+  const handleRegistration = (event) => {
+    event.preventDefault();
     if (inputName === '' || inputLastName === '' || inputEmail === '' || inputPassword === '') {
       alert('Заповніть всі поля');
       return;
@@ -127,6 +138,7 @@ export const Login = () => {
       'password': inputPassword //str(min_length = 6)
     };
     console.log(data);
+    setLoading(true);
     // SignUp(data).then((res) => {
     //   getCurrentUser().then((res) => {
     //     if (res.status === 200) {
@@ -160,6 +172,12 @@ export const Login = () => {
       }
     })
       .then(response => {
+
+        if (response.status === 200 || response.status === 201) {
+          // showMassege();
+          // showAlert();
+          setMassege(true);
+        }
         console.log("Успішно:", response.data);
       })
       .catch(error => {
@@ -168,18 +186,58 @@ export const Login = () => {
         } else {
           console.error("Помилка при виконанні запиту:", error.message);
         }
+      }).finally((response) => {
+        setLoading(false);
+        // if (response.status === 200 || response.status === 201) {
+        // showMassege();
+        const time = setTimeout(() => {
+          showAlert();
+          clearTimeout(time);
+        }, 200);
+          // setMassege(true);
+        // }
       });
 
   }
-  
-  const login = () => {
+
+  const login = async () => {
     const data = {
-      'email': inputEmail,
+      'username': inputEmail,
       'password': inputPassword
     };
-    SignIn(data).then((res) => {
-      console.log(res);
-    });
+    try {
+      // Створюємо новий екземпляр URLSearchParams для форматування даних
+      const params = new URLSearchParams();
+      params.append('username', data.username);
+      params.append('password', data.password);
+
+      // Виконуємо POST запит з параметрами у форматі x-www-form-urlencoded
+      const response = await axios.post('https://marked-addia-ago-0dd6d371.koyeb.app/api/auth/login', params, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+
+      // Обробка відповіді
+      if (response.status === 200) {
+        console.log('Успішний вхід:', response.data);
+        localStorage.setItem('access_token', response.data.access_token);
+        localStorage.setItem('refresh_token', response.data.refresh_token);
+        // Навігація або подальші дії після успішного входу
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Помилка авторизації:', error);
+    }
+  // };
+    // SignIn(data).then((res) => {
+    //   console.log(res);
+    //   if (res.status === 200) {
+    //     localStorage.setItem('access_token', res.access_token);
+    //     localStorage.setItem('refresh_token', res.refresh_token);
+    //     // navigate('/');
+    //   }
+    // });
   }
 
 
@@ -191,6 +249,7 @@ export const Login = () => {
         <div className="row full-height justify-content-center">
           {loading ? <Loading /> :
             <div className="col-12 text-center align-self-center py-5">
+              {massege && <CustomAlert email={inputEmail} id="custom-alert" />}
               <div className="section pb-5 pt-5 pt-sm-2 text-center">
                 <h6 className="mb-0 pb-3">
                   <button
@@ -320,7 +379,7 @@ export const Login = () => {
                             />
                             <i className="input-icon uil uil-lock-alt"></i>
                           </div>
-                          <a href="#/" className="btn-login mt-4" onClick={handleRegistration}>
+                          <a href="#/" className="btn-login mt-4" onClick={(event) => handleRegistration(event)}>
                             Зареєструватися
                           </a>
                         </form>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./SideBarAdmin.scss";
 import { Link, useNavigate } from "react-router-dom";
-import useStoreAuth from "../../../../utils/StoreAuth";
+// import useStoreAuth from "../../../../utils/StoreAuth";
 import iconLogout from "../../../../img/logout-24px.svg";
 import axios from "axios";
 // import { logout } from "../../../../utils/axiosFunc";
@@ -95,10 +95,10 @@ export function SideBarAdmin({ onLinkClick }) {
   const navigate = useNavigate();
   const [openDetailId, setOpenDetailId] = useState(null);
   const detailsRef = useRef([]);
-  const setUser = useStoreAuth((state) => state.setUser);
-  const setProfile = useStoreAuth((state) => state.setProfile);
-  const setAccessToken = useStoreAuth((state) => state.setAccessToken);
-  const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
+  // const setUser = useStoreAuth((state) => state.setUser);
+  // const setProfile = useStoreAuth((state) => state.setProfile);
+  // const setAccessToken = useStoreAuth((state) => state.setAccessToken);
+  // const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
 
 
   const handleLogoutSuccess = async () => {
@@ -118,10 +118,10 @@ export function SideBarAdmin({ onLinkClick }) {
     //   },
     // })
 
-    setUser(null);
-    setAccessToken(null);
-    setRefreshToken(null);
-    setProfile(null);
+    // setUser(null);
+    // setAccessToken(null);
+    // setRefreshToken(null);
+    // setProfile(null);
     localStorage.removeItem('auth_code');
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
@@ -129,7 +129,8 @@ export function SideBarAdmin({ onLinkClick }) {
     localStorage.removeItem('profile');
     localStorage.removeItem('user');
     // Cookies.remove('access_token');
-    navigate('/login');
+
+    navigate('/');
   };
 
 
