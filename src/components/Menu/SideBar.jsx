@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import './SideBar.css';
 import SearchSelect from '../utilsAdministration/SearchSelect/SearchSelect';
 import cn from 'classnames';
-// import { getAllCategories } from '../../utils/axiosFunc';
+import { getAllCategories } from '../../utils/axiosFunc';
 import { Loading } from '../../utils/Loading/Loading';
 import { useLocation } from 'react-router-dom';
 import { convertToOptionsSelect, filteredItems } from '../utilsAdministration/SearchSelect/SearchUtils';
@@ -14,7 +14,7 @@ function SideBar() {
   const [activeCategoryIds, setActiveCategoryIds] = useState([]);
 
   const categories = useStore((state) => state.categories);
-  // const setCategories = useStore((state) => state.setCategories);
+  const setCategories = useStore((state) => state.setCategories);
 
   const dishesCategory = useStore((state) => state.dishesCategory);
   const setDishesCategory = useStore((state) => state.setDishesCategory);
@@ -33,15 +33,15 @@ function SideBar() {
 
   useEffect(() => {
     setLoading(true);
-    // getAllCategories()
-    //   .then((data) => {
-    //     setCategories(data);
-    //     localStorage.setItem('categories', JSON.stringify(data));
-    //   }).catch(() => {
-    //     setCategories([]);
-    //     console.log('error in getAllCategories in SideBar.jsx');
-    //   })
-    //   .finally(() => { setLoading(false); });
+    getAllCategories()
+      .then((data) => {
+        setCategories(data);
+        localStorage.setItem('categories', JSON.stringify(data));
+      }).catch(() => {
+        setCategories([]);
+        console.log('error in getAllCategories in SideBar.jsx');
+      })
+      .finally(() => { setLoading(false); });
   }, []);
 
 

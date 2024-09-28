@@ -5,7 +5,6 @@ import cn from 'classnames';
 import { getCurrentUser } from '../../../utils/axiosFunc';
 import { getRefreshToken } from '../../../utils/axiosFunc';
 import useStoreAuth from '../../../utils/StoreAuth';
-// import { CustomAlert } from '../../../utils/CustomAlert/CustomAlert';
 import { CLIENT_ID, GOOGLE_AUTH_URL } from '../../../services/httpClient';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '../../../utils/Loading/Loading';
@@ -24,16 +23,11 @@ export const Login = () => {
   // const setProfile = useStoreAuth((state) => state.setProfile);
 
 
-  const [inputName, setInputName] = useState('');
+  const [inputName, setInputName] = useState( '');
   const [inputLastName, setInputLastName] = useState('');
-  const [inputEmail, setInputEmail] = useState('');
-  const [inputPassword, setInputPassword] = useState('');
+  const [inputEmail, setInputEmail] = useState(localStorage.getItem('email') || '');
+  const [inputPassword, setInputPassword] = useState(localStorage.getItem('password') || '');
   const [massege, setMassege] = useState(false);
-
-  // const showMassege = async () => {
-  //   await setMassege(true);
-  //   await showAlert();
-  // };
 
   useEffect(() => {
     // axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
@@ -137,6 +131,8 @@ export const Login = () => {
       'email': inputEmail,
       'password': inputPassword //str(min_length = 6)
     };
+    localStorage.setItem('email', inputEmail);
+    localStorage.setItem('password', inputPassword);
     console.log(data);
     setLoading(true);
     // SignUp(data).then((res) => {
@@ -174,8 +170,6 @@ export const Login = () => {
       .then(response => {
 
         if (response.status === 200 || response.status === 201) {
-          // showMassege();
-          // showAlert();
           setMassege(true);
         }
         console.log("Успішно:", response.data);
@@ -188,16 +182,11 @@ export const Login = () => {
         }
       }).finally((response) => {
         setLoading(false);
-        // if (response.status === 200 || response.status === 201) {
-        // showMassege();
         const time = setTimeout(() => {
           showAlert();
           clearTimeout(time);
         }, 200);
-          // setMassege(true);
-        // }
       });
-
   }
 
   const login = async () => {
@@ -207,44 +196,29 @@ export const Login = () => {
     };
     setLoading(true);
     try {
-      // Створюємо новий екземпляр URLSearchParams для форматування даних
       const params = new URLSearchParams();
       params.append('username', data.username);
       params.append('password', data.password);
 
-      // Виконуємо POST запит з параметрами у форматі x-www-form-urlencoded
       const response = await axios.post('https://marked-addia-ago-0dd6d371.koyeb.app/api/auth/login', params, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
 
-      // Обробка відповіді
       if (response.status === 200) {
         console.log('Успішний вхід:', response.data);
         localStorage.setItem('access_token', response.data.access_token);
         localStorage.setItem('refresh_token', response.data.refresh_token);
-        // Навігація або подальші дії після успішного входу
         navigate('/');
       }
     } catch (error) {
+      window.location.reload();
       console.error('Помилка авторизації:', error);
     } finally {
       setLoading(false);
     }
-  // };
-    // SignIn(data).then((res) => {
-    //   console.log(res);
-    //   if (res.status === 200) {
-    //     localStorage.setItem('access_token', res.access_token);
-    //     localStorage.setItem('refresh_token', res.refresh_token);
-    //     // navigate('/');
-    //   }
-    // });
   }
-
-
-
 
   return (
     <div className="section" >
