@@ -157,6 +157,14 @@ export const Login = () => {
   }
 
   const login = async () => {
+    if ( inputEmail === '' || inputPassword === '') {
+      alert('Заповніть всі поля');
+      return;
+    }
+    if (inputPassword.length < 6) {
+      alert('Пароль повинен містити не менше 6 символів');
+      return;
+    }
     const data = {
       'username': inputEmail,
       'password': inputPassword
