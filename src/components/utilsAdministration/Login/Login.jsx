@@ -11,6 +11,7 @@ import axios from 'axios';
 import { CustomAlert, showAlert } from '../../../utils/CustomAlert';
 
 import { getCurrentUser, googleAutorization } from '../../../utils/axiosFunc';
+import { SERVER_URL } from '../../../services/axiosClient';
 
 
 export const Login = () => {
@@ -128,7 +129,7 @@ export const Login = () => {
     //     alert('Доступ заборонено');
     //   }
     // });
-    axios.post('https://marked-addia-ago-0dd6d371.koyeb.app/api/auth/signup', data, {
+    axios.post(SERVER_URL +'/api/auth/signup', data, {
       headers: {
         'Content-Type': 'application/json' // Вказуємо, що відправляємо JSON
       }
@@ -166,7 +167,7 @@ export const Login = () => {
       params.append('username', data.username);
       params.append('password', data.password);
 
-      const response = await axios.post('https://marked-addia-ago-0dd6d371.koyeb.app/api/auth/login', params, {
+      const response = await axios.post(SERVER_URL +'/api/auth/login', params, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },

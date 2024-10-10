@@ -11,8 +11,8 @@ axios.interceptors.request.use(
   config => {
     const accessToken = localStorage.getItem('access_token');
     const refreshToken = localStorage.getItem('refresh_token');
-    config.headers['Content-Type'] = 'application/json';
-    config.headers['X-Requested-With'] = 'XMLHttpRequest';
+    // config.headers['Content-Type'] = 'application/json';
+    // config.headers['X-Requested-With'] = 'XMLHttpRequest';
     if (config.url !== '/api/auth/refresh_token') {
       config.headers['Authorization'] = `Bearer ${accessToken || ''}`;
     }
