@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './AddDish.scss';
 import { createNewDish, getAllCategories, getAllIngredients, getAllPremixes, getAllTags } from '../../../../utils/axiosFunc';
 import SearchSelect from '../../../utilsAdministration/SearchSelect/SearchSelect';
 import { convertToOptionsSelect, filteredItems } from '../../../utilsAdministration/SearchSelect/SearchUtils';
 // import IconDelete from '../../../../img/delete-forever-24px.svg';
 import IconDelete from '../../../../utils/IconDelete';
+import { useNavigate } from 'react-router-dom';
 
 
 // const testDishe = {
@@ -32,19 +33,20 @@ import IconDelete from '../../../../utils/IconDelete';
 // }
 
 export const AddDish = () => {
+  const navigate = useNavigate();
+  const [ingredients, setIngredients] = useState([]);
+  const [premixes, setPremixes] = useState([]);
+  const [tages, setTages] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const [dishName, setDishName] = useState('');
   const [description, setDescription] = useState('');
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [selectedPremixes, setSelectedPremixes] = useState([]);
   const [selectedTages, setSelectedTages] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategorie, setSelectedCategorie] = useState([]);
   const [price, setPrice] = useState('');
 
-  const [ingredients, setIngredients] = useState([]);
-  const [premixes, setPremixes] = useState([]);
-  const [tages, setTages] = useState([]);
-  const [categories, setCategories] = useState([]);
 
 
 
@@ -55,6 +57,7 @@ export const AddDish = () => {
     getAllIngredients()
       .then((data) => {
         setIngredients(data);
+        console.log('data:', data)
 
       })
       .catch((error) => console.log(error));
@@ -62,21 +65,25 @@ export const AddDish = () => {
     getAllPremixes()
       .then((data) => {
         setPremixes(data)
+        console.log('data:', data)
       })
-
-
       .catch((error) => console.log(error));
 
     getAllTags()
       .then((data) => {
         setTages(data)
+        console.log('data:', data)
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setTages([]);
+      });
 
     getAllCategories()
       .then((data) => {
-        setCategories(data);
-        console.log(data);
+        const categoreis = data.filter((item) => item.child === false);
+        setCategories(categoreis);
+        console.log('data:', data)
       })
       .catch((error) => console.log(error));
 
@@ -88,8 +95,8 @@ export const AddDish = () => {
     setSelectedIngredients([]);
     setSelectedPremixes([]);
     setSelectedTages([]);
-    setSelectedCategories('');
-    setPrice('');
+    setSelectedCategorie([]);
+    setPrice(null);
   };
 
   // const handleChange = (e) => {
@@ -100,21 +107,21 @@ export const AddDish = () => {
 
     const dataToSend = {
       dish_name: dishName,
-      description: description,
-      ingredients: selectedIngredients,
-      premixes: selectedPremixes,
-      tags: [selectedTages[0].name],
-      category: selectedCategories[0].name,
-      price: price,
+      description: description || null,
+      ingredients: selectedIngredients.length ? selectedIngredients : null,
+      premixes: selectedPremixes.length ? selectedPremixes : null,
+      tags: selectedTages.length ? selectedTages : ['страва'],
+      category_id: selectedCategorie.id ,
+      price: price || '0',
     };
-    console.log(selectedTages[0].name);
-    console.log(selectedCategories[0].name);
+    console.log(selectedCategorie, selectedCategorie.id);
     console.log(dataToSend);
     createNewDish(dataToSend)
       .then((res) => {
         console.log(res);
         stopEditing();
         setSuccessMessage('Страву успішно додано!');
+        navigate('/detailsDish/' + res.id);
       })
       .catch((error) => {
         console.log(error);
@@ -138,13 +145,17 @@ export const AddDish = () => {
     const newIngredient = {
       id: selectedOption.id,
       name: selectedOption.value,
-      quantity: selectedOption.quantity || 0,
+      quantity: selectedOption.quantity || 1,
     };
     const ingredientTrue = !selectedIngredients.find((item) => item.id === newIngredient.id);
     if (ingredientTrue) {
       setSelectedIngredients((prevSelected) => [...prevSelected, newIngredient]);
     }
   };
+
+  const updateOptionsIngredients = useCallback((options) => {
+    setIngredients(filteredItems(ingredients, options));
+  }, [ingredients]);
 
   const optionsIngredients = useMemo(() => convertToOptionsSelect(ingredients), [ingredients]);
   // #endregion
@@ -172,6 +183,11 @@ export const AddDish = () => {
     }
 
   };
+
+  const updateOptionsPremixes = useCallback((options) => {
+    setPremixes(filteredItems(premixes, options));
+  }, [premixes]);
+
   const optionsPremixes = useMemo(() => convertToOptionsSelect(premixes), [premixes]);
   // #endregion
 
@@ -184,10 +200,15 @@ export const AddDish = () => {
     };
     // const tagTrue = !selectedTages.find((item) => item.id === newTag.id);
     // if (selectedTages.length < 1) {
-    setSelectedTages(() => [newTag]);
+    setSelectedTages([newTag]);
     // }
 
   };
+
+  const updateOptionsTages = useCallback((options) => {
+    setTages(filteredItems(tages, options));
+  }, [tages]);
+
   const optionsTages = useMemo(() => convertToOptionsSelect(tages), [tages]);
   // #endregion
 
@@ -198,11 +219,17 @@ export const AddDish = () => {
       name: selectedOption.value,
       quantity: selectedOption.quantity || 0,
     };
-    // const categoryTrue = !selectedCategories.find((item) => item.id === newCategory.id);
+    // const categoryTrue = !selectedCategorie.find((item) => item.id === newCategory.id);
     // if (categoryTrue) {
-    setSelectedCategories(() => [newCategory]);
+      setSelectedCategorie(newCategory);
+    // setSelectedCategorie(newCategory);
     // }
   };
+
+  const updateOptionsCategories = useCallback((options) => {
+    setCategories(filteredItems(categories, options));
+  }, [categories]);
+
   const optionsCategories = useMemo(() => convertToOptionsSelect(categories), [categories]);
   // #endregion
 
@@ -240,7 +267,7 @@ export const AddDish = () => {
           <div className='inputContainer'>
             <SearchSelect
               options={optionsIngredients}
-              updateOptions={((options) => setIngredients(filteredItems(ingredients, options)), [ingredients])}
+              updateOptions={updateOptionsIngredients}
               placeholder='Пошук інгредієнтів...'
               selectOpen={true}
               path='/'
@@ -277,11 +304,11 @@ export const AddDish = () => {
           </div>
         </div>
         <div className='label'>
-          Примікси:
+          Премікси:
           <div className='inputContainer'>
             <SearchSelect
               options={optionsPremixes}
-              updateOptions={((options) => setPremixes(filteredItems(premixes, options)), [premixes])}
+              updateOptions={updateOptionsPremixes}
               placeholder='Пошук преміксів...'
               selectOpen={true}
               path='/'
@@ -321,7 +348,7 @@ export const AddDish = () => {
           <div className='inputContainer'>
             <SearchSelect
               options={optionsTages}
-              updateOptions={((options) => setTages(filteredItems(tages, options)), [tages])}
+              updateOptions={updateOptionsTages}
               placeholder='Пошук тегів...'
               selectOpen={true}
               path='/'
@@ -353,31 +380,35 @@ export const AddDish = () => {
           <div className='inputContainer'>
             <SearchSelect
               options={optionsCategories}
-              updateOptions={((options) => setCategories(filteredItems(categories, options)), [categories])}
+              updateOptions={updateOptionsCategories}
               placeholder='Пошук категорій...'
               selectOpen={true}
               path='/'
               onSelect={handleCategoriesSelect}
             />
-            {selectedCategories.map((category) => (
-              <ul key={category.id} className='field'>
+            {/* {selectedCategorie.map((category) => ( */}
+            {selectedCategorie &&
+              <ul className='field'>
                 <li className='ingredient-li-container'>
-                  <p className='label capitalize'>{category.name}</p>
+                  <p className='label capitalize'>{selectedCategorie.name}</p>
                   <div className='ingredient-li'>
                     <button
                       type="button"
                       className='button button-del-ingredeint'
                       onClick={() => {
-                        const filtredTags = selectedCategories.filter((item) => item.id !== category.id);
-                        setSelectedCategories(filtredTags);
+                        setSelectedCategorie(null);
                       }}
+                      // onClick={() => {
+                      //   const filtredTags = selectedCategorie.filter((item) => item.id !== category.id);
+                      //   setSelectedCategorie(filtredTags);
+                      // }}
                     >
                       <IconDelete />
                     </button>
                   </div>
                 </li>
-              </ul>
-            ))}
+              </ul>}
+            {/* ))} */}
           </div>
         </div>
         <label className='label'>
@@ -392,7 +423,7 @@ export const AddDish = () => {
             />
           </div>
         </label>
-        <button type="submit" className="button">Додати страву</button>
+        <button type="submit" className="button" onClick={(e) => handleSubmit(e)}>Додати страву</button>
         <button type="button" className="button" onClick={stopEditing}>Скасувати</button>
       </form>
     </div>

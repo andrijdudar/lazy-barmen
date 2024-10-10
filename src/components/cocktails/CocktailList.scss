@@ -64,14 +64,14 @@ align-self: center;
   width: 170px;
   height: 30px;
 }
-details summary::-webkit-details-marker {
-  display: none;
-  cursor: pointer;
-}
-details {
-  list-style-type: none;
-  cursor: pointer;
-}
+// details summary::-webkit-details-marker {
+//   display: none;
+//   cursor: pointer;
+// }
+// details {
+//   list-style-type: none;
+//   cursor: pointer;
+// }
 
 ol {
   color: yellowgreen;

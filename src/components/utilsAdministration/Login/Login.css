@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900");
+
 a {
   cursor: pointer;
   transition: all 200ms linear;
@@ -49,15 +50,16 @@ h6 .span {
   color: #c4c3ca;
   /* height: 100vh; */
   max-height: 100vh;
-  overfloy-y: none;
+  /* overfloy-y: none; */
 }
+
 @media (orientation: portrait) {
   .section {
     padding: 10px;
   }
 }
 
-.section > h6 {
+.section>h6 {
   display: flex;
   justify-content: center;
 }
@@ -72,8 +74,8 @@ h6 .span {
   left: -9999px;
 }
 
-.checkbox:checked + label,
-.checkbox:not(:checked) + label {
+.checkbox:checked+label,
+.checkbox:not(:checked)+label {
   position: relative;
   display: block;
   text-align: center;
@@ -81,13 +83,13 @@ h6 .span {
   height: 16px;
   border-radius: 8px;
   padding: 0;
-  margin: 10px auto;
+  margin: 0px auto;
   cursor: pointer;
   background-color: #ffeba7;
 }
 
-.checkbox:checked + label:before,
-.checkbox:not(:checked) + label:before {
+.checkbox:checked+label:before,
+.checkbox:not(:checked)+label:before {
   position: absolute;
   display: block;
   width: 36px;
@@ -107,7 +109,7 @@ h6 .span {
   transform: rotate(230deg);
 }
 
-.checkbox:checked + label:before {
+.checkbox:checked+label:before {
   transform: translateX(44px) rotate(-50deg);
 }
 
@@ -120,6 +122,7 @@ h6 .span {
   perspective: 800px;
   margin-top: 60px;
 }
+
 @media (orientation: portrait) {
   .card-3d-wrap {
     width: 350px;
@@ -156,7 +159,7 @@ h6 .span {
   transform: rotateY(180deg);
 }
 
-.checkbox:checked ~ .card-3d-wrap .card-3d-wrapper {
+.checkbox:checked~.card-3d-wrap .card-3d-wrapper {
   transform: rotateY(180deg);
 }
 
@@ -291,6 +294,7 @@ h6 .span {
   box-shadow: 0 8px 24px 0 rgba(255, 235, 167, 0.2);
 }
 
+
 .btn:active,
 .btn:focus {
   background-color: #102770;
@@ -308,4 +312,6 @@ h6 .span {
   display: flex;
   justify-content: center;
   margin-top: 15px;
-}/*# sourceMappingURL=Login.css.map */
+}
+
+/*# sourceMappingURL=Login.css.map */

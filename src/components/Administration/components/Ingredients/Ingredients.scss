@@ -31,7 +31,7 @@
     // list-style-type: none;
     padding: 0;
 
-    details {
+    .detailsIngredients {
       margin-bottom: 20px;
       padding: 10px;
       border-radius: 10px;
@@ -61,10 +61,10 @@
       }
 
       // summary::marker {
-        // content: "▶";
-        // @media (orientation: portrait) {
-        //   content: none;
-        // }
+      //   content: "▶";
+      //   @media (orientation: portrait) {
+      //     content: none;
+      //   }
       // }
       summary::before {
         // content: "▶";
@@ -84,7 +84,7 @@
       block-size: 0;
       overflow: hidden;
       transition-property: block-size, content-visibility;
-      transition-duration: 0.5s;
+      transition-duration: .5s;
       transition-behavior: allow-discrete;
     }
 

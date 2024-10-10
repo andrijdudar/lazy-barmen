@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createPremix, getAllIngredients } from '../../../../../utils/axiosFunc';
 import SearchSelect from '../../../../utilsAdministration/SearchSelect/SearchSelect';
 import { convertToOptionsSelect, filteredItems } from '../../../../utilsAdministration/SearchSelect/SearchUtils';
@@ -41,38 +41,48 @@ export function AddPremix() {
     setSelectedIngredients(newSelectedIngredients);
   };
 
+  const updateOptions = useCallback((options) => {
+    setIngredients(filteredItems(ingredients, options));
+  }, [ingredients]);
+
   const handleIngredientSelect = (selectedOption) => {
+console.log('selectedOption:', selectedOption);
     selectedOption.length && setHesErrorIngredients(false);
     const newIngredient = {
-      ingredient: {
-        id: selectedOption.id,
+      // ingredient: {
+        // id: selectedOption.id,
         name: selectedOption.value,
         measure: selectedOption.measure || 'кг',
-      },
+      // },
       ingredient_id: selectedOption.id,
       quantity: selectedOption.quantity || 0,
     };
+    console.log('newIngredient:', newIngredient);
     const ingredientTrue = !selectedIngredients.find((item) => item.ingredient_id === newIngredient.ingredient_id);
+    console.log('ingredientTrue:', ingredientTrue);
     if (ingredientTrue) {
       setSelectedIngredients((prevSelected) => [...prevSelected, newIngredient]);
     }
+    console.log('selectedIngredients:', selectedIngredients);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     !formData.name ? setHesErrorName(true) : setHesErrorName(false);
     !selectedIngredients.length ? setHesErrorIngredients(true) : setHesErrorIngredients(false);
+    console.log('ingredients:', selectedIngredients);
 
     const dataToSend = {
       name: formData.name,
       ingredients: selectedIngredients.map((ingredient) => ({
-        id: ingredient.id,
-        name: ingredient.name,
+        id: ingredient.ingredient_id,
+        // name: ingredient.name,
         quantity: ingredient.quantity,
-
       })),
       description: formData.description,
     };
+    console.log('premix:', dataToSend)
+
 
 
     if (selectedIngredients.length && dataToSend.name) {
@@ -83,7 +93,6 @@ export function AddPremix() {
         })
         .catch((err) => {
           console.log(err);
-          alert('Помилка при створенні преміксу');
         })
         .finally(() => {
           setFormData({ name: '', description: '' });
@@ -102,7 +111,6 @@ export function AddPremix() {
       })
       .catch((err) => {
         console.log(err);
-        alert('Помилка при завантаженні інгредієнтів');
       })
       .finally(() => {
         setLoading(false);
@@ -148,25 +156,25 @@ export function AddPremix() {
             <label className='label'>Інгредієнти:</label>
             <SearchSelect
               options={optionsForm}
-              updateOptions={((options) => setIngredients(filteredItems(ingredients, options)), [ingredients])}
+              updateOptions={updateOptions}
               placeholder='Пошук інгредієнтів...'
               selectOpen={true}
               path='/'
               onSelect={handleIngredientSelect}
             />
             {selectedIngredients.map((ingredient) => (
-              <ul key={ingredient.id} className='field'>
-                {/* <p>{ingredient.name}</p> */}
+              <ul key={ingredient.ingredient_id} className='field'>
+                <p>{ingredient.ingredient_id}</p>
                 <li className='control'>
                   <div className='control'>
-                    <label className='label-ingredient'>{ingredient.ingredient.name}</label>
+                    <label className='label-ingredient'>{ingredient.name}</label>
                     <div className='control-end'>
                       <input
                         type="number"
                         className="input-edit-premix input-search"
                         value={ingredient.quantity}
                         onChange={(e) => {
-                          handleIngredientQuantityChange(ingredient.id, parseFloat(e.target.value));
+                          handleIngredientQuantityChange(ingredient.ingredient_id, parseFloat(e.target.value));
                         }}
                       />
                       <div className='ingredient-measure'>{ingredient.measure}</div>
@@ -174,7 +182,8 @@ export function AddPremix() {
                         type="button"
                         className='icon-delete-ingredient button'
                         onClick={() => {
-                          const filtredIngredients = selectedIngredients.filter((item) => item.id !== ingredient.id);
+                          const filtredIngredients = selectedIngredients.filter((item) => item.ingredient_id !== ingredient.ingredient_id);
+                          console.log('ingredient:', ingredient)
                           setSelectedIngredients(filtredIngredients);
                         }}
                       >

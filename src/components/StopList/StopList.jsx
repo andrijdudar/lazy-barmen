@@ -1,13 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './StopList.css';
 import useStore from '../../utils/Store';
-import { getCurrentUser, getStopList } from '../../utils/axiosFunc';
+import { getStopList } from '../../utils/axiosFunc';
 import { Loading } from '../../utils/Loading/Loading';
+import useStoreAuth from '../../utils/StoreAuth';
 
 
 
 const StopList = () => {
+  const user = useStoreAuth((state) => state.user);
+
   const fewDishes = useStore((state) => state.fewDishes);
   const setFewDishes = useStore((state) => state.setFewDishes);
 
@@ -20,27 +23,22 @@ const StopList = () => {
   const [loader, setLoader] = useState(true)
 
   useEffect(() => {
-    getCurrentUser().then((res) => {
-      console.log(res);
-    }).catch((error) => {
-      console.log(error);
-    }
-    );
-    getStopList().then((res) => {
-      console.log(res);
-      setStopList(res.ended);
-      setFewDishes(res.runing_out);
-      setDishToSold(res.need_to_sold);
+    const getData = async () => {
+      console.log(user);
+      try {
+        const stopListResponse = await getStopList();
+        console.log(stopListResponse);
+        setStopList(stopListResponse.ended);
+        setFewDishes(stopListResponse.runing_out);
+        setDishToSold(stopListResponse.need_to_sold);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoader(false);
+      }
+    };
 
-    }).catch((error) => {
-      console.log(error);
-      setStopList([]);
-      setFewDishes([]);
-      setDishToSold([]);
-    }).finally(() => {
-      setLoader(false);
-    });
-
+    getData();
   }, []);
 
   return (
@@ -122,7 +120,8 @@ const StopList = () => {
         </div>
       )}
     </div>
+
   );
 };
 
-export default StopList;
+export default React.memo(StopList);

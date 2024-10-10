@@ -116,7 +116,7 @@ const SearchSelect = ({ options, updateOptions, placeholder, selectOpen = true, 
           <ul className='search-select'>
             {filtredOptions.map(option => (
               <li
-                key={option.name}
+                key={option.id}
                 className='option-item'
                 onClick={() => handleSelect(option)}
               >

@@ -71,7 +71,7 @@
   height: 30px;
 }
 
-details summary::-webkit-details-marker {
+/* details summary::-webkit-details-marker {
   display: none;
   cursor: pointer;
 }
@@ -79,7 +79,7 @@ details summary::-webkit-details-marker {
 details {
   list-style-type: none;
   cursor: pointer;
-}
+} */
 
 ol {
   color: yellowgreen;

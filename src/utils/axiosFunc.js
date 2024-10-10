@@ -1,30 +1,30 @@
-import { client } from '../services/axiosClient';
+import { client, } from '../services/axiosClient';
 
 
 
 //? GET
-// #region  GET
-// // Гугл авторизація
-// export const googleAutorization = () => {
-//   return client.get('/api/auth/google_login');
-// };
-// export const sendToken = (data) => {
-//   return client.get(`/api/auth/token?${data}`);
-// };
-
-// отримати інформацію про поточного користувача
-export const getCurrentUser = () => {
-  return client.get('/api/users/me');
+// #region  AUTH
+export const googleAutorization = (code) => {
+  return client.post('/api/auth/google_auth', code);
 };
-// отримати інформацію про поточного користувача
+
 export const getRefreshToken = () => {
-  return client.getRefresh('/api/auth/refresh_token');
+  return client.get('/api/auth/refresh_token');
 };
 // Logout
 export const logout = () => {
   return client.post('/api/auth/logout');
 };
+// #endregion
 
+
+// #region
+
+
+// отримати інформацію про поточного користувача
+export const getCurrentUser = () => {
+  return client.get('/api/users/me');
+};
 
 //Отримати всі об'єкти dishes
 export const getAllDishes = () => {
@@ -115,8 +115,8 @@ export const SignUp = (data) => {
 };
 
 // Створення нового об'єкту dishes
-export const createNewDish = (formData) => {
-  return client.post('/api/dishes/create_new_dish', formData);
+export const createNewDish = (data) => {
+  return client.post('/api/dishes/create_new_dish', data);
 };
 
 // Створення нової категорії

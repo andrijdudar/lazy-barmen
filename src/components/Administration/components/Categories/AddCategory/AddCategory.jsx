@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
-import { convertToOptionsSelect } from "../../../../utilsAdministration/SearchSelect/SearchUtils";
-import { addCategory, getAllCategories } from "../../../../../utils/fetch";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { convertToOptionsSelect, filteredItems } from "../../../../utilsAdministration/SearchSelect/SearchUtils";
+import { addCategory, getAllCategories } from "../../../../../utils/axiosFunc";
 import cn from "classnames";
 import SearchSelect from "../../../../utilsAdministration/SearchSelect/SearchSelect";
 import "./AddCategory.scss";
@@ -28,21 +28,27 @@ export const AddCategory = () => {
 
   const options = useMemo(() => convertToOptionsSelect(categories), [categories]);
 
+  const updateOptions = useCallback((options) => {
+    setCategories(filteredItems(categories, options));
+  }, [categories]);
+
 
   const saveCategory = (e) => {
     e.preventDefault();
+    console.log('parentCategory:', parentCategory);
     // if (!nameCategory || !parentCategory) {
     //   return;
     // }
-    if (!!parentCategory) {
-      alert('Не вибрана батьківська категорія');
+    if (!parentCategory) {
+      console.log('Не вибрана батьківська категорія');
       return;
     }
 
     const newCategory = {
       name: nameCategory,
-      parent: parentCategory.id,
+      parent: parentCategory.name,
     }
+    console.log(newCategory);
     setLoading(true);
     addCategory(newCategory).then((res) => {
       setLoading(false);
@@ -70,10 +76,14 @@ export const AddCategory = () => {
               <SearchSelect
                 className='searchSelect'
                 options={options}
+                updateOptions={updateOptions}
                 placeholder='Пошук батьківськї категорії...'
                 selectOpen={true}
                 path='/'
-                onSelect={(category) => setParentCategory(category)}
+                onSelect={(category) => {
+                  const currentCategory = categories.find((item) => item.id === category.id);
+                  setParentCategory(currentCategory)
+                }}
               />
             </div>
           </div>

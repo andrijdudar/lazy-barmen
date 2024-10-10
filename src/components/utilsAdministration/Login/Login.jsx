@@ -2,14 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import cn from 'classnames';
-import { getCurrentUser } from '../../../utils/axiosFunc';
-import { getRefreshToken } from '../../../utils/axiosFunc';
+// import { getRefreshToken } from '../../../utils/axiosFunc';
 import useStoreAuth from '../../../utils/StoreAuth';
-import { CLIENT_ID, GOOGLE_AUTH_URL } from '../../../services/httpClient';
+import { CLIENT_ID } from '../../../services/httpClient';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '../../../utils/Loading/Loading';
 import axios from 'axios';
 import { CustomAlert, showAlert } from '../../../utils/CustomAlert';
+
+import { getCurrentUser, googleAutorization } from '../../../utils/axiosFunc';
 
 
 export const Login = () => {
@@ -18,76 +19,42 @@ export const Login = () => {
   const loading = useStoreAuth((state) => state.loading);
   const setLoading = useStoreAuth((state) => state.setLoading);
   // const user = useStoreAuth((state) => state.user);
-  // const setUser = useStoreAuth((state) => state.setUser);
+  const setUser = useStoreAuth((state) => state.setUser);
   // const profile = useStoreAuth((state) => state.profile);
   // const setProfile = useStoreAuth((state) => state.setProfile);
 
-
-  const [inputName, setInputName] = useState( '');
+  const [inputName, setInputName] = useState('');
   const [inputLastName, setInputLastName] = useState('');
   const [inputEmail, setInputEmail] = useState(localStorage.getItem('email') || '');
   const [inputPassword, setInputPassword] = useState(localStorage.getItem('password') || '');
   const [massege, setMassege] = useState(false);
 
   useEffect(() => {
-    // axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
-    // axios.get('/posts').then((res) => console.log(res.data));
-    if (localStorage.getItem('refresh_token')) {
-
-      getRefreshToken().then((res) => {
-        console.log('res:', res)
-        console.log(res);
-        localStorage.setItem('refresh_token', res.refresh_token);
-        localStorage.setItem('access_token', res.access_token);
-        getCurrentUser().then((res) => {
-          localStorage.setItem('user', JSON.stringify(res));
-        });
-        if (res.access_token) {
-          // navigate('/list');
-        }
-      }).catch((error) => {
-        navigate('/login');
-        console.error('Помилка при виконанні GET запиту:', error);
-      });
-    }
     initializeGoogleSignIn();
+  }, [isChecked]);
 
-  }, []);
-
-  const handleLogin = async (credentialResponse) => {
+  const handleLoginGoogle = async (credentialResponse) => {
     setLoading(true);
 
     try {
       const authCode = credentialResponse.credential;
-      console.log('authCode:', authCode)
 
       // Відправка auth_code на бекенд
-      const response = await fetch(GOOGLE_AUTH_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest',
-        },
-        body: JSON.stringify({ auth_code: authCode }),
-      });
+      const response = await googleAutorization({ auth_code: authCode });
 
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem('access_token', data.access_token);
-        localStorage.setItem('refresh_token', data.refresh_token);
-        // localStorage.setItem('token_type', data.token_type);
+      if (response.access_token && response.refresh_token) {
+        localStorage.setItem('access_token', response.access_token);
+        localStorage.setItem('refresh_token', response.refresh_token);
+        localStorage.setItem('token_type', response.token_type);
 
-        console.log('Авторизація успішна:', data);
-        // getRefreshToken().then((res) => {
-        //   console.log(res);
-        //   localStorage.setItem('refresh_token', res.refresh_token);
-        //   localStorage.setItem('access_token', res.access_token);
-        //   localStorage.setItem('token_type', res.token_type);
-        //   if (res.access_token) {
+        const userResponse = await getCurrentUser();
+        localStorage.setItem('user', JSON.stringify(userResponse));
+        setUser(userResponse);
+        console.log(userResponse);
+        console.log('Авторизація успішна:', response);
+
         navigate('/');
         setLoading(false);
-        //   }
-        // });
       } else {
         console.error('Спроба авторизації зазнала невдачі');
       }
@@ -97,10 +64,9 @@ export const Login = () => {
   };
 
   const initializeGoogleSignIn = () => {
-    // Завантаження Google Identity Services та ініціалізація
     window.google.accounts.id.initialize({
       client_id: CLIENT_ID,
-      callback: handleLogin,
+      callback: handleLoginGoogle,
     });
 
     window.google.accounts.id.renderButton(
@@ -213,10 +179,11 @@ export const Login = () => {
         navigate('/');
       }
     } catch (error) {
-      window.location.reload();
+      // window.location.reload();
       console.error('Помилка авторизації:', error);
     } finally {
       setLoading(false);
+      setIsChecked(true);
     }
   }
 
@@ -254,6 +221,7 @@ export const Login = () => {
                 />
 
                 <label htmlFor="reg-log"></label>
+
                 <div className="card-3d-wrap mx-auto">
                   <div className="card-3d-wrapper">
                     <div className="card-front">
@@ -272,6 +240,7 @@ export const Login = () => {
                               onChange={(e) => setInputEmail(e.target.value)}
                             />
                             <i className="input-icon uil uil-at"></i>
+
                           </div>
                           <div className="form-group mt-2">
                             <input
@@ -293,10 +262,9 @@ export const Login = () => {
                           >
                             Увійти
                           </button>
-                          <div className='buttons_container_google_login'>
-
+                          {!isChecked && <div className='buttons_container_google_login'>
                             <div id="signInDiv"></div>
-                          </div>
+                          </div>}
                         </form>
                       </div>
                     </div>
@@ -328,7 +296,7 @@ export const Login = () => {
                               autoComplete="off"
                               onChange={(e) => setInputLastName(e.target.value)}
                             />
-                            <i className="input-icon uil uil-user"></i>
+                            <i className="input-icon uil-user-circle"></i>
                           </div>
                           <div className="form-group mt-2">
                             <input
@@ -359,7 +327,11 @@ export const Login = () => {
                           <a href="#/" className="btn-login mt-4" onClick={(event) => handleRegistration(event)}>
                             Зареєструватися
                           </a>
+                          {isChecked && <div className='buttons_container_google_login'>
+                            <div id="signInDiv"></div>
+                          </div>}
                         </form>
+
                       </div>
                     </div>
                   </div>
@@ -367,7 +339,6 @@ export const Login = () => {
               </div>
             </div>}
         </div>
-
       </div>
     </div>
   );

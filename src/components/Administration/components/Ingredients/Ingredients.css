@@ -70,4 +70,5 @@
 }
 .ingredientsList .ul .detailsIngredients[open]::details-content {
   block-size: auto;
+  block-size: calc-size(auto);
 }/*# sourceMappingURL=Ingredients.css.map */

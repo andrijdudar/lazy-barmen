@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .SideBarAdmin {
   display: flex;
   flex-direction: column;
@@ -6,45 +5,63 @@
   gap: 15px;
   width: 400px;
   padding: 20px;
-}
-@media (orientation: portrait) {
-  .SideBarAdmin {
+
+  @media (orientation: portrait) {
     justify-content: center;
     width: 100vw;
     height: 100%;
   }
 }
-.SideBarAdmin .sideBarAdminDetails {
+
+.sideBarAdminDetails {
   padding: 15px 10px;
   width: 100%;
   color: var(--colorTextOrange);
   border-radius: 0.5em;
-  box-shadow: 2px 2px 5px rgb(0, 0, 0), -2px -2px 5px rgba(255, 255, 255, 0.14);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 1),
+    -2px -2px 5px rgba(255, 255, 255, 0.14);
   transition: all 0.3s;
+
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 1),
+      -3px -3px 5px rgba(255, 255, 255, 0.14);
+  }
 }
-.SideBarAdmin .sideBarAdminDetails:hover {
-  box-shadow: 3px 3px 5px rgb(0, 0, 0), -3px -3px 5px rgba(255, 255, 255, 0.14);
-}
-.SideBarAdmin summary {
+
+summary {
   padding-inline: 2rem;
+  cursor: pointer;
   position: relative;
 }
-.SideBarAdmin summary::-webkit-details-marker {
+
+summary::-webkit-details-marker {
   display: none;
 }
-.SideBarAdmin summary::marker {
+
+summary::marker {
+  content: "▶";
   content: none;
 }
-.SideBarAdmin summary::before {
+
+summary::before {
   content: "▶";
+  /* // list-style: none; */
+  /* // list-style-type: none; */
+
   position: absolute;
   inset-inline-start: 0.5rem;
+  inset-block-start: -0.01rem;
   transition: rotate 0.3s;
 }
-.SideBarAdmin .sideBarAdminDetails[open] summary::before {
+
+
+.sideBarAdminDetails[open] summary::before {
   rotate: 90deg;
 }
-.SideBarAdmin .sideBarAdminDetails::details-content {
+
+.sideBarAdminDetails::details-content {
   display: block;
   margin-inline: 2rem;
   block-size: 0;
@@ -52,11 +69,16 @@
   transition-property: block-size, content-visibility;
   transition-duration: 0.5s;
   transition-behavior: allow-discrete;
+  transition: all 0.5s;
 }
-.SideBarAdmin .sideBarAdminDetails[open]::details-content {
+
+.sideBarAdminDetails[open]::details-content {
   block-size: auto;
+  /* block-size: 110px; */
+  block-size:calc-size(auto);
 }
-.SideBarAdmin .subLinksSideBarAdmin {
+
+.subLinksSideBarAdmin {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,17 +86,21 @@
   width: 100%;
   margin-top: 10px;
   margin-bottom: 5px;
+
+  .admin-link {
+    color: var(--colorTextOrange);
+    border-radius: 0.5em;
+    box-shadow: 2px 1px 5px rgba(0, 0, 0, 1),
+      -2px -2px 5px rgba(255, 255, 255, 0.14);
+    transition: all 0.3s ease;
+    padding: 10px 10px;
+    width: 80%;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 3px 3px 5px rgba(0, 0, 0, 1),
+        -2px -2px 5px rgba(255, 255, 255, 0.14);
+      transition: all 0.3s ease;
+    }
+  }
 }
-.SideBarAdmin .admin-link {
-  color: var(--colorTextOrange);
-  border-radius: 0.5em;
-  box-shadow: 2px 1px 5px rgb(0, 0, 0), -2px -2px 5px rgba(255, 255, 255, 0.14);
-  transition: all 0.3s ease;
-  padding: 10px 10px;
-  width: 80%;
-}
-.SideBarAdmin .admin-link:hover {
-  cursor: pointer;
-  box-shadow: 3px 3px 5px rgb(0, 0, 0), -2px -2px 5px rgba(255, 255, 255, 0.14);
-  transition: all 0.3s ease;
-}/*# sourceMappingURL=SideBarAdmin.css.map */

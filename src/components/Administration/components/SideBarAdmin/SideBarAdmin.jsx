@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./SideBarAdmin.scss";
+import "./SideBarAdmin.css";
 import { Link, useNavigate } from "react-router-dom";
 // import useStoreAuth from "../../../../utils/StoreAuth";
 import iconLogout from "../../../../img/logout-24px.svg";
@@ -95,11 +95,6 @@ export function SideBarAdmin({ onLinkClick }) {
   const navigate = useNavigate();
   const [openDetailId, setOpenDetailId] = useState(null);
   const detailsRef = useRef([]);
-  // const setUser = useStoreAuth((state) => state.setUser);
-  // const setProfile = useStoreAuth((state) => state.setProfile);
-  // const setAccessToken = useStoreAuth((state) => state.setAccessToken);
-  // const setRefreshToken = useStoreAuth((state) => state.setRefreshToken);
-
 
   const handleLogoutSuccess = async () => {
     await axios({
@@ -118,18 +113,16 @@ export function SideBarAdmin({ onLinkClick }) {
     //   },
     // })
 
-    // setUser(null);
     // setAccessToken(null);
     // setRefreshToken(null);
     // setProfile(null);
-    localStorage.removeItem('auth_code');
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('token_type');
-    localStorage.removeItem('profile');
-    localStorage.removeItem('user');
-    // Cookies.remove('access_token');
-
+    // localStorage.removeItem('auth_code');
+    // localStorage.removeItem('access_token');
+    // localStorage.removeItem('refresh_token');
+    // localStorage.removeItem('token_type');
+    // localStorage.removeItem('profile');
+    // localStorage.removeItem('user');
+    localStorage.clear();
     navigate('/');
   };
 
@@ -142,17 +135,17 @@ export function SideBarAdmin({ onLinkClick }) {
     setOpenDetailId((prevId) => (prevId === id ? null : id));
   };
 
-  useEffect(() => {
-    detailsRef.current.forEach((detail, i) => {
-      if (detail.current) {
-        if (ListSettings[i].id === openDetailId) {
-          detail.current.open = true;
-        } else {
-          detail.current.open = false;
-        }
-      }
-    });
-  }, [openDetailId]);
+  // useEffect(() => {
+  //   detailsRef.current.forEach((detail, i) => {
+  //     if (detail.current) {
+  //       if (ListSettings[i].id === openDetailId) {
+  //         detail.current.open = true;
+  //       } else {
+  //         detail.current.open = false;
+  //       }
+  //     }
+  //   });
+  // }, [openDetailId]);
 
   return (
     <div className="SideBarAdmin">
@@ -180,10 +173,10 @@ export function SideBarAdmin({ onLinkClick }) {
                   relative="path"
                   className="admin-link"
                   onClick={() => {
-                    const time = setTimeout(() => {
+                    // const time = setTimeout(() => {
                       onLinkClick();
-                      clearTimeout(time);
-                    }, 600);
+                    //   clearTimeout(time);
+                    // }, 300);
                   }}
                 >
                   {subLink.title}

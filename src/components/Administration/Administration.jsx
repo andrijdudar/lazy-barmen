@@ -12,10 +12,10 @@ export function Administration() {
   useEffect(() => {
     if (shouldScroll) {
       if (outletRef.current) {
-        const time = setTimeout(() => {
-          outletRef.current.scrollIntoView({ behavior: 'smooth' });
-          clearTimeout(time);
-        }, 1000);
+        // const time = setTimeout(() => {
+          outletRef.current.scrollIntoView({top: 200, behavior: 'smooth' });
+          // clearTimeout(time);
+        // }, 100);
       }
       setShouldScroll(false);
     }

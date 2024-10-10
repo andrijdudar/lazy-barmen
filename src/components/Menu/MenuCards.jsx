@@ -13,6 +13,7 @@ import useStore from '../../utils/Store';
 export const MenuCards = () => {
   const setDishesCategory = useStore((state) => state.setDishesCategory);
   // const dishesCategory = useStore((state) => state.dishesCategory);
+  // const dishes = useStore((state) => state.dishes);
   const setDishes = useStore((state) => state.setDishes);
   const [currentCardId, setCurrentCardId] = useState(null);
   const titleCategory = useStore((state) => state.titleCategory);
