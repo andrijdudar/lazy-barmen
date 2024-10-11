@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import React from 'react';
 import cn from 'classnames';
 import { createPremix, deletePremix, getAllIngredients, getAllPremixes } from '../../../../utils/axiosFunc';
 import { Loading } from '../../../../utils/Loading/Loading';

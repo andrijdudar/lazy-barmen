@@ -4,71 +4,106 @@
   color: #fff;
   border-radius: 10px;
   margin-bottom: 100vh;
+  overflow-y: auto;
+  margin:10px;
+  height: 100vh;
+
+  @media (orientation: portrait) {
+  overflow-y: hidden;
+  height: min-content;
+    }
+
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--colorTextOrangeHover);
+  }
+
+  .ingredientSearch {
+    margin: 20px auto;
+  }
+
+  .ingredientsLi {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin:10px;
+
+    .input,
+    .select {
+      border-radius: 25px;
+      width: 50px;
+      padding: 0 10px;
+    }
+  }
+
+  .ul {
+    margin: 15px;
+    /* list-style-type: none; */
+    padding: 0;
+
+    .detailsIngredients {
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 1),
+        -2px -2px 5px rgba(255, 255, 255, 0.14);
+      color: var(--colorTextOrangeHover);
+      font-size: 14px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        scale: 1.01;
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 1),
+          -3px -3px 5px rgba(255, 255, 255, 0.14);
+      }
+
+      strong {
+        display: inline-block;
+        /* width: 150px; // Ширина для назв параметра */
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      summary {
+        padding-inline: 2rem;
+        position: relative;
+        content: none;
+      }
+
+      /* summary::marker {
+         content: "▶";
+         @media (orientation: portrait) {
+           content: none;
+         }
+       } */
+      summary::before {
+        /* content: "▶"; */
+        position: absolute;
+        inset-inline-start: 0.5rem;
+        transition: rotate 0.3s;
+      }
+    }
+
+    .detailsIngredients[open] summary::before {
+      rotate: 90deg;
+    }
+
+    .detailsIngredients::details-content {
+      display: block;
+      margin-inline: 2rem;
+      block-size: 0;
+      overflow: hidden;
+      transition-property: block-size, content-visibility;
+      transition-duration: .5s;
+      transition-behavior: allow-discrete;
+    }
+
+    .detailsIngredients[open]::details-content {
+      block-size: auto;
+      block-size: calc-size(auto);
+    }
+  }
 }
-.ingredientsList h2 {
-  text-align: center;
-  font-size: 2rem;
-  color: var(--colorTextOrangeHover);
-}
-.ingredientsList .ingredientSearch {
-  margin: 20px auto;
-}
-.ingredientsList .ingredientsLi {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-}
-.ingredientsList .ingredientsLi .input,
-.ingredientsList .ingredientsLi .select {
-  border-radius: 25px;
-  width: 50px;
-  padding: 0 10px;
-}
-.ingredientsList .ul {
-  padding: 0;
-}
-.ingredientsList .ul details {
-  margin-bottom: 20px;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 5px rgb(0, 0, 0), -2px -2px 5px rgba(255, 255, 255, 0.14);
-  color: var(--colorTextOrangeHover);
-  font-size: 14px;
-  transition: all 0.2s ease;
-}
-.ingredientsList .ul details:hover {
-  scale: 1.01;
-  box-shadow: 3px 3px 5px rgb(0, 0, 0), -3px -3px 5px rgba(255, 255, 255, 0.14);
-}
-.ingredientsList .ul details strong {
-  display: inline-block;
-  font-size: 14px;
-  font-weight: bold;
-}
-.ingredientsList .ul details summary {
-  padding-inline: 2rem;
-  position: relative;
-  content: none;
-}
-.ingredientsList .ul details summary::before {
-  position: absolute;
-  inset-inline-start: 0.5rem;
-  transition: rotate 0.3s;
-}
-.ingredientsList .ul .detailsIngredients[open] summary::before {
-  rotate: 90deg;
-}
-.ingredientsList .ul .detailsIngredients::details-content {
-  display: block;
-  margin-inline: 2rem;
-  block-size: 0;
-  overflow: hidden;
-  transition-property: block-size, content-visibility;
-  transition-duration: 0.5s;
-  transition-behavior: allow-discrete;
-}
-.ingredientsList .ul .detailsIngredients[open]::details-content {
-  block-size: auto;
-  block-size: calc-size(auto);
-}/*# sourceMappingURL=Ingredients.css.map */

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect } from "react";
 import useStore from "../../utils/Store";
 import "./Burger.css";

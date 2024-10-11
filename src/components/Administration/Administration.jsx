@@ -1,3 +1,4 @@
+import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import './Administration.scss';
 import { useEffect, useRef, useState } from 'react';
@@ -32,7 +33,7 @@ export function Administration() {
     <div className='Administration'>
       <SideBarAdmin onLinkClick={handleScrollToOutlet} />
       <div className='SideBarAdminContent' ref={outletRef}>
-        <Outlet />
+        <Outlet className='OutletAdmin' />
       </div>
     </div>
 

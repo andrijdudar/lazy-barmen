@@ -1,3 +1,4 @@
+import React from 'react';
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { convertToOptionsSelect, filteredItems } from "../../../../utilsAdministration/SearchSelect/SearchUtils";
 import { addCategory, getAllCategories } from "../../../../../utils/axiosFunc";

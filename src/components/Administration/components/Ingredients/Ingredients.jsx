@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { getAllIngredients, patchIngredient } from '../../../../utils/axiosFunc';
-import './Ingredients.scss';
+import './Ingredients.css';
 import SearchSelect from '../../../utilsAdministration/SearchSelect/SearchSelect';
 import { Loading } from '../../../../utils/Loading/Loading';
 import { convertToOptionsSelect, filteredItems } from '../../../utilsAdministration/SearchSelect/SearchUtils';

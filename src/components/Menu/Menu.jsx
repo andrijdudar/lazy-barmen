@@ -1,3 +1,4 @@
+import React from 'react';
 import "./Menu.css";
 import { MenuCards } from "./MenuCards";
 import SideBar from "./SideBar";

@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { NavButtons } from "./NavButtons";
 import "./NavBar.css";
 import { Burger } from "./Burger.jsx";

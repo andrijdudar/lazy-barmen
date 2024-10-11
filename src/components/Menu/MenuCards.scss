@@ -88,11 +88,10 @@ h1 {
       display: block;
       height: 80px;
       width: 100%;
-
       display: flex;
       flex-flow: column nowrap;
       text-align: center;
-      justify-content: start;
+      justify-content: flex-start;
 
       transition: all 1s ease-in-out;
     }
@@ -130,7 +129,7 @@ h1 {
 .card.active .card__content-inner {
   height: 100%;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   transition: all 1s ease-in-out;
 }
 .ingredients {

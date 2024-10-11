@@ -1,3 +1,5 @@
+
+import React from 'react';
 import { Link } from "react-router-dom";
 
 // import styles from './NotFound.module.scss';
@@ -5,7 +7,7 @@ export function NotFound() {
   return (
     <div
       className="is-flex is-flex-direction-column is-justify-content-center"
-      style={{ height: "100vh", width: "100vw"}}
+      style={{ height: "100vh", width: "100vw" }}
     >
       <div className="is-flex is-flex-direction-column is-align-items-center ">
         <div

@@ -19,6 +19,7 @@ export function AddPremix() {
   });
   const [hesErrorName, setHesErrorName] = useState(false);
   const [hesErrorIngredients, setHesErrorIngredients] = useState(false);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -46,13 +47,13 @@ export function AddPremix() {
   }, [ingredients]);
 
   const handleIngredientSelect = (selectedOption) => {
-console.log('selectedOption:', selectedOption);
+    console.log('selectedOption:', selectedOption);
     selectedOption.length && setHesErrorIngredients(false);
     const newIngredient = {
       // ingredient: {
-        // id: selectedOption.id,
-        name: selectedOption.value,
-        measure: selectedOption.measure || 'кг',
+      // id: selectedOption.id,
+      name: selectedOption.value,
+      measure: selectedOption.measure || 'кг',
       // },
       ingredient_id: selectedOption.id,
       quantity: selectedOption.quantity || 0,
@@ -126,6 +127,7 @@ console.log('selectedOption:', selectedOption);
         <Loading />
       ) : (
         <form
+          className='form_add_premix'
           onSubmit={handleSubmit}
         >
           <div className='field field-add-premix'>
@@ -152,32 +154,36 @@ console.log('selectedOption:', selectedOption);
               />
             </div>
           </div>
-          <div className='field'>
+          <div className='field seach_select_add_premix'>
             <label className='label'>Інгредієнти:</label>
-            <SearchSelect
-              options={optionsForm}
-              updateOptions={updateOptions}
-              placeholder='Пошук інгредієнтів...'
-              selectOpen={true}
-              path='/'
-              onSelect={handleIngredientSelect}
-            />
+            <div className='consainer_search_select'>
+              <SearchSelect
+                options={optionsForm}
+                updateOptions={updateOptions}
+                placeholder='Пошук інгредієнтів...'
+                selectOpen={true}
+                path='/'
+                onSelect={handleIngredientSelect}
+              />
+            </div>
             {selectedIngredients.map((ingredient) => (
-              <ul key={ingredient.ingredient_id} className='field'>
-                <p>{ingredient.ingredient_id}</p>
-                <li className='control'>
-                  <div className='control'>
-                    <label className='label-ingredient'>{ingredient.name}</label>
+              <ul key={ingredient.ingredient_id} className='field list_ingredeints'>
+                <li className='control item_control'>
+                  {/* <div className='control ingredi'> */}
+                    <div className='label-ingredient'>{ingredient.name}</div>
                     <div className='control-end'>
-                      <input
-                        type="number"
-                        className="input-edit-premix input-search"
-                        value={ingredient.quantity}
-                        onChange={(e) => {
-                          handleIngredientQuantityChange(ingredient.ingredient_id, parseFloat(e.target.value));
-                        }}
-                      />
-                      <div className='ingredient-measure'>{ingredient.measure}</div>
+
+                        <input
+                          type="number"
+                          step={0.01}
+                          className="input-edit-premix input-search"
+                          placeholder='1'
+                          onChange={(e) => {
+                            handleIngredientQuantityChange(ingredient.ingredient_id, parseFloat(e.target.value));
+                          }}
+                        />
+                        <span className='ingredient-measure'>{ingredient.measure}</span>
+
                       <button
                         type="button"
                         className='icon-delete-ingredient button'
@@ -187,10 +193,10 @@ console.log('selectedOption:', selectedOption);
                           setSelectedIngredients(filtredIngredients);
                         }}
                       >
-                        <img src={IconDelete} alt="delete" width={20} />
+                        <img src={IconDelete} alt="delete" width={25} height={25} />
                       </button>
                     </div>
-                  </div>
+                  {/* </div> */}
                 </li>
               </ul>
             ))}

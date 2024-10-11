@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import React from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import './SideBar.css';
 import SearchSelect from '../utilsAdministration/SearchSelect/SearchSelect';

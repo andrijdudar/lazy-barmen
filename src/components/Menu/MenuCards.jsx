@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import React from 'react';
 import { useEffect, useState } from 'react';
 import './MenuCards.scss';
 import { getAllDishes, patchDish } from '../../utils/axiosFunc';

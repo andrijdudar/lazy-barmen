@@ -1,4 +1,4 @@
-
+import React from 'react';
 import useStoreAuth from '../../utils/StoreAuth';
 import './Footer.css';
 

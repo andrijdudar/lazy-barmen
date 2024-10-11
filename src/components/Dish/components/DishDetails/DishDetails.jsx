@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { getDishById } from '../../../../utils/axiosFunc';
 import { deleteDish } from '../../../../utils/axiosFunc';
